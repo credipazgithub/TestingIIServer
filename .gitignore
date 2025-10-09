@@ -6,3 +6,9 @@
 /obj/Debug
 /.gitignore
 /.vs
+/Servicio.CPFinancials/Recursos
+/Servicio.FacturaElectronica/CertificadosAFIP
+*.config
+/Servicio.NeoCore/appsettings.json
+/Servicio.NeoCore/appsettings.Development.json
+/Sistema.Interfaces/Recursos
