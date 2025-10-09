@@ -1,0 +1,744 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{66EE2700-5396-4AF4-873B-60B5AFAE9557}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NeodataNet</RootNamespace>
+    <AssemblyName>NeodataNet</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>None</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>false</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mobile">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Content Include="Servicio.CPFinancials\appsettings.Development.json" />
+    <Content Include="Servicio.CPFinancials\appsettings.json" />
+    <Content Include="Servicio.CPFinancials\Connected Services\FactMediya\ConnectedService.json" />
+    <Content Include="Servicio.CPFinancials\CPFinancial.deps.json" />
+    <Content Include="Servicio.CPFinancials\CPFinancial.runtimeconfig.json" />
+    <Content Include="Servicio.CPFinancials\CPFinancial.staticwebassets.endpoints.json" />
+    <Content Include="Servicio.CPFinancials\libman.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configCardCred.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configCoelsa.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configIdemia.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configInterLayer.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configNeoCore.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configNeoSignature.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configNeoTransactions.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configNosis.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configTemp.json" />
+    <Content Include="Servicio.CPFinancials\Recursos\configVeraz.json" />
+    <Content Include="Servicio.CPFinancials\web.config" />
+    <Content Include="Servicio.FacturaElectronica\bin\Credipaz.Utilidades.FrameworkX.dll.config" />
+    <Content Include="Servicio.FacturaElectronica\bin\README.md" />
+    <Content Include="Servicio.FacturaElectronica\CertificadosAFIP\credipaz.p12" />
+    <Content Include="Servicio.FacturaElectronica\CertificadosAFIP\dev.p12" />
+    <Content Include="Servicio.FacturaElectronica\CertificadosAFIP\mediya.p12" />
+    <Content Include="Servicio.FacturaElectronica\README.md" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\CbteTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\ConceptoTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\DocTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\DummyResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FEActividadesResponse.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FECAEAGetResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FECAEAResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FECAEASinMovConsResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FECAEASinMovResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FECAEResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FECompConsultaResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FECotizacionResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FEPaisResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FEPtoVentaResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FERecuperaLastCbteResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FERegXReqResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\FETributoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\IvaTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\MonedaResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicioProduccion\OpcionalTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\CbteTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\ConceptoTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\DocTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\DummyResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FECAEAGetResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FECAEAResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FECAEASinMovConsResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FECAEASinMovResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FECAEResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FECompConsultaResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FECotizacionResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FEPaisResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FEPtoVentaResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FERecuperaLastCbteResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FERegXReqResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\FETributoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\IvaTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\MonedaResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web References\AFIPServicio\OpcionalTipoResponse1.datasource" />
+    <Content Include="Servicio.FacturaElectronica\Web.config" />
+    <Content Include="Servicio.NeoCore\appsettings.Development.json" />
+    <Content Include="Servicio.NeoCore\appsettings.json" />
+    <Content Include="Servicio.NeoCore\NeoCore.deps.json" />
+    <Content Include="Servicio.NeoCore\NeoCore.runtimeconfig.json" />
+    <Content Include="Servicio.NeoCore\NeoCore.staticwebassets.endpoints.json" />
+    <Content Include="Servicio.NeoCore\README.md" />
+    <Content Include="Servicio.NeoCore\web.config" />
+    <Content Include="Sistema.Interfaces\appsettings.Development.json" />
+    <Content Include="Sistema.Interfaces\appsettings.json" />
+    <Content Include="Sistema.Interfaces\Interfaces.MVC.deps.json" />
+    <Content Include="Sistema.Interfaces\Interfaces.MVC.runtimeconfig.json" />
+    <Content Include="Sistema.Interfaces\Interfaces.MVC.staticwebassets.endpoints.json" />
+    <Content Include="Sistema.Interfaces\README.md" />
+    <Content Include="Sistema.Interfaces\Recursos\configServers.json" />
+    <Content Include="Sistema.Interfaces\Recursos\configUsers.json" />
+    <Content Include="Sistema.Interfaces\web.config" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\app.css.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\app.css.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\app.css.map" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\app.css.map.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\app.css.map.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\estilos.css.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\estilos.css.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\jquery.dataTables.css.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\jquery.dataTables.css.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\jquery.mn-file\jquery.mn-file.min.css.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\jquery.mn-file\jquery.mn-file.min.css.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\font\fontello.eot" />
+    <Content Include="Sistema.Interfaces\wwwroot\font\fontello.svg.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\font\fontello.svg.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\font\fontello.ttf" />
+    <Content Include="Sistema.Interfaces\wwwroot\font\fontello.woff" />
+    <Content Include="Sistema.Interfaces\wwwroot\font\fontello.woff2" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\favicon.ico.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\favicon.ico.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\Interfaces.MVC.styles.css.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\Interfaces.MVC.styles.css.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js.LICENSE.txt.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js.LICENSE.txt.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js.map" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js.map.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js.map.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\datatables.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\datatables.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\jquery.mn-file\jquery.mn-file.min.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\jquery.mn-file\jquery.mn-file.min.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\perfect-scrollbar.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\perfect-scrollbar.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\Spanish.json" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\Spanish.json.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\Spanish.json.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_EVENTS.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_EVENTS.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_FUNCTIONS.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_FUNCTIONS.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\barcode.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\barcode.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\blockui.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\blockui.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\croppie.min.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\croppie.min.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\jquery.min.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\jquery.min.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\popper.min.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\popper.min.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_TOOLS.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_TOOLS.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_VAR.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_VAR.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\additional-methods.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\additional-methods.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\additional-methods.min.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\additional-methods.min.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\jquery.validate.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\jquery.validate.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\LICENSE.md" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\LICENSE.md.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\LICENSE.md.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.min.js.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.min.js.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.min.map" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.min.map.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.min.map.gz" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\LICENSE.txt.br" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\LICENSE.txt.gz" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Servicio.CPFinancials\BouncyCastle.Crypto.dll" />
+    <Content Include="Servicio.CPFinancials\BouncyCastle.Cryptography.dll" />
+    <Content Include="Servicio.CPFinancials\CPFinancial.dll" />
+    <Content Include="Servicio.CPFinancials\CPFinancial.exe" />
+    <Content Include="Servicio.CPFinancials\CPFinancial.pdb" />
+    <Content Include="Servicio.CPFinancials\CPFinancial.xml" />
+    <Content Include="Servicio.CPFinancials\Credipaz.Entidades.dll" />
+    <Content Include="Servicio.CPFinancials\Credipaz.Entidades.pdb" />
+    <Content Include="Servicio.CPFinancials\Credipaz.Utilidades.dll" />
+    <Content Include="Servicio.CPFinancials\Credipaz.Utilidades.pdb" />
+    <Content Include="Servicio.CPFinancials\cs\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\cs\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\de\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\de\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\es\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\es\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\fr\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\fr\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\itext.barcodes.dll" />
+    <Content Include="Servicio.CPFinancials\itext.bouncy-castle-adapter.dll" />
+    <Content Include="Servicio.CPFinancials\itext.bouncy-castle-connector.dll" />
+    <Content Include="Servicio.CPFinancials\itext.commons.dll" />
+    <Content Include="Servicio.CPFinancials\itext.forms.dll" />
+    <Content Include="Servicio.CPFinancials\itext.html2pdf.dll" />
+    <Content Include="Servicio.CPFinancials\itext.io.dll" />
+    <Content Include="Servicio.CPFinancials\itext.kernel.dll" />
+    <Content Include="Servicio.CPFinancials\itext.layout.dll" />
+    <Content Include="Servicio.CPFinancials\itext.pdfa.dll" />
+    <Content Include="Servicio.CPFinancials\itext.pdfua.dll" />
+    <Content Include="Servicio.CPFinancials\itext.sign.dll" />
+    <Content Include="Servicio.CPFinancials\itext.styledxmlparser.dll" />
+    <Content Include="Servicio.CPFinancials\itext.svg.dll" />
+    <Content Include="Servicio.CPFinancials\it\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\it\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\ja\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\ja\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\ko\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\ko\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.AspNetCore.Authentication.JwtBearer.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.DotNet.PlatformAbstractions.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.EntityFrameworkCore.Abstractions.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.EntityFrameworkCore.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.IdentityModel.Abstractions.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.IdentityModel.Logging.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.IdentityModel.Protocols.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.IdentityModel.Tokens.dll" />
+    <Content Include="Servicio.CPFinancials\Microsoft.OpenApi.dll" />
+    <Content Include="Servicio.CPFinancials\Newtonsoft.Json.dll" />
+    <Content Include="Servicio.CPFinancials\pl\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\pl\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\pt-BR\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\pt-BR\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\RestSharp.dll" />
+    <Content Include="Servicio.CPFinancials\ru\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\ru\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\sni.dll" />
+    <Content Include="Servicio.CPFinancials\Swashbuckle.AspNetCore.Swagger.dll" />
+    <Content Include="Servicio.CPFinancials\Swashbuckle.AspNetCore.SwaggerGen.dll" />
+    <Content Include="Servicio.CPFinancials\Swashbuckle.AspNetCore.SwaggerUI.dll" />
+    <Content Include="Servicio.CPFinancials\System.Data.SqlClient.dll" />
+    <Content Include="Servicio.CPFinancials\System.IdentityModel.Tokens.Jwt.dll" />
+    <Content Include="Servicio.CPFinancials\System.ServiceModel.dll" />
+    <Content Include="Servicio.CPFinancials\System.ServiceModel.Duplex.dll" />
+    <Content Include="Servicio.CPFinancials\System.ServiceModel.Http.dll" />
+    <Content Include="Servicio.CPFinancials\System.ServiceModel.Primitives.dll" />
+    <Content Include="Servicio.CPFinancials\System.ServiceModel.Security.dll" />
+    <Content Include="Servicio.CPFinancials\tr\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\tr\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\verificationQR.png" />
+    <Content Include="Servicio.CPFinancials\zh-Hans\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\zh-Hans\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.CPFinancials\zh-Hant\System.ServiceModel.Http.resources.dll" />
+    <Content Include="Servicio.CPFinancials\zh-Hant\System.ServiceModel.Primitives.resources.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\Credipaz.Entidades.FrameworkX.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\Credipaz.Entidades.FrameworkX.pdb" />
+    <Content Include="Servicio.FacturaElectronica\bin\Credipaz.FacturaElectronica.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\Credipaz.FacturaElectronica.pdb" />
+    <Content Include="Servicio.FacturaElectronica\bin\Credipaz.FacturaElectronica.XmlSerializers.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\Credipaz.Utilidades.FrameworkX.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\Credipaz.Utilidades.FrameworkX.pdb" />
+    <Content Include="Servicio.FacturaElectronica\bin\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\Newtonsoft.Json.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\RestSharp.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\System.Buffers.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\System.Memory.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\System.Numerics.Vectors.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\System.Text.Encodings.Web.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\System.Text.Json.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\System.ValueTuple.dll" />
+    <Content Include="Servicio.FacturaElectronica\bin\verificationQR.png" />
+    <Content Include="Servicio.FacturaElectronica\Service1.asmx" />
+    <Content Include="Servicio.FacturaElectronica\verificationQR.png" />
+    <Content Include="Servicio.NeoCore\Azure.Core.dll" />
+    <Content Include="Servicio.NeoCore\Azure.Identity.dll" />
+    <Content Include="Servicio.NeoCore\de\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\es\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\fr\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\it\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\ja\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\ko\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.Data.SqlClient.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.Data.SqlClient.SNI.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.DotNet.PlatformAbstractions.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.Extensions.PlatformAbstractions.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.Identity.Client.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.Identity.Client.Extensions.Msal.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.IdentityModel.Abstractions.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.IdentityModel.Logging.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.IdentityModel.Protocols.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.IdentityModel.Tokens.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.OpenApi.dll" />
+    <Content Include="Servicio.NeoCore\Microsoft.SqlServer.Server.dll" />
+    <Content Include="Servicio.NeoCore\Nancy.dll" />
+    <Content Include="Servicio.NeoCore\NeoCore.dll" />
+    <Content Include="Servicio.NeoCore\NeoCore.exe" />
+    <Content Include="Servicio.NeoCore\NeoCore.pdb" />
+    <Content Include="Servicio.NeoCore\NeoCore.xml" />
+    <Content Include="Servicio.NeoCore\Newtonsoft.Json.dll" />
+    <Content Include="Servicio.NeoCore\Novell.Directory.Ldap.NETStandard.dll" />
+    <Content Include="Servicio.NeoCore\pt-BR\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\ru\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\sni.dll" />
+    <Content Include="Servicio.NeoCore\Swashbuckle.AspNetCore.Swagger.dll" />
+    <Content Include="Servicio.NeoCore\Swashbuckle.AspNetCore.SwaggerGen.dll" />
+    <Content Include="Servicio.NeoCore\Swashbuckle.AspNetCore.SwaggerUI.dll" />
+    <Content Include="Servicio.NeoCore\System.ClientModel.dll" />
+    <Content Include="Servicio.NeoCore\System.Configuration.ConfigurationManager.dll" />
+    <Content Include="Servicio.NeoCore\System.Data.SqlClient.dll" />
+    <Content Include="Servicio.NeoCore\System.Diagnostics.EventLog.dll" />
+    <Content Include="Servicio.NeoCore\System.Diagnostics.EventLog.Messages.dll" />
+    <Content Include="Servicio.NeoCore\System.DirectoryServices.Protocols.dll" />
+    <Content Include="Servicio.NeoCore\System.IdentityModel.Tokens.Jwt.dll" />
+    <Content Include="Servicio.NeoCore\System.Memory.Data.dll" />
+    <Content Include="Servicio.NeoCore\System.Runtime.Caching.dll" />
+    <Content Include="Servicio.NeoCore\System.Security.Cryptography.ProtectedData.dll" />
+    <Content Include="Servicio.NeoCore\verificationQR.png" />
+    <Content Include="Servicio.NeoCore\zh-Hans\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Servicio.NeoCore\zh-Hant\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="Sistema.Interfaces\af\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\ar\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\az\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\bg\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\bn-BD\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\BouncyCastle.Crypto.dll" />
+    <Content Include="Sistema.Interfaces\BouncyCastle.Cryptography.dll" />
+    <Content Include="Sistema.Interfaces\Credipaz.Entidades.dll" />
+    <Content Include="Sistema.Interfaces\Credipaz.Entidades.pdb" />
+    <Content Include="Sistema.Interfaces\Credipaz.Utilidades.dll" />
+    <Content Include="Sistema.Interfaces\Credipaz.Utilidades.pdb" />
+    <Content Include="Sistema.Interfaces\cs\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\cs\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\cs\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\cs\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\cs\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\da\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\de\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\de\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\de\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\de\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\de\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\de\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\dotnet-aspnet-codegenerator-design.dll" />
+    <Content Include="Sistema.Interfaces\el\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\es\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\es\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\es\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\es\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\es\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\es\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\fa\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\fi-FI\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr-BE\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\he\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\hr\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\Humanizer.dll" />
+    <Content Include="Sistema.Interfaces\hu\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\hy\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\id\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\Interfaces.MVC.dll" />
+    <Content Include="Sistema.Interfaces\Interfaces.MVC.exe" />
+    <Content Include="Sistema.Interfaces\Interfaces.MVC.pdb" />
+    <Content Include="Sistema.Interfaces\is\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\itext.barcodes.dll" />
+    <Content Include="Sistema.Interfaces\itext.bouncy-castle-adapter.dll" />
+    <Content Include="Sistema.Interfaces\itext.bouncy-castle-connector.dll" />
+    <Content Include="Sistema.Interfaces\itext.commons.dll" />
+    <Content Include="Sistema.Interfaces\itext.forms.dll" />
+    <Content Include="Sistema.Interfaces\itext.html2pdf.dll" />
+    <Content Include="Sistema.Interfaces\itext.io.dll" />
+    <Content Include="Sistema.Interfaces\itext.kernel.dll" />
+    <Content Include="Sistema.Interfaces\itext.layout.dll" />
+    <Content Include="Sistema.Interfaces\itext.pdfa.dll" />
+    <Content Include="Sistema.Interfaces\itext.pdfua.dll" />
+    <Content Include="Sistema.Interfaces\itext.sign.dll" />
+    <Content Include="Sistema.Interfaces\itext.styledxmlparser.dll" />
+    <Content Include="Sistema.Interfaces\itext.svg.dll" />
+    <Content Include="Sistema.Interfaces\it\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\it\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\it\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\it\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\it\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\it\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\ja\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\ja\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\ja\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\ja\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\ja\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\ko-KR\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\ko\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\ko\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\ko\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\ko\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\ku\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\lv\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.AspNetCore.Authentication.JwtBearer.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.AspNetCore.Authentication.Negotiate.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.AspNetCore.Razor.Language.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.Build.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.Build.Framework.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.AnalyzerUtilities.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.CSharp.Features.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.CSharp.Workspaces.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.Elfie.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.Features.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.Razor.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.CodeAnalysis.Workspaces.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.DiaSymReader.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.DotNet.PlatformAbstractions.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.DotNet.Scaffolding.Shared.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.IdentityModel.Abstractions.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.IdentityModel.Logging.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.IdentityModel.Protocols.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.IdentityModel.Tokens.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.NET.StringTools.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.VisualStudio.Web.CodeGeneration.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll" />
+    <Content Include="Sistema.Interfaces\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll" />
+    <Content Include="Sistema.Interfaces\Mono.TextTemplating.dll" />
+    <Content Include="Sistema.Interfaces\ms-MY\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\mt\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\nb-NO\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\nb\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\Newtonsoft.Json.dll" />
+    <Content Include="Sistema.Interfaces\nl\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.Common.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.Configuration.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.DependencyResolver.Core.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.Frameworks.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.LibraryModel.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.Packaging.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.ProjectModel.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.Protocol.dll" />
+    <Content Include="Sistema.Interfaces\NuGet.Versioning.dll" />
+    <Content Include="Sistema.Interfaces\pl\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\pl\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\pl\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\pl\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\pl\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\pt-BR\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\pt\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\RestSharp.dll" />
+    <Content Include="Sistema.Interfaces\ro\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\ru\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\ru\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\ru\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\ru\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\ru\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\sk\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\sl\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\sni.dll" />
+    <Content Include="Sistema.Interfaces\sr-Latn\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\sr\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\sv\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\System.CodeDom.dll" />
+    <Content Include="Sistema.Interfaces\System.Composition.AttributedModel.dll" />
+    <Content Include="Sistema.Interfaces\System.Composition.Convention.dll" />
+    <Content Include="Sistema.Interfaces\System.Composition.Hosting.dll" />
+    <Content Include="Sistema.Interfaces\System.Composition.Runtime.dll" />
+    <Content Include="Sistema.Interfaces\System.Composition.TypedParts.dll" />
+    <Content Include="Sistema.Interfaces\System.Configuration.ConfigurationManager.dll" />
+    <Content Include="Sistema.Interfaces\System.Data.SqlClient.dll" />
+    <Content Include="Sistema.Interfaces\System.DirectoryServices.Protocols.dll" />
+    <Content Include="Sistema.Interfaces\System.IdentityModel.Tokens.Jwt.dll" />
+    <Content Include="Sistema.Interfaces\System.Reflection.MetadataLoadContext.dll" />
+    <Content Include="Sistema.Interfaces\System.Security.Cryptography.ProtectedData.dll" />
+    <Content Include="Sistema.Interfaces\th-TH\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\tr\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\tr\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\tr\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\tr\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\tr\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\uk\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\uz-Cyrl-UZ\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\uz-Latn-UZ\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\verificationQR.png" />
+    <Content Include="Sistema.Interfaces\vi\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\app.css" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\estilos.css" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\jquery.dataTables.css" />
+    <Content Include="Sistema.Interfaces\wwwroot\css\jquery.mn-file\jquery.mn-file.min.css" />
+    <Content Include="Sistema.Interfaces\wwwroot\font\fontello.svg" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\Credenciales\clubredondo.png" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\Credenciales\credencial.png" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\Credenciales\gerdanna.png" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\Credenciales\swiss.png" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\favicon.ico" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\noimage.png" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\search.gif" />
+    <Content Include="Sistema.Interfaces\wwwroot\img\wait.gif" />
+    <Content Include="Sistema.Interfaces\wwwroot\Interfaces.MVC.styles.css" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\app.js.LICENSE.txt" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\datatables.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\jquery.mn-file\jquery.mn-file.min.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\perfect-scrollbar.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_EVENTS.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_FUNCTIONS.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\barcode.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\blockui.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\croppie.min.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\jquery.min.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_third\popper.min.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_TOOLS.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\js\_VAR.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\dist\jquery.min.js" />
+    <Content Include="Sistema.Interfaces\wwwroot\lib\jquery\LICENSE.txt" />
+    <Content Include="Sistema.Interfaces\zh-CN\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hans\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hans\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hant\Humanizer.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hant\Microsoft.CodeAnalysis.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <Content Include="Sistema.Interfaces\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Servicio.Temp\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50481/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
