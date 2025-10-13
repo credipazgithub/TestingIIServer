@@ -3,7 +3,7 @@
 ################################################################################
 
 /bin
-/obj/Debug
+/obj
 /.gitignore
 /.vs
 /Servicio.CPFinancials/Recursos
