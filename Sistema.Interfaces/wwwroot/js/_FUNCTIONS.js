@@ -3056,6 +3056,33 @@ var _FUNCTIONS = {
 				});
 		}
 	},
+	onInformeSoporte: function (_this) {
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		var FechaDesde = $(".FechaDesde").val();
+		var FechaHasta = $(".FechaHasta").val();
+		var sPrioridad = $(".sPrioridad").val();
+		var id_status_soporte = $(".id_status_soporte").val();
+		var sAsunto = $(".sAsunto").val();
+		var sDescripcion = $(".sDescripcion").val();
+
+		_FUNCTIONS.onWait(true);
+		var _url = "/Administracion/InformeSoporte";
+		var _params = {
+			"FechaDesde": FechaDesde, "FechaHasta": FechaHasta,
+			"sPrioridad": sPrioridad, "id_status_soporte": id_status_soporte,
+			"sAsunto": sAsunto, "sDescripcion": sDescripcion
+		};
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			var _body = ("<embed type='application/pdf' src='" + data.mensaje + "' style='height:720px;width:100%;'/>");
+			_FUNCTIONS.onShowWindowFormulario("xxx_idw", "Tickets de soporte", _body); 
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al solicitar el informe");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+
+	},
 	onInformeAuditoria: function (_this) {
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		_FUNCTIONS.onWait(true);
@@ -3603,6 +3630,7 @@ var _FUNCTIONS = {
 			$("input").val("");
 			$(".valor").val(_valor);
 			if (data.records.length != 0) {
+				$(".CajaFisica").val(data.records[0]["CajaFisica"]);
 				$(".Estado").val(data.records[0]["Estado"]);
 				$(".IdSocio").val(data.records[0]["IdSocio"]);
 				$(".DNI").val(data.records[0]["NroDocumento"]);

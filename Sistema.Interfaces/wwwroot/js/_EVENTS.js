@@ -391,5 +391,8 @@ $("body").off("click", ".btnDetalleImputacion").on("click", ".btnDetalleImputaci
 $("body").off("click", ".btnCancelarLote").on("click", ".btnCancelarLote", function () {
 	_FUNCTIONS.onCancelarLote($(this));
 });
+$("body").off("click", ".btnReporteSoporte").on("click", ".btnReporteSoporte", function () {
+	_FUNCTIONS.onInformeSoporte($(this));
+});
 
 
