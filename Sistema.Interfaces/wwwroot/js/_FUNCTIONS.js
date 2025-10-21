@@ -3630,6 +3630,7 @@ var _FUNCTIONS = {
 			$("input").val("");
 			$(".valor").val(_valor);
 			if (data.records.length != 0) {
+				$(".btn-GrabarCajaFisica").removeClass("d-none");
 				$(".CajaFisica").val(data.records[0]["CajaFisica"]);
 				$(".Estado").val(data.records[0]["Estado"]);
 				$(".IdSocio").val(data.records[0]["IdSocio"]);
@@ -3646,6 +3647,9 @@ var _FUNCTIONS = {
 				$(".Equipo").val(data.records[0]["Equipo"]);
 				$(".Vendedor").val(data.records[0]["Vendedor"]);
 				$(".Empresario").val(data.records[0]["Empresario"]);
+				var _nro = data.records[0]["CajaFisica"];
+				if (_nro == "") { _nro = 0; }
+				if (parseInt(_nro) != 0) { $(".btn-GrabarCajaFisica").addClass("d-none"); }
 			}
 			$(".rowResultado").removeClass("d-none");
 			_FUNCTIONS.onWait(false);
