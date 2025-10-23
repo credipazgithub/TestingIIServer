@@ -2274,6 +2274,7 @@ var _FUNCTIONS = {
 			$("input").attr("disabled", false);
 			$("select").attr("disabled", false);
 			var _params = _TOOLS.getFormValues(".dbAll");
+
 			_params["checkIngresoForzados"] = 0;
 			_params["ingresosEstimados"] = 0;
 			if ($(".chkIngresos").prop("checked") && parseInt($(".IngresosForzados").val()) > 0) {
@@ -2284,6 +2285,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(true);
 
 			var _urlBack = "/Transaccion/Grilla?tipo=" + _params["Tipo"];
+			console.log(_params);
 			_FUNCTIONS.ExecutePostAjax("/Transaccion/FirstEvaluation", _params).then(function (data) {
 				var _url = "/Transaccion/ABMTransaccion?id_sucursal=" + $(".IdUserSucursal").val() + "&sucursal=" + $(".UserSucursal").val() + "&_id=" + data[0].idTransaccion + "&_tipo=" + _params["Tipo"];
 				var _estado = "A";
@@ -2821,16 +2823,28 @@ var _FUNCTIONS = {
 					};
 					_FUNCTIONS.ExecutePostAjax("/Utilidades/ConsultaEntidadExterna", _params)
 						.then(function (data) {
-							console.log(data);
 							_FUNCTIONS._lastAreaScoringPdf = data;
-							//if (!_FUNCTIONS._simuladorScoringActivo) {
-							if ($(".Id").val() == undefined || parseInt($(".Id").val()) == 0) {
-								$(".Tipo").val(data.idProducto);
-								_FUNCTIONS._productoConsulta = data.codigoProducto;
-								$(".ProductoConsulta").val(_FUNCTIONS._productoConsulta);
-								$(".hTitulo").html("Nueva operación de " + data.descripcionProducto);
+							switch (parseInt($(".Tipo").val())) {
+								case 1:
+								case 2:
+								case 3:
+								case 4:
+								case 5:
+								case 6:
+								case 7:
+								case 8:
+								case 9:
+								case 10:
+									/*solo reasigna producto en caso de ser algun tipo de credito */
+									if ($(".Id").val() == undefined || parseInt($(".Id").val()) == 0) {
+										$(".Tipo").val(data.idProducto);
+										_FUNCTIONS._productoConsulta = data.codigoProducto;
+										$(".ProductoConsulta").val(_FUNCTIONS._productoConsulta);
+										$(".hTitulo").html("Nueva operación de " + data.descripcionProducto);
+									}
+									break;
 							}
-							//} 
+
 							if (_notSave == 0) {
 								resolve(data);
 								return false;
@@ -3010,7 +3024,7 @@ var _FUNCTIONS = {
 			if (parseInt(_record.MontoOfrecido) != 0) {
 				window.location = "/Transaccion/ABMTransaccion?id_sucursal=" + $(".IdUserSucursal").val() + "&sucursal=" + $(".UserSucursal").val() + "&_id=" + _params["idTransaccion"];
 			}
-			_FUNCTIONS.onWait(true);
+			_FUNCTIONS.onWait(false);
 		});
 	},
 	onCambiarFormaDePago: function (_this) {
