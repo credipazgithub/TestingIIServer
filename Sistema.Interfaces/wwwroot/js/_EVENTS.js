@@ -1,4 +1,9 @@
-
+$("body").off("click", ".btnSyncGP").on("click", ".btnSyncGP", function () {
+	_FUNCTIONS.onSyncGP($(this));
+});
+$("body").off("click", ".btnTabVisa").on("click", ".btnTabVisa", function () {
+	_FUNCTIONS.onTabVisa($(this));
+});
 $("body").off("click", ".btnQuitarTodosLosFiltros").on("click", ".btnQuitarTodosLosFiltros", function () {
 	_FUNCTIONS.onQuitarTodosLosFiltros($(this));
 });

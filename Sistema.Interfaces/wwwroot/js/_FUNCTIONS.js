@@ -5894,4 +5894,36 @@ var _FUNCTIONS = {
 			return false;
 		}
 	},
+	onTabVisa: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _idCuenta = $(".IdCuenta").val();
+		var _documento = $(".Documento").val();
+		var _sel = _this.attr("data-bs-target").replace("#", "");
+		var _url = ("/Visa/GetRows" + _sel);
+		var _params = { "IdCuenta": _idCuenta };
+		switch (_sel) {
+			case "cliente":
+				_url = ("/Clientes/GetDataClienteForm");
+				_params = { "NroDocumento": _documento };
+				break;
+		}
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			$("#" + _sel).html(data.html);
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeternimado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onSyncGP: function (_this) {
+		_FUNCTIONS.onWait(true);
+		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": _this.attr("data-mode") }).then(function (data) {
+			console.log(data);
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+
+	},
 }
