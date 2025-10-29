@@ -5686,9 +5686,13 @@ var _FUNCTIONS = {
 		setTimeout(function () { _FUNCTIONS.onWait(false); }, 2500);
 	},
 	onCancelarLote: function (_this) {
+		if (!confirm("Se anulará completamente el lote ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
 		var _id = _this.attr("data-id");
 		_FUNCTIONS.ExecutePostAjax("/CardCred/CancelarLote", { "Id": _id }).then(function (data) {
-
+			window.location.reload();
+		}).catch(function (err) {
+			_FUNCTIONS.onWait(false);
 		});
 	},
 	onDetalleCabeceraLote: function (_this) {
