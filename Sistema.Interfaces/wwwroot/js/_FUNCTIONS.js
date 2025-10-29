@@ -1559,10 +1559,18 @@ var _FUNCTIONS = {
 			var _params = { "idInformeExterno": _idInformeExterno, "Format": _format, "Formulario": _formulario, "ValueforRetrieve": _id, "Username": _VAR.Username, "modo": _modo };
 			if (_data == "") {
 				_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-					if (_format == "PDF-CUSTOM") {
-						data.mensaje = data.mensaje;
-					} else {
-						data.mensaje = _TOOLS.b64_to_utf8(data.mensaje);
+					console.log(_format);
+					console.log(data);
+					switch (_format) {
+						case "PDF-B64":
+							if (!data.mensaje.includes("data:application")) { data.mensaje = ("data:application/pdf;base64," + _TOOLS.b64_to_utf8(data.mensaje)); }
+							break;
+						case "PDF-CUSTOM":
+							data.mensaje = data.mensaje;
+							break;
+						default:
+							data.mensaje = _TOOLS.b64_to_utf8(data.mensaje);
+							break;
 					}
 					_FUNCTIONS.onShowFormulario(data.mensaje, _format, _formulario, _title, _pre);
 				});
@@ -1669,6 +1677,7 @@ var _FUNCTIONS = {
 				});
 				break;
 
+			case "PDF-B64":
 			case "PDF-CUSTOM":
 			case "PDF":
 				if (data != "" && data != "/img/noimage.png") {
