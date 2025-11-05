@@ -5928,15 +5928,103 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	onCambiarEstadoCuentaVisa: function (_this) {
+		var _idSel = _this.attr("data-sel");
+		var _html = "<div class='card shadow'>";
+		_html += "      <label>Cambiar estado</label><br/>";
+		_html += "      <select id='wIdEstado' name='wIdEstado' class='form-control wIdEstado'>";
+		_html += "         <option value='0'>Normal</option>";
+		_html += "         <option value='1'>Dado de baja</option>";
+		_html += "         <option value='4'>Inhabilitada</option>";
+		_html += "         <option value='12'>Congelada</option>";
+		_html += "         <option value='13'>Inhibida</option>";
+		_html += "         <option value='2' disabled>Morosa</option>";
+		_html += "         <option value='23' disabled>Inhibida y morosa</option>";
+		_html += "      </select>";
+		_html += "</div>";
+		var _params = { "id": "infoEstadoCuentaVisa", "title": "Modificar estado de la cuenta", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".wIdEstado").val(_idSel);
+			switch (parseInt(_idSel)) {
+				case 2:
+				case 23:
+					$(".wIdEstado").attr("disabled", "disabled");
+					break;
+			}
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoEstadoCuentaVisa");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!confirm("Está a punto de cambiar el estado de la cuenta VISA.\n¿Confirma?")) { return false; }
+				_FUNCTIONS.onWait(true);
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": "cambiarestadocuenta", "IdEstado": $(".wIdEstado").val() }).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					$("#cuentas-tab").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+	onCambiarEstadoTarjetaVisa: function (_this) {
+		var _idSel = _this.attr("data-sel");
+		var _numeroTarjeta = _this.attr("data-tarjeta");
+		var _html = "<div class='card shadow'>";
+		_html += "      <label>Cambiar estado</label><br/>";
+		_html += "      <select id='wIdEstado' name='wIdEstado' class='form-control wIdEstado'>";
+		_html += "         <option value='0'>Normal</option>";
+		_html += "         <option value='1'>Dado de baja</option>";
+		_html += "         <option value='2'>Baja para reimpresión</option>";
+		_html += "         <option value='5'>Denuncia robo/Extravío socio</option>";
+		_html += "         <option value='14'>Bloqueo temporal</option>";
+		_html += "         <option value='10' disabled>Baja por renovación</option>";
+		_html += "         <option value='15' disabled>Tarjeta no habilitada</option>";
+		_html += "         <option value='17' disabled>Denuncia automática IVR</option>";
+		_html += "         <option value='18' disabled>Bloqueo automático IVR</option>";
+		_html += "         <option value='20' disabled>Vencida</option>";
+		_html += "      </select>";
+		_html += "</div>";
+		var _params = { "id": "infoEstadoTarjetaVisa", "title": "Modificar estado de la tarjeta", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".wIdEstado").val(_idSel);
+			switch (parseInt(_idSel)) {
+				case 10:
+				case 15:
+				case 17:
+				case 18:
+				case 20:
+					$(".wIdEstado").attr("disabled", "disabled");
+					break;
+			}
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoEstadoTarjetaVisa");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!confirm("Está a punto de cambiar el estado de la cuenta VISA.\n¿Confirma?")) { return false; }
+				_FUNCTIONS.onWait(true);
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": "cambiarestadotarjeta", "NumeroTarjeta": _numeroTarjeta,"IdEstado": $(".wIdEstado").val() }).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					$("#tarjetas-tab").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
 	onSyncGP: function (_this) {
 		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": _this.attr("data-mode") }).then(function (data) {
-			console.log(data);
+		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": _this.attr("data-mode")}).then(function (data) {
+			if (!data.logica) { alert(data.mensaje); }
 			_FUNCTIONS.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
 			_FUNCTIONS.onWait(false);
 		});
-
 	},
 }
