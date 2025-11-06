@@ -5913,7 +5913,7 @@ var _FUNCTIONS = {
 		var _documento = $(".Documento").val();
 		var _sel = _this.attr("data-bs-target").replace("#", "");
 		var _url = ("/Visa/GetRows" + _sel);
-		var _params = { "IdCuenta": _idCuenta };
+		var _params = { "IdCuenta": _idCuenta, "ForceUpdate": true };
 		switch (_sel) {
 			case "cliente":
 				_url = ("/Clientes/GetDataClienteForm");
