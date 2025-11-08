@@ -1,6 +1,9 @@
 $("body").off("click", ".btnSyncGP").on("click", ".btnSyncGP", function () {
 	_FUNCTIONS.onSyncGP($(this));
 });
+$("body").off("click", ".btnActionVisaTarjeta").on("click", ".btnActionVisaTarjeta", function () {
+	_FUNCTIONS.onActionVisaTarjeta($(this));
+});
 $("body").off("click", ".btnTabVisa").on("click", ".btnTabVisa", function () {
 	_FUNCTIONS.onTabVisa($(this));
 });

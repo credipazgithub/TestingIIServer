@@ -573,7 +573,17 @@ var _FUNCTIONS = {
 				_FUNCTIONS.onShowHtmlModal(_params, function () { });
 				break;
 			case ".accMediosCobro":
-				_params = _FUNCTIONS.buildWindowMediosCobro("modalMediosCobro", _interface, "Nuevo medio de cobro", "1", false);
+				_params = _FUNCTIONS.buildWindowMediosCobro("modalMediosCobro", _interface, "Nuevo medio de cobro", "1", false, false);
+				_FUNCTIONS.onShowHtmlModal(_params, function () {
+					_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=cbuBancos", "wCodigoBanco", "").then(function () {
+						_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_Type_Medio_cobro", "wId_type_medio_cobro", "").then(function () {
+
+						});
+					});
+				});
+				break;
+			case ".accMediosCobroMediya":
+				_params = _FUNCTIONS.buildWindowMediosCobro("modalMediosCobro", _interface, "Nuevo medio de cobro", "1", false, true);
 				_FUNCTIONS.onShowHtmlModal(_params, function () {
 					_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=cbuBancos", "wCodigoBanco", "").then(function () {
 						_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_Type_Medio_cobro", "wId_type_medio_cobro", "").then(function () {
@@ -627,7 +637,11 @@ var _FUNCTIONS = {
 				break;
 			case ".accMediosCobro":
 				_params["Table"] = "dbo.NS_Medios_Cobro";
-				_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) { _FUNCTIONS.buildMediosCobro("", _interface, false); });
+				_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) { _FUNCTIONS.buildMediosCobro("", _interface, false, false); });
+				break;
+			case ".accMediosCobroMediya":
+				_params["Table"] = "dbo.NS_Medios_Cobro";
+				_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) { _FUNCTIONS.buildMediosCobro("", _interface, false, true); });
 				break;
 		};
 		if (_skipCommonUpdate) { return false; }
@@ -994,8 +1008,10 @@ var _FUNCTIONS = {
 			}
 		);
 	},
-	buildMediosCobro: function (_tipo, _target, _ro = false) {
-		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=Medios_Cobro&p1=" + _VAR.p1 + "&p2=" + _VAR.p2).then(function (data) {
+	buildMediosCobro: function (_tipo, _target, _ro, _mediya) {
+		var _segmento = "Medios_Cobro";
+		if (_mediya) { _segmento = "Medios_Cobro_Mediya"; }
+		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=" + _segmento +"&p1=" + _VAR.p1 + "&p2=" + _VAR.p2).then(function (data) {
 			var _fields = ["medioCobro", "banco", "numero_parcial"];
 			var _labels = ["Tipo de tarjeta", "Banco", "Número"];
 			var _params = { "one": true, "interface": _target, "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": !_ro, "edit": false, "delete": true, "verify": false };
@@ -1395,7 +1411,7 @@ var _FUNCTIONS = {
 			"url": "/Transaccion/SaveHistoricoContactos"
 		};
 	},
-	buildWindowMediosCobro: function (_id, _interface, _title, _tipo, _alone) {
+	buildWindowMediosCobro: function (_id, _interface, _title, _tipo, _alone, _mediya) {
 		var _html = "<div class='row'>";
 		_html += "      <div class='col-2'>";
 		_html += "         <label>Tipo de tarjeta</label><br/>";
@@ -1433,7 +1449,11 @@ var _FUNCTIONS = {
 		_html += "   </div>";
 		_html += "<input id='wPreferido' name='wPreferido' type='hidden' class='dbase' value='1'/>";
 		_html += "<input id='wId_type_medio_cobro' name='wId_type_medio_cobro' type='hidden' class='dbase' value='" + _tipo + "'/>";
-		_html += "<input id='IdTransaccion' name='IdTransaccion' type='hidden' class='dbase IdTransaccion' value='" + _VAR.idValorRegistroActivo + "'/>";
+		if (!_mediya) {
+			_html += "<input id='IdTransaccion' name='IdTransaccion' type='hidden' class='dbase IdTransaccion' value='" + _VAR.idValorRegistroActivo + "'/>";
+		} else {
+			_html += "<input id='IdSocio' name='IdSocio' type='hidden' class='dbase IdSocio' value='" + _VAR.idValorRegistroActivo + "'/>";
+		}
 		_html += "<input id='wId' name='wId' type='hidden' class='dbase wId' value='0'/>";
 		return _params = {
 			"id": _id,
@@ -3917,6 +3937,8 @@ var _FUNCTIONS = {
 			_TOOLS.itemToControl(_data[0], "EmpresaNombre", "");
 			_TOOLS.itemToControl(_data[0], "EquipoVenta", "");
 			_TOOLS.itemToControl(_data[0], "CajaFisica", "");
+			_TOOLS.itemToControl(_data[0], "diaCobroDesde", "");
+			_TOOLS.itemToControl(_data[0], "diaCobroHasta", "");
 			$(".btnVerCredenciales").attr("data-dni", $(".NroDocumento").val());
 			$(".btnVerCredenciales").attr("data-sexo", $(".Sexo").val());
 			$(".FechaNacimiento").val(new Date(_data[0].FechaNacimientoF));
@@ -5906,6 +5928,24 @@ var _FUNCTIONS = {
 		} else {
 			return false;
 		}
+	},
+	onActionVisaTarjeta: function (_this) {
+		var _numeroAdicional = _this.attr("data-adicional");
+		var _numeroTarjeta = _this.attr("data-tarjeta");
+		_FUNCTIONS.onWait(true);
+		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP",
+			{
+				"NumeroAdicional": _numeroAdicional,
+				"NumeroTarjeta": _numeroTarjeta,
+				"IdCuenta": $(".IdCuenta").val(),
+				"SyncScope": _this.attr("data-mode")
+			}).then(function (data) {
+			if (!data.logica) { alert(data.mensaje); }
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
 	},
 	onTabVisa: function (_this) {
 		_FUNCTIONS.onWait(true);
