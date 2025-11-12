@@ -840,7 +840,6 @@ var _FUNCTIONS = {
 						$(_target).html(_html);
 						_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=Automaticos&p1=" + _VAR.p1 + "&p2=" + _VAR.p2).then(function (data) {
 							for (var i = 0; i < data.records.length; i++) {
-								console.log(data.records[i]);
 								var _calif = $(".calificacionFixed").val();
 								var _salvaAnulacion = parseInt(data.records[i]["anulacionsalvable"]);
 								var _title = data.records[i]["Descripcion"].replace("_", " ");
@@ -1010,9 +1009,10 @@ var _FUNCTIONS = {
 		);
 	},
 	buildMediosCobro: function (_tipo, _target, _ro, _mediya) {
+		if (_VAR.p3 == undefined) { _VAR.p3 = 0; }
 		var _segmento = "Medios_Cobro";
 		if (_mediya) { _segmento = "Medios_Cobro_Mediya"; }
-		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=" + _segmento +"&p1=" + _VAR.p1 + "&p2=" + _VAR.p2).then(function (data) {
+		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=" + _segmento +"&p1=" + _VAR.p1 + "&p2=" + _VAR.p2 + "&p3=" + _VAR.p3).then(function (data) {
 			var _fields = ["medioCobro", "banco", "numero_parcial"];
 			var _labels = ["Tipo de tarjeta", "Banco", "Número"];
 			var _params = { "one": true, "interface": _target, "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": !_ro, "edit": false, "delete": true, "verify": false };
@@ -1454,6 +1454,9 @@ var _FUNCTIONS = {
 			_html += "<input id='IdTransaccion' name='IdTransaccion' type='hidden' class='dbase IdTransaccion' value='" + _VAR.idValorRegistroActivo + "'/>";
 		} else {
 			_html += "<input id='IdSocio' name='IdSocio' type='hidden' class='dbase IdSocio' value='" + _VAR.idValorRegistroActivo + "'/>";
+			if (!_alone) {
+				_html += "<input id='wDocumento' name='wDocumento' type='hidden' class='dbase wDocumento' value='" + _VAR.p3 + "'/>";
+			}
 		}
 		_html += "<input id='wId' name='wId' type='hidden' class='dbase wId' value='0'/>";
 		return _params = {
