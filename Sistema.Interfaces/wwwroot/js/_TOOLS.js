@@ -576,7 +576,9 @@ var _TOOLS = {
 	isInSecurityGroups: function (_group, _target) {
 		var _ret = false;
 		var _groups = $(_target).val().split(",");
-		_groups.forEach(function (value, index, array) { if (!_ret) { _ret = (value == _group); } });
+		_groups.forEach(function (value, index, array) {
+			if (!_ret) {_ret = (value == _group);}
+		});
 		return _ret;
 	},
 	validarLargoCBU: function (cbu) {
