@@ -840,6 +840,7 @@ var _FUNCTIONS = {
 						$(_target).html(_html);
 						_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=Automaticos&p1=" + _VAR.p1 + "&p2=" + _VAR.p2).then(function (data) {
 							for (var i = 0; i < data.records.length; i++) {
+								console.log(data.records[i]);
 								var _calif = $(".calificacionFixed").val();
 								var _salvaAnulacion = parseInt(data.records[i]["anulacionsalvable"]);
 								var _title = data.records[i]["Descripcion"].replace("_", " ");
@@ -856,7 +857,7 @@ var _FUNCTIONS = {
 											var _titleQf = "No puede forzar condicional.  Sin permisos o con calificación diferente a A / AA / AAA";
 											if (_TOOLS.isInSecurityGroups("X_APROBADORES_CREDITOS", ".securityGroups")) {
 												if ((_calif == "A" || _calif == "AA" || _calif == "AAA")) {
-													_html += "<a href='#' class='ml-1 btn btn-warning btn-sm btnResolverCondicional' data-reject='N' data-request='0' data-enteexterno='18' data-security='X_APROBADORES_CREDITOS' data-transaccion='" + _innerTransaction + "' data-parent='0' data-title='Autorización excepcional para: Nosis consumo'>Salvar rechazo</a></div>";
+													_html += "<a href='#' class='ml-1 btn btn-warning btn-sm btnResolverCondicional' data-reject='N' data-request='0' data-enteexterno='" + data.records[i]["nIDEnteExterno"] +"' data-security='X_APROBADORES_CREDITOS' data-transaccion='" + _innerTransaction + "' data-parent='0' data-title='Autorización excepcional'>Salvar rechazo</a></div>";
 													_colorQf = "badge-warning";
 													_titleQf = "Puede forzar condicional";
 												}
