@@ -181,6 +181,9 @@ $("body").off("change", ".resetScoring").on("change", ".resetScoring", function 
 	_FUNCTIONS.onResetScoring($(this));
 });
 
+$("body").off("click", ".btn-SaveRedMutual").on("click", ".btn-SaveRedMutual", function () {
+	_FUNCTIONS.onSaveRedMutual($(this));
+});
 $("body").off("click", ".btn-FirstEvaluation").on("click", ".btn-FirstEvaluation", function () {
 	_FUNCTIONS.onFirstEvaluation($(this));
 });

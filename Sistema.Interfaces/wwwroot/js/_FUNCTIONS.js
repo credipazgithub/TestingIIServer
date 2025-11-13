@@ -2300,6 +2300,44 @@ var _FUNCTIONS = {
 			})
 		}, 50);
 	},
+	onSaveRedMutual: function (_this) {
+		if (_TOOLS.validate(".validate", true)) {
+			_FUNCTIONS.onWait(true);
+			$("input").attr("disabled", false);
+			$("select").attr("disabled", false);
+			var _params = _TOOLS.getFormValues(".dbAll");
+			var _urlBack = "/Transaccion/Grilla?tipo=" + _params["Tipo"];
+			_FUNCTIONS.ExecutePostAjax("/Transaccion/SaveRedMutual", _params).then(function (data) {
+				_FUNCTIONS.onWait(false);
+				window.location = _urlBack;
+			}).catch(function (err) {
+				_html = "<h3 style='color:black;'>ERROR</h4>";
+				_html += "<h4 style='color:back;'>Ha ocurrido un problema de comunicación, por favor verifique lo siguiente:</h4>";
+				_html += "<ul>";
+				_html += "<li>Registre el DNI y el sexo de la operación que estaba realizando</li>";
+				_html += "<li>Vuelva a la grilla de gestión y verifique si se ha grabado o no lo operación</li>";
+				_html += "</ul>";
+				_html += "<h5 style='color:blue;'>Al informar a soporte indique DNI y datos del formulario que ha utilizado</h5>";
+				_html += "<b>Detalles del error</b>";
+				_html += "<pre>" + JSON.stringify(err) + "</pre>";
+				_html += "</hr>";
+				_html += "<div class='py-4 px-2'>";
+				_html += "   <table style='width:100%;'>";
+				_html += "      <tr>";
+				_html += "         <td align='center'><a href='" + _urlBack + "' class='btn btn-danger'>Volver a la grilla de gestión</a></td>";
+				_html += "      </tr>";
+				_html += "   </table>";
+				_html += "</div>";
+				_FUNCTIONS.onShowHtmlModal(
+					{ "id": "modal-preloader", "title": "Error en el procesamiento", "body": _html },
+					function () {
+						$(".modal-footer").remove();
+						_FUNCTIONS.onWait(false);
+					}
+				);
+			});
+		}
+	},
 	onFirstEvaluation: function (_this) {
 		var _error = false;
 		var _html = "";
@@ -2318,7 +2356,6 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(true);
 
 			var _urlBack = "/Transaccion/Grilla?tipo=" + _params["Tipo"];
-			console.log(_params);
 			_FUNCTIONS.ExecutePostAjax("/Transaccion/FirstEvaluation", _params).then(function (data) {
 				var _url = "/Transaccion/ABMTransaccion?id_sucursal=" + $(".IdUserSucursal").val() + "&sucursal=" + $(".UserSucursal").val() + "&_id=" + data[0].idTransaccion + "&_tipo=" + _params["Tipo"];
 				var _estado = "A";
@@ -2379,7 +2416,7 @@ var _FUNCTIONS = {
 				_html += "<li>Si puede gestionarse, informe a soporte para que le indique si puede o no continuar</li>";
 				_html += "<li>Si no puede gestionarse, informe a soporte y aguarde se le indque como continuar</li>";
 				_html += "</ul>";
-				_html += "<h5 style='color:blue;'>Al informar a soporte Indique DNI y condiciones del formulario de verificación que ha utilizado</h5>";
+				_html += "<h5 style='color:blue;'>Al informar a soporte indique DNI y condiciones del formulario de verificación que ha utilizado</h5>";
 				_html += "<b>Detalles del error</b>";
 				_html += "<pre>" + JSON.stringify(err) + "</pre>";
 				_html += "</hr>";
