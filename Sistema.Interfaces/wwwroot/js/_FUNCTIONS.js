@@ -1009,15 +1009,24 @@ var _FUNCTIONS = {
 		);
 	},
 	buildMediosCobro: function (_tipo, _target, _ro, _mediya) {
-		if (_VAR.p3 == undefined) { _VAR.p3 = 0; }
-		var _segmento = "Medios_Cobro";
-		if (_mediya) { _segmento = "Medios_Cobro_Mediya"; }
-		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=" + _segmento +"&p1=" + _VAR.p1 + "&p2=" + _VAR.p2 + "&p3=" + _VAR.p3).then(function (data) {
-			var _fields = ["medioCobro", "banco", "numero_parcial"];
-			var _labels = ["Tipo de tarjeta", "Banco", "Número"];
-			var _params = { "one": true, "interface": _target, "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": !_ro, "edit": false, "delete": true, "verify": false };
-			$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
-		});
+		return new Promise(
+			function (resolve, reject) {
+				try {
+					if (_VAR.p3 == undefined) { _VAR.p3 = 0; }
+					var _segmento = "Medios_Cobro";
+					if (_mediya) { _segmento = "Medios_Cobro_Mediya"; }
+					_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=" + _segmento + "&p1=" + _VAR.p1 + "&p2=" + _VAR.p2 + "&p3=" + _VAR.p3).then(function (data) {
+						var _fields = ["medioCobro", "banco", "numero_parcial"];
+						var _labels = ["Tipo de tarjeta", "Banco", "Número"];
+						var _params = { "one": true, "interface": _target, "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": !_ro, "edit": false, "delete": true, "verify": false };
+						$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
+						resolve(null);
+					});
+				} catch (rex) {
+					reject(rex);
+				}
+			}
+		);
 	},
 	buildAdicionalesCabal: function (_tipo, _target, _ro = false) {
 		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AdicionalesCabal&p3=" + _VAR.p3).then(function (data) {
@@ -1449,7 +1458,6 @@ var _FUNCTIONS = {
 		}
 		_html += "   </div>";
 		_html += "<input id='wPreferido' name='wPreferido' type='hidden' class='dbase' value='1'/>";
-		_html += "<input id='wId_type_medio_cobro' name='wId_type_medio_cobro' type='hidden' class='dbase' value='" + _tipo + "'/>";
 		if (!_mediya) {
 			_html += "<input id='IdTransaccion' name='IdTransaccion' type='hidden' class='dbase IdTransaccion' value='" + _VAR.idValorRegistroActivo + "'/>";
 		} else {
