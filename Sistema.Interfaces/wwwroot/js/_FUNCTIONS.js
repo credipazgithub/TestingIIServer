@@ -587,7 +587,6 @@ var _FUNCTIONS = {
 				_FUNCTIONS.onShowHtmlModal(_params, function () {
 					_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=cbuBancos", "wCodigoBanco", "").then(function () {
 						_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_Type_Medio_cobro", "wId_type_medio_cobro", "").then(function () {
-
 						});
 					});
 				});
@@ -641,7 +640,10 @@ var _FUNCTIONS = {
 				break;
 			case ".accMediosCobroMediya":
 				_params["Table"] = "dbo.NS_Medios_Cobro";
-				_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) { _FUNCTIONS.buildMediosCobro("", _interface, false, true); });
+				_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+					_FUNCTIONS.buildMediosCobro("", _interface, false, true).then(function () {
+					});
+				});
 				break;
 		};
 		if (_skipCommonUpdate) { return false; }
@@ -1455,8 +1457,10 @@ var _FUNCTIONS = {
 			_html += "         <label>DNI</label><br/>";
 			_html += "         <input type='number' id='wDocumento' name='wDocumento' maxlength='10' class='onlyNumbers form-control dbase wDocumento' value='' placeholder='DNI'/>";
 			_html += "      </div>";
+			_html += "      <div class='col-2 areaLinks'></div>";
 		}
 		_html += "   </div>";
+
 		_html += "<input id='wPreferido' name='wPreferido' type='hidden' class='dbase' value='1'/>";
 		if (!_mediya) {
 			_html += "<input id='IdTransaccion' name='IdTransaccion' type='hidden' class='dbase IdTransaccion' value='" + _VAR.idValorRegistroActivo + "'/>";
@@ -4828,17 +4832,20 @@ var _FUNCTIONS = {
 		var _text = $(".ws-EnviarLinkGestionProducto option:selected").text();
 		var _step = "/Abstract/StepWhatsApp?Emite=" + _emite + "&Identificacion=" + _this.val() + "&IdTransaccion=" + $(".Id").val() + "&Usuario=" + $(".Username").val() + "&Descripcion=" + _text;
 		var _tel = _this.find("option:selected").attr('data-tel');
+		var _forzarTel = (_tel == "1111111111");
 		_tel = ("+54" + _tel.replace(/^0+/, ''));
-
-		var _html = "<div class='row'>";
-		_html += "   <div class='col-4'>";
-		_html += "      <label>Registrado para envío</label><br/>";
-		_html += "      <p><b>" + _tel + "</b></p>";
-		_html += "   </div>";
-		_html += "   <div class='col-8'>";
-		_html += "      <input class='chkForceTelefono' data-size='small' type='checkbox' id='chkForceTelefono' name='chkForceTelefono' data-toggle='toggle' data-onstyle='success' data-offstyle='danger' value = '0' />";
-		_html += "   </div>";
-		_html += "</div>";
+		var _html = "";
+		if (!_forzarTel) {
+			_html += "<div class='row'>";
+			_html += "   <div class='col-4'>";
+			_html += "      <label>Registrado para envío</label><br/>";
+			_html += "      <p><b>" + _tel + "</b></p>";
+			_html += "   </div>";
+			_html += "   <div class='col-8'>";
+			_html += "      <input class='chkForceTelefono' data-size='small' type='checkbox' id='chkForceTelefono' name='chkForceTelefono' data-toggle='toggle' data-onstyle='success' data-offstyle='danger' value = '0' />";
+			_html += "   </div>";
+			_html += "</div>";
+		}
 		_html += "<div class='row rForzarTelefono d-none'>";
 		_html += "   <div class='col-4'>";
 		_html += "      <label>Prefijo</label><br/>";
@@ -4849,6 +4856,7 @@ var _FUNCTIONS = {
 		_html += "      <input type='text' inputmode='numeric' id='fTelefono' name='fTelefono' class='form-control onlyNumbers fTelefono' value='' placeholder='Teléfono' maxlength='8'/>";
 		_html += "   </div>";
 		_html += "</div>";
+		_FUNCTIONS.onDestroyModal("#modalMediosCobro");
 		var _params = { "id": "infoModalLink", "title": "Confirme datos para enviar link Whatsapp", "body": _html };
 		_FUNCTIONS.onShowStaticModal(_params, function () {
 			$('.chkForceTelefono').bootstrapToggle({ on: 'Cambiar por otro teléfono', off: 'No cambiar', width: '200' });
@@ -4905,6 +4913,11 @@ var _FUNCTIONS = {
 				$("#infoModalLink").remove();
 				$("body").css({ "overflow-y": "auto" });
 			});
+			if (_forzarTel) {
+				$(".rForzarTelefono").removeClass("d-none");
+				$(".fArea").addClass("fValidate");
+				$(".fTelefono").addClass("fValidate");
+			}
 		});
 	},
 	onModificarEndeudamiento: function (_this) {
