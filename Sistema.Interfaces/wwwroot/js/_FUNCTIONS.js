@@ -2318,6 +2318,9 @@ var _FUNCTIONS = {
 			$("input").attr("disabled", false);
 			$("select").attr("disabled", false);
 			var _params = _TOOLS.getFormValues(".dbAll");
+			var _s = "";
+			$(".sAdicionales").each(function () { if ($(this).prop("checked")) { _s += ($(this).val() + "*"); } });
+			_params["sAdicionales"] = _s;
 			var _urlBack = "/Transaccion/Grilla?tipo=" + _params["Tipo"];
 			_FUNCTIONS.ExecutePostAjax("/Transaccion/SaveRedMutual", _params).then(function (data) {
 				_FUNCTIONS.onWait(false);
