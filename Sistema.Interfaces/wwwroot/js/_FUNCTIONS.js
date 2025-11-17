@@ -3177,6 +3177,8 @@ var _FUNCTIONS = {
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		var FechaDesde = $(".FechaDesde").val();
 		var FechaHasta = $(".FechaHasta").val();
+		var FechaCierreDesde = $(".FechaCierreDesde").val();
+		var FechaCierreHasta = $(".FechaCierreHasta").val();
 		var sPrioridad = $(".sPrioridad").val();
 		var id_status_soporte = $(".id_status_soporte").val();
 		var sAsunto = $(".sAsunto").val();
@@ -3186,6 +3188,7 @@ var _FUNCTIONS = {
 		var _url = "/Administracion/InformeSoporte";
 		var _params = {
 			"FechaDesde": FechaDesde, "FechaHasta": FechaHasta,
+			"FechaCierreDesde": FechaCierreDesde, "FechaCierreHasta": FechaCierreHasta,
 			"sPrioridad": sPrioridad, "id_status_soporte": id_status_soporte,
 			"sAsunto": sAsunto, "sDescripcion": sDescripcion
 		};
