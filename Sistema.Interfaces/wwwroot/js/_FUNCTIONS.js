@@ -1446,11 +1446,29 @@ var _FUNCTIONS = {
 		_html += "      </div>";
 		_html += "      <div class='col-2'>";
 		_html += "         <label>Mes vto.</label><br/>";
-		_html += "         <input type='number' id='wMM' name='wMM' maxlength='2' class='onlyNumbers form-control dbase wvalidate wMM' value='' placeholder='MM'/>";
+		_html += "         <select id='wMM' name='wMM' class='form-control dbase wvalidate wMM'>";
+		_html += "            <option selected value='01'>Enero</option>";
+		_html += "            <option value='02'>Febrero</option>";
+		_html += "            <option value='03'>Marzo</option>";
+		_html += "            <option value='04'>Abril</option>";
+		_html += "            <option value='05'>Mayo</option>";
+		_html += "            <option value='06'>Junio</option>";
+		_html += "            <option value='07'>Julio</option>";
+		_html += "            <option value='08'>Agosto</option>";
+		_html += "            <option value='09'>Setiembre</option>";
+		_html += "            <option value='10'>Octubre</option>";
+		_html += "            <option value='11'>Noviembre</option>";
+		_html += "            <option value='12'>Diciembre</option>";
+		_html += "         </select>";
 		_html += "      </div>";
 		_html += "      <div class='col-2'>";
 		_html += "         <label>Año vto.</label><br/>";
-		_html += "         <input type='number' id='wYY' name='wYY' maxlength='2' class='onlyNumbers form-control dbase wYY' value='' placeholder='AA'/>";
+		var currentYear = new Date().getFullYear();    
+		var lastYear = (currentYear + 10);
+		_html += "         <select id='wYY' name='wYY' class='form-control dbase wvalidate wYY'>";
+		for (var i = currentYear; i <= lastYear; i++) { _html += "<option value='" + i.toString().slice(-2) + "'>" + i + "</option>"; }
+		_html += "         </select>";
+
 		_html += "      </div>";
 		if (_alone) {
 			_html += "      <div class='col-2'>";
@@ -3869,6 +3887,7 @@ var _FUNCTIONS = {
 						_FUNCTIONS.onWait(false);
 					} else {
 						_FUNCTIONS.ExecutePostAjax("/Mediya/GetTitularMediya", _params).then(function (_data) {
+							console.log(_data);
 							if (_data.records == null || _data.records.length == 0) {
 								_message = "Todo está en orden.  El DNI no es de un cliente ni de un socio.  Complete todos los datos solicitados.";
 								$(".info-verify").removeClass("badge-warning").addClass("badge-success");
@@ -3878,6 +3897,8 @@ var _FUNCTIONS = {
 								$(".info-verify").removeClass("badge-success").addClass("badge-warning");
 								_message = "Aviso.  El DNI es de un cliente, revise y complete todos los datos propuestos para solicitar el alta.";
 								if (_data.records[0].IdSocio == "") {
+									$(".sCuenta").val(_data.records[0]["sCuenta"]);
+									$(".sEstado").val(_data.records[0]["sEstado"]);
 									_FUNCTIONS.onSetDataTitularMediya(_data.records);
 									$(".allData").removeClass("d-none");
 								} else {
