@@ -1521,6 +1521,8 @@ var _FUNCTIONS = {
 					var _seg = data.mensaje.split(" data: ");
 					_msg = ("<p>" + _seg[0] + "</p>");
 					_msg += ("<p>" + _seg[1] + "</p>");
+					_msg += ("<p style='color:red;'><b>Por favor, verifique los datos.</b></p>");
+					_msg += ("<p style='color:darkred;'>Si el problema persiste, la operación no puede ser procesada por el operador externo.</p>");
 				} 
 				_body += _msg;
 				var _params = { "id": "infoModalSaveModalAlert", "title": "Alerta", "body": _body };
