@@ -1513,10 +1513,21 @@ var _FUNCTIONS = {
 		_params["wId"] = $("#wId").val();
 		_FUNCTIONS.ExecutePostAjax(_params["url"], _params).then(function (data) {
 			console.log("respuesta saveModal data");
-
 			console.log(data);
 			if (!data.logica) {
-				alert(data.mensaje);
+				var _body = ("<h4>La operación no pudo realizarse</h4>");
+				var _msg = ("<p>" + data.mensaje + "</p>");
+				if (data.mensaje.includes(" data: ")) {
+					var _seg = data.mensaje.split(" data: ");
+					_msg = ("<p>" + _seg[0] + "</p>");
+					_msg += ("<p>" + _seg[1] + "</p>");
+				} 
+				_body += _msg;
+				var _params = { "id": "infoModalSaveModalAlert", "title": "Alerta", "body": _body };
+				_FUNCTIONS.onShowInfoModal(_params, function () {
+					$(".modal-dialog").removeClass("modal-xl").addClass("modal-sm");
+					$(".modal-footer").remove();
+				});
 			} else {
 				_FUNCTIONS.onWait(true);
 				window.location.reload();
