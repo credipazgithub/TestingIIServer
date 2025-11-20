@@ -1512,6 +1512,9 @@ var _FUNCTIONS = {
 	saveModal: function (_params) {
 		_params["wId"] = $("#wId").val();
 		_FUNCTIONS.ExecutePostAjax(_params["url"], _params).then(function (data) {
+			console.log("respuesta saveModal data");
+
+			console.log(data);
 			if (!data.logica) {
 				alert(data.mensaje);
 			} else {
