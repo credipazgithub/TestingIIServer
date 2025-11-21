@@ -1,4 +1,5 @@
 var _FUNCTIONS = {
+	_forzarReadOnly: false,
 	_limiteActual: 0,
 	_nuevoLimite: 0,
 	allowedTypes: [],
@@ -598,7 +599,15 @@ var _FUNCTIONS = {
 		var _skipCommonUpdate = false;
 		var _url = "/Abstract/ActionOnField";
 		var _interface = _this.attr("data-interface");
-		var _params = { "Field": "offline", "Action": "update", "FieldForFilter": "id", "ValueForFilter": _this.attr("data-id"), "TypeValueForFilter": "N", "ValueForUpdate": _TOOLS.todayYYYYMMDD("-"), "TypeValueForUpdate": "D" };
+		var _params = {
+			"Field": "offline",
+			"Action": "update",
+			"FieldForFilter": "id",
+			"ValueForFilter": _this.attr("data-id"),
+			"TypeValueForFilter": "N",
+			"ValueForUpdate": "getdate()",
+			"TypeValueForUpdate": "N"
+		};
 		switch (_interface) {
 			case ".accAdicionalesCabal":
 				/* Armar llamada especifica para baja */
@@ -1020,7 +1029,7 @@ var _FUNCTIONS = {
 					_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=" + _segmento + "&p1=" + _VAR.p1 + "&p2=" + _VAR.p2 + "&p3=" + _VAR.p3).then(function (data) {
 						var _fields = ["medioCobro", "banco", "numero_parcial"];
 						var _labels = ["Tipo de tarjeta", "Banco", "Número"];
-						var _params = { "one": true, "interface": _target, "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": !_ro, "edit": false, "delete": true, "verify": false };
+						var _params = { "one": true, "interface": _target, "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": !_ro, "edit": false, "delete": !_ro, "verify": false };
 						$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
 						resolve(null);
 					});
