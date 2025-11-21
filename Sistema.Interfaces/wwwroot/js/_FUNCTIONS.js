@@ -1029,7 +1029,7 @@ var _FUNCTIONS = {
 					_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=" + _segmento + "&p1=" + _VAR.p1 + "&p2=" + _VAR.p2 + "&p3=" + _VAR.p3).then(function (data) {
 						var _fields = ["medioCobro", "banco", "numero_parcial"];
 						var _labels = ["Tipo de tarjeta", "Banco", "Número"];
-						var _params = { "one": true, "interface": _target, "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": !_ro, "edit": false, "delete": !_ro, "verify": false };
+						var _params = { "one": true, "interface": _target, "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": true, "edit": false, "delete": !_ro, "verify": false };
 						$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
 						resolve(null);
 					});
