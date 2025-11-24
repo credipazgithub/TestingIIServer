@@ -1,4 +1,5 @@
 var _FUNCTIONS = {
+	_tabSeleccionado: "",
 	_forzarReadOnly: false,
 	_limiteActual: 0,
 	_nuevoLimite: 0,
@@ -6043,32 +6044,15 @@ var _FUNCTIONS = {
 			return false;
 		}
 	},
-	onActionVisaTarjeta: function (_this) {
-		var _numeroAdicional = _this.attr("data-adicional");
-		var _numeroTarjeta = _this.attr("data-tarjeta");
-		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP",
-			{
-				"NumeroAdicional": _numeroAdicional,
-				"NumeroTarjeta": _numeroTarjeta,
-				"IdCuenta": $(".IdCuenta").val(),
-				"SyncScope": _this.attr("data-mode")
-			}).then(function (data) {
-			if (!data.logica) { alert(data.mensaje); }
-			_FUNCTIONS.onWait(false);
-		}).catch(function (err) {
-			alert("Se ha producido un error indeterminado");
-			_FUNCTIONS.onWait(false);
-		});
-	},
 	onTabVisa: function (_this) {
 		_FUNCTIONS.onWait(true);
 		var _idCuenta = $(".IdCuenta").val();
 		var _documento = $(".Documento").val();
+		_FUNCTIONS._tabSeleccionado = _this.attr("data-bs-target").replace("#", "");
 		var _sel = _this.attr("data-bs-target").replace("#", "");
-		var _url = ("/Visa/GetRows" + _sel);
+		var _url = ("/Visa/GetRows" + _FUNCTIONS._tabSeleccionado);
 		var _params = { "IdCuenta": _idCuenta, "ForceUpdate": true };
-		switch (_sel) {
+		switch (_FUNCTIONS._tabSeleccionado) {
 			case "cliente":
 				_url = ("/Clientes/GetDataClienteForm");
 				_params = { "NroDocumento": _documento };
@@ -6082,6 +6066,24 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	onDetalleVisa: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _id = _this.attr("data-id");
+		var _url = ("/Visa/GetRows" + _FUNCTIONS._tabSeleccionado);
+		var _params = { "Id": _id, "ForceUpdate": false };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			var _params = { "id": "infoDetalleVisa", "title": "Detalles del registro", "body": data.html };
+			_FUNCTIONS.onShowStaticModal(_params, function () {
+				$(".modal-footer").remove();
+				_FUNCTIONS.onWait(false);
+			});
+		}).catch(function (err) {
+			alert("Se ha producido un error indeternimado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+
+
 	onCambiarEstadoCuentaVisa: function (_this) {
 		var _idSel = _this.attr("data-sel");
 		var _html = "<div class='card shadow'>";
@@ -6111,7 +6113,12 @@ var _FUNCTIONS = {
 			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
 				if (!confirm("Está a punto de cambiar el estado de la cuenta VISA.\n¿Confirma?")) { return false; }
 				_FUNCTIONS.onWait(true);
-				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": "cambiarestadocuenta", "IdEstado": $(".wIdEstado").val() }).then(function (data) {
+				var _p = {
+					"IdCuenta": $(".IdCuenta").val(),
+					"SyncScope": "cambiarestadocuenta",
+					"IdEstado": $(".wIdEstado").val()
+				};
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
 					$("#cuentas-tab").click();
@@ -6159,7 +6166,13 @@ var _FUNCTIONS = {
 			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
 				if (!confirm("Está a punto de cambiar el estado de la cuenta VISA.\n¿Confirma?")) { return false; }
 				_FUNCTIONS.onWait(true);
-				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": "cambiarestadotarjeta", "NumeroTarjeta": _numeroTarjeta,"IdEstado": $(".wIdEstado").val() }).then(function (data) {
+				var _p = {
+					"IdCuenta": $(".IdCuenta").val(),
+					"SyncScope": "cambiarestadotarjeta",
+					"NumeroTarjeta": _numeroTarjeta,
+					"IdEstado": $(".wIdEstado").val()
+				};
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p}).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
 					$("#tarjetas-tab").click();
@@ -6171,6 +6184,67 @@ var _FUNCTIONS = {
 			});
 		});
 	},
+	onCambiarPin: function (_this) {
+		var _idVerifica = parseInt(_this.attr("data-verifica"));
+		var _numeroTarjeta = _this.attr("data-tarjeta");
+		var _mode = "cambiopinsinverificaciontarjeta";
+		var _html = "<div class='card shadow'>";
+		var _hide = "d-none";
+		if (_idVerifica != 0) {
+			_hide = "";
+			_mode = "cambiopinconverificaciontarjeta";
+		}
+		_html += "      <label class='" + _hide + "'>Pin actual</label><br/>";
+		_html += "      <input id='PinActual' name='PinActual' type='number' class='onlyNumbers PinActual " + _hide + "' value=''/><br/>";
+		_html += "      <label>Pin nuevo</label><br/>";
+		_html += "      <input id='PinNuevo' name='PinNuevo' type='number' class='onlyNumbers PinNuevo' value=''/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoPinTarjetaVisa", "title": "Modificar PIN de la tarjeta", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoEstadoTarjetaVisa");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!confirm("Está a punto de cambiar el PIN de la tarjeta VISA.\n¿Confirma?")) { return false; }
+				_FUNCTIONS.onWait(true);
+				var _p = {
+					"IdCuenta": $(".IdCuenta").val(),
+					"SyncScope": _mode,
+					"NumeroTarjeta": _numeroTarjeta,
+					"PinActual": $(".PinActual").val(),
+					"PinNuevo": $(".PinNuevo").val(),
+				};
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+
+	onExecNoParams: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _mode = _this.attr("data-mode");
+		var _numeroTarjeta = _this.attr("data-tarjeta");
+		var _p = {
+			"IdCuenta": $(".IdCuenta").val(),
+			"SyncScope": _mode,
+			"NumeroTarjeta": _numeroTarjeta,
+		};
+		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
+			if (!data.logica) { alert(data.mensaje); }
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+
+
 	onSyncGP: function (_this) {
 		_FUNCTIONS.onWait(true);
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": _this.attr("data-mode")}).then(function (data) {

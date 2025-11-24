@@ -1,18 +1,30 @@
 $("body").off("click", ".btnSyncGP").on("click", ".btnSyncGP", function () {
 	_FUNCTIONS.onSyncGP($(this));
 });
-$("body").off("click", ".btnActionVisaTarjeta").on("click", ".btnActionVisaTarjeta", function () {
-	_FUNCTIONS.onActionVisaTarjeta($(this));
-});
 $("body").off("click", ".btnTabVisa").on("click", ".btnTabVisa", function () {
 	_FUNCTIONS.onTabVisa($(this));
 });
+$("body").off("click", ".btnDetalleVisa").on("click", ".btnDetalleVisa", function () {
+	_FUNCTIONS.onDetalleVisa($(this));
+});
+
+
 $("body").off("click", ".btnCambiarEstadoCuentaVisa").on("click", ".btnCambiarEstadoCuentaVisa", function () {
 	_FUNCTIONS.onCambiarEstadoCuentaVisa($(this));
 });
 $("body").off("click", ".btnCambiarEstadoTarjetaVisa").on("click", ".btnCambiarEstadoTarjetaVisa", function () {
 	_FUNCTIONS.onCambiarEstadoTarjetaVisa($(this));
 });
+$("body").off("click", ".btnCambiarPin").on("click", ".btnCambiarPin", function () {
+	_FUNCTIONS.onCambiarPin($(this));
+});
+$("body").off("click", ".btnExecNoParams").on("click", ".btnExecNoParams", function () {
+	_FUNCTIONS.onExecNoParams($(this));
+});
+
+
+
+
 $("body").off("click", ".btnQuitarTodosLosFiltros").on("click", ".btnQuitarTodosLosFiltros", function () {
 	_FUNCTIONS.onQuitarTodosLosFiltros($(this));
 });
