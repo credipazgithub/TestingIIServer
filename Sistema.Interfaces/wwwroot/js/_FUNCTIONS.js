@@ -5684,7 +5684,6 @@ var _FUNCTIONS = {
 			$(this).prop("checked", false).click();
 		});
 	},
-
 	onCrearCardCred: function (_this) {
 		if (!confirm("Se intentará generar datos de lotes a enviar a CardCred. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
@@ -6006,7 +6005,6 @@ var _FUNCTIONS = {
 			);
 		})
 	},
-
 	onBuildPublishSoporte: function (_estado) {
 		if (_estado == "5" || _estado == 5) {
 			var _html = "";
@@ -6044,6 +6042,7 @@ var _FUNCTIONS = {
 			return false;
 		}
 	},
+
 	onTabVisa: function (_this) {
 		_FUNCTIONS.onWait(true);
 		var _idCuenta = $(".IdCuenta").val();
@@ -6082,8 +6081,6 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-
-
 	onCambiarEstadoCuentaVisa: function (_this) {
 		var _idSel = _this.attr("data-sel");
 		var _html = "<div class='card shadow'>";
@@ -6225,7 +6222,166 @@ var _FUNCTIONS = {
 			});
 		});
 	},
-
+	onCrearCobranza: function (_this) {
+		var _html = "<div class='card shadow'>";
+		_html += "      <label>Movimiento</label><br/>";
+		_html += "      <input id='MovimientoCobranza' name='MovimientoCobranza' type='number' class='form-control onlyNumbers MovimientoCobranza' value=''/><br/>";
+		_html += "      <label>Fecha cobro</label><br/>";
+		_html += "      <input id='FechaCobranza' name='FechaCobranza' type='date' class='form-control FechaCobranza date' value=''/><br/>";
+		_html += "      <label>Moneda</label><br/>";
+		_html += "      <select id='Moneda' name='Moneda' class='form-control Moneda'>";
+		_html += "         <option value='1' selected>Local</option>";
+		_html += "         <option value='2'>Extranjera</option>";
+		_html += "      </select>";
+		_html += "      <label>Importe</label><br/>";
+		_html += "      <input id='ImporteCobranza' name='ImporteCobranza' type='number' class='form-control onlyNumbers ImporteCobranza' value=''/><br/>";
+		_html += "      <label>Comprobante</label><br/>";
+		_html += "      <input id='ComprobanteCobranza' name='ComprobanteCobranza' type='number' class='form-control onlyNumbers ComprobanteCobranza' value=''/><br/>";
+		_html += "      <label>Forma de pago</label><br/>";
+		_html += "      <select id='FormaDePagoCobranza' name='FormaDePagoCobranza' class='form-control FormaDePagoCobranza'>";
+		_html += "         <option value='0'>No informada</option>";
+		_html += "         <option value='1'>Efectivo</option>";
+		_html += "         <option value='2'>Acreditación en cuenta</option>";
+		_html += "         <option value='3'>Transferencia bancaria</option>";
+		_html += "         <option value='4'>Cheque al día</option>";
+		_html += "         <option value='5'>Cheque diferido a 30 días</option>";
+		_html += "         <option value='20'>Cheque diferido a 45 días</option>";
+		_html += "         <option value='6'>Cheque diferido a 60 días</option>";
+		_html += "         <option value='21'>Cheque diferido a 75 días</option>";
+		_html += "         <option value='7'>Cheque diferido a 90 días</option>";
+		_html += "         <option value='13'>Transferencia bancaria</option>";
+		_html += "         <option value='14'>Transferencia bancaria a 30 días</option>";
+		_html += "         <option value='15'>Transferencia bancaria a 60 días</option>";
+		_html += "      </select>";
+		_html += "      <label>Observación</label><br/>";
+		_html += "      <input id='Observacion' name='Observacion' type='text' class='form-control Observacion' value=''/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoCrearCobranzaVisa", "title": "Crear cobranza", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoCrearCobranzaVisa");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!confirm("Está a punto de crear una cobranza.\n¿Confirma?")) { return false; }
+				_FUNCTIONS.onWait(true);
+				var _p = {
+					"IdCuenta": $(".IdCuenta").val(),
+					"SyncScope": "crearcobranzatransaccion",
+					"ImporteCobranza": $(".ImporteCobranza").val(),
+					"Moneda": $(".Moneda").val(),
+					"ComprobanteCobranza": $(".ComprobanteCobranza").val(),
+					"FormaDePagoCobranza": $(".FormaDePagoCobranza").val(),
+					"Observacion": $(".Observacion").val(),
+					"MovimientoCobranza": $(".MovimientoCobranza").val(),
+					"FechaCobranza": $(".FechaCobranza").val(),
+				};
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+	onAltaAvisoViaje: function (_this) {
+		var _adicional = _this.attr("data-adicional");
+		var _html = "<div class='card shadow'>";
+		_html += "      <label>Fecha desde</label><br/>";
+		_html += "      <input id='FechaDesde' name='FechaDesde' type='date' class='form-control FechaDesde date' value=''/><br/>";
+		_html += "      <label>Fecha hasta</label><br/>";
+		_html += "      <input id='FechaHasta' name='FechaHasta' type='date' class='form-control FechaHasta date' value=''/><br/>";
+		_html += "      <label>Países</label><br/>";
+		_html += "      <input id='Paises' name='Paises' type='text' class='form-control Paises' value=''/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoCrearCobranzaVisa", "title": "Crear cobranza", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoCrearCobranzaVisa");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!confirm("Está a punto de crear una cobranza.\n¿Confirma?")) { return false; }
+				_FUNCTIONS.onWait(true);
+				var _p = {
+					"IdCuenta": $(".IdCuenta").val(),
+					"NumeroAdicional": _adicional,
+					"SyncScope": "altaavisoviaje",
+					"FechaDesde": $(".FechaDesde").val(),
+					"FechaHasta": $(".FechaHasta").val(),
+					"Paises": $(".Países").val().split(","),
+				};
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+	onCrearExcepcionFraude: function (_this) {
+		var _html = "<div class='card shadow'>";
+		_html += "      <label>Fecha desde</label><br/>";
+		_html += "      <input id='Desde' name='Desde' type='date' class='form-control Desde date' value=''/><br/>";
+		_html += "      <label>Fecha hasta</label><br/>";
+		_html += "      <input id='Hasta' name='Hasta' type='date' class='form-control Hasta date' value=''/><br/>";
+		_html += "      <label>Moneda</label><br/>";
+		_html += "      <select id='Moneda' name='Moneda' class='form-control Moneda'>";
+		_html += "         <option value='1' selected>Local</option>";
+		_html += "         <option value='2'>Extranjera</option>";
+		_html += "      </select>";
+		_html += "      <label>Estado</label><br/>";
+		_html += "      <select id='Estado' name='Estado' class='form-control Estado'>";
+		_html += "         <option value='1' selected>Activo</option>";
+		_html += "         <option value='0'>Inactivo</option>";
+		_html += "      </select>";
+		_html += "      <label>Observación</label><br/>";
+		_html += "      <input id='Observacion' name='Observacion' type='text' class='form-control Observacion' value=''/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoCrearExcepcion", "title": "Crear excepción fraude", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoCrearExcepcion");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!confirm("Está a punto de crear una excepción de fraude.\n¿Confirma?")) { return false; }
+				_FUNCTIONS.onWait(true);
+				var _p = {
+					"IdCuenta": $(".IdCuenta").val(),
+					"SyncScope": "altaexcepcionfraude",
+					"FechaDesde": $(".Desde").val(),
+					"FechaHasta": $(".Hasta").val(),
+					"Moneda": $(".Moneda").val(),
+					"Observacion": $(".Observacion").val(),
+					"Estado": $(".Estado").val(),
+				};
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+	onExecDelete: function (_this) {
+		if (!confirm("¿Dar de baja el registro seleccionado?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _p = { "Id": _this.attr("data-id"), "SyncScope": _this.attr("data-mode") };
+		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
+			if (!data.logica) { alert(data.mensaje); }
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
 	onExecNoParams: function (_this) {
 		_FUNCTIONS.onWait(true);
 		var _mode = _this.attr("data-mode");
@@ -6243,8 +6399,6 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-
-
 	onSyncGP: function (_this) {
 		_FUNCTIONS.onWait(true);
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": _this.attr("data-mode")}).then(function (data) {

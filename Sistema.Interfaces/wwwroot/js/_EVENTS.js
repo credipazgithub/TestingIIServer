@@ -7,8 +7,9 @@ $("body").off("click", ".btnTabVisa").on("click", ".btnTabVisa", function () {
 $("body").off("click", ".btnDetalleVisa").on("click", ".btnDetalleVisa", function () {
 	_FUNCTIONS.onDetalleVisa($(this));
 });
-
-
+$("body").off("click", ".btnExecNoParams").on("click", ".btnExecNoParams", function () {
+	_FUNCTIONS.onExecNoParams($(this));
+});
 $("body").off("click", ".btnCambiarEstadoCuentaVisa").on("click", ".btnCambiarEstadoCuentaVisa", function () {
 	_FUNCTIONS.onCambiarEstadoCuentaVisa($(this));
 });
@@ -18,11 +19,15 @@ $("body").off("click", ".btnCambiarEstadoTarjetaVisa").on("click", ".btnCambiarE
 $("body").off("click", ".btnCambiarPin").on("click", ".btnCambiarPin", function () {
 	_FUNCTIONS.onCambiarPin($(this));
 });
-$("body").off("click", ".btnExecNoParams").on("click", ".btnExecNoParams", function () {
-	_FUNCTIONS.onExecNoParams($(this));
+$("body").off("click", ".btnCrearCobranza").on("click", ".btnCrearCobranza", function () {
+	_FUNCTIONS.onCrearCobranza($(this));
 });
-
-
+$("body").off("click", ".btnAltaAvisoViaje").on("click", ".btnAltaAvisoViaje", function () {
+	_FUNCTIONS.onAltaAvisoViaje($(this));
+});
+$("body").off("click", ".btnAccionExcepcionFraude").on("click", ".btnAccionExcepcionFraude", function () {
+	_FUNCTIONS.onCrearExcepcionFraude($(this));
+});
 
 
 $("body").off("click", ".btnQuitarTodosLosFiltros").on("click", ".btnQuitarTodosLosFiltros", function () {
