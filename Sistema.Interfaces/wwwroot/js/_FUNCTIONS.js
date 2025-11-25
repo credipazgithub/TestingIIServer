@@ -6401,7 +6401,9 @@ var _FUNCTIONS = {
 	},
 	onSyncGP: function (_this) {
 		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": $(".IdCuenta").val(), "SyncScope": _this.attr("data-mode")}).then(function (data) {
+		var _idCuenta = $(".IdCuenta").val();
+		if (_idCuenta == undefined) { _idCuenta = _this.attr("data-id"); }
+		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": _idCuenta, "SyncScope": _this.attr("data-mode")}).then(function (data) {
 			if (!data.logica) { alert(data.mensaje); }
 			_FUNCTIONS.onWait(false);
 		}).catch(function (err) {
