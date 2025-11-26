@@ -6050,7 +6050,7 @@ var _FUNCTIONS = {
 		_FUNCTIONS._tabSeleccionado = _this.attr("data-bs-target").replace("#", "");
 		var _sel = _this.attr("data-bs-target").replace("#", "");
 		var _url = ("/Visa/GetRows" + _FUNCTIONS._tabSeleccionado);
-		var _params = { "IdCuenta": _idCuenta, "ForceUpdate": true };
+		var _params = { "IdCuenta": _idCuenta, "ForceUpdate": true, "Usuario": $(".idUser").val() };
 		switch (_FUNCTIONS._tabSeleccionado) {
 			case "cliente":
 				_url = ("/Clientes/GetDataClienteForm");
@@ -6113,7 +6113,8 @@ var _FUNCTIONS = {
 				var _p = {
 					"IdCuenta": $(".IdCuenta").val(),
 					"SyncScope": "cambiarestadocuenta",
-					"IdEstado": $(".wIdEstado").val()
+					"IdEstado": $(".wIdEstado").val(),
+					"Usuario": $(".idUser").val()
 				};
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
@@ -6167,7 +6168,8 @@ var _FUNCTIONS = {
 					"IdCuenta": $(".IdCuenta").val(),
 					"SyncScope": "cambiarestadotarjeta",
 					"NumeroTarjeta": _numeroTarjeta,
-					"IdEstado": $(".wIdEstado").val()
+					"IdEstado": $(".wIdEstado").val(),
+					"Usuario": $(".idUser").val()
 				};
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p}).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
@@ -6210,6 +6212,7 @@ var _FUNCTIONS = {
 					"NumeroTarjeta": _numeroTarjeta,
 					"PinActual": $(".PinActual").val(),
 					"PinNuevo": $(".PinNuevo").val(),
+					"Usuario": $(".idUser").val()
 				};
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
@@ -6274,6 +6277,7 @@ var _FUNCTIONS = {
 					"Observacion": $(".Observacion").val(),
 					"MovimientoCobranza": $(".MovimientoCobranza").val(),
 					"FechaCobranza": $(".FechaCobranza").val(),
+					"Usuario": $(".idUser").val()
 				};
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
@@ -6311,6 +6315,7 @@ var _FUNCTIONS = {
 					"FechaDesde": $(".FechaDesde").val(),
 					"FechaHasta": $(".FechaHasta").val(),
 					"Paises": $(".Países").val().split(","),
+					"Usuario": $(".idUser").val()
 				};
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
@@ -6373,7 +6378,11 @@ var _FUNCTIONS = {
 	onExecDelete: function (_this) {
 		if (!confirm("¿Dar de baja el registro seleccionado?")) { return false; }
 		_FUNCTIONS.onWait(true);
-		var _p = { "Id": _this.attr("data-id"), "SyncScope": _this.attr("data-mode") };
+		var _p = {
+			"Id": _this.attr("data-id"),
+			"SyncScope": _this.attr("data-mode"),
+			"Usuario": $(".idUser").val()
+		};
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 			if (!data.logica) { alert(data.mensaje); }
 			_FUNCTIONS.onWait(false);
@@ -6390,6 +6399,7 @@ var _FUNCTIONS = {
 			"IdCuenta": $(".IdCuenta").val(),
 			"SyncScope": _mode,
 			"NumeroTarjeta": _numeroTarjeta,
+			"Usuario": $(".idUser").val()
 		};
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 			if (!data.logica) { alert(data.mensaje); }
@@ -6403,7 +6413,12 @@ var _FUNCTIONS = {
 		_FUNCTIONS.onWait(true);
 		var _idCuenta = $(".IdCuenta").val();
 		if (_idCuenta == undefined) { _idCuenta = _this.attr("data-id"); }
-		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { "IdCuenta": _idCuenta, "SyncScope": _this.attr("data-mode")}).then(function (data) {
+		var _p = {
+			"IdCuenta": _idCuenta,
+			"SyncScope": _this.attr("data-mode"),
+			"Usuario": $(".idUser").val()
+		};
+		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { }).then(function (data) {
 			if (!data.logica) { alert(data.mensaje); }
 			_FUNCTIONS.onWait(false);
 		}).catch(function (err) {
