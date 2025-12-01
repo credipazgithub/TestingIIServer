@@ -5867,6 +5867,12 @@ var _FUNCTIONS = {
 			);
 		});
 	},
+	onReenviarRechazados: function (_this) {
+		if (!confirm("Está a punto de reenviar los items de lote rechazados.\n¿Confirma?")) { return false; }
+		_FUNCTIONS.ExecutePostAjax("/CardCred/ReEnviar", { "Id": _this.attr("data-id") }).then(function (data) {
+			window.location.reload();
+		});
+	},
 	onDetalleLote: function (_this) {
 		var _html = "";
 		var _id = _this.attr("data-id");

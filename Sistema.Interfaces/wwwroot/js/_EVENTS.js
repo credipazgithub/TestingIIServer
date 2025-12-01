@@ -416,6 +416,9 @@ $("body").off("click", ".btnLinkToFrame").on("click", ".btnLinkToFrame", functio
 $("body").off("click", ".btnDetalleLote").on("click", ".btnDetalleLote", function () {
 	_FUNCTIONS.onDetalleLote($(this));
 });
+$("body").off("click", ".btnReenviarRechazados").on("click", ".btnReenviarRechazados", function () {
+	_FUNCTIONS.onReenviarRechazados($(this));
+});
 $("body").off("click", ".btnDetalleCabeceraLote").on("click", ".btnDetalleCabeceraLote", function () {
 	_FUNCTIONS.onDetalleCabeceraLote($(this));
 });
