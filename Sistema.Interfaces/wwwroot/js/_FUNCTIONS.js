@@ -6408,7 +6408,7 @@ var _FUNCTIONS = {
 			"Usuario": $(".idUser").val()
 		};
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
-			if (!data.logica) { alert(data.mensaje); }
+			if (data.mensaje!="") { alert(data.mensaje); }
 			_FUNCTIONS.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
@@ -6424,8 +6424,9 @@ var _FUNCTIONS = {
 			"SyncScope": _this.attr("data-mode"),
 			"Usuario": $(".idUser").val()
 		};
-		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { }).then(function (data) {
-			if (!data.logica) { alert(data.mensaje); }
+		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
+			if (data.mensaje != "") { alert(data.mensaje); }
+			window.location.reload();
 			_FUNCTIONS.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");

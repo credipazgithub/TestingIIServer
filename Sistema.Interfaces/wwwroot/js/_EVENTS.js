@@ -28,8 +28,6 @@ $("body").off("click", ".btnAltaAvisoViaje").on("click", ".btnAltaAvisoViaje", f
 $("body").off("click", ".btnAccionExcepcionFraude").on("click", ".btnAccionExcepcionFraude", function () {
 	_FUNCTIONS.onCrearExcepcionFraude($(this));
 });
-
-
 $("body").off("click", ".btnQuitarTodosLosFiltros").on("click", ".btnQuitarTodosLosFiltros", function () {
 	_FUNCTIONS.onQuitarTodosLosFiltros($(this));
 });
