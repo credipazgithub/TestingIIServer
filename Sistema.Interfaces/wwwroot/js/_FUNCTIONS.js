@@ -3477,46 +3477,6 @@ var _FUNCTIONS = {
 							"Id_sucursal": _id_sucursal, "Id_observacion": _id_observacion, "Id_detalle": _id_detalle, "calificacion": _calificacion
 						};
 						_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-							/*
-							_html += "<hr/><h4>Totales por sucursal y por calificación</h4>";
-							_html += "<table style='width:100%;'>";
-							_html += "   <tr style='background-color:silver;font-weight:bold;'>";
-							_html += "      <td>Sucursal</td>";
-							_html += "      <td>Calificación</td>";
-							_html += "      <td align='right'>Cantidad</td>";
-							_html += "   </tr>";
-							var _lastSucursal = "";
-							var _totBloque = 0;
-							$.each(data.records, function (i, item) {
-								if (parseInt(item["Total3"]) != 0) {
-									_html += "<tr>";
-									if (_lastSucursal != item["Sucursal"]) {
-										if (_lastSucursal != "") {
-											_html += "<tr style='border-bottom:solid 1px grey;border-top:double 3px grey;'>";
-											_html += "   <td></td>";
-											_html += "   <td align='right'><b>TOTAL</b></td>";
-											_html += "   <td align='right'><b>" + _totBloque + "</b></td>";
-											_html += "</tr>";
-										}
-										_lastSucursal = item["Sucursal"];
-										_html += "<td><span class='badge badge-dark'>" + _lastSucursal + "</span></td>";
-										_totBloque = 0;
-									} else {
-										_html += "<td></td>";
-									}
-									_totBloque += parseInt(item["Total3"]);
-									_html += "   <td><span class='badge badge-info'>" + item["CodeTypeObservacion"] + "</span></td>";
-									_html += "   <td align='right'>" + item["Total3"] + "</td>";
-									_html += "</tr>";
-								}
-							});
-							_html += "<tr style='border-bottom:solid 1px grey;border-top:double 3px grey;'>";
-							_html += "   <td></td>";
-							_html += "   <td align='right'><b>TOTAL</b></td>";
-							_html += "   <td align='right'><b>" + _totBloque + "</b></td>";
-							_html += "</tr>";
-							_html += "</table>";
-							*/
 							_html += "</div>";
 							$(".areaResultado").html(_html).removeClass("d-none");
 							_TOOLS.sortTable('tblTGS', 6, "N");
@@ -3550,13 +3510,32 @@ var _FUNCTIONS = {
 			});
 		});
 	},
-
+	onAnularBarridoCardCredByDni: function (_this) {
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/CardCred/AnularBarridoByDni";
+		var _params = { "Id": _doc };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al ejecutar el proceso");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
 	onInformeBCRA: function (_this) {
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		_this.fadeOut("fast");
 		var _url = "/Utilidades/ConsultasExternas";
-		var _params = { "Opcion": "BCRA", "Documento": $(".Documento").val(), "Sexo": $(".Sexo").val(), "Format": "PDF" };
+		var _params = { "Opcion": "BCRA", "Documento": _doc, "Sexo": $(".Sexo").val(), "Format": "PDF" };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			$(".areaResultado").html("<embed type='application/pdf' src='data:application/pdf;base64," + data + "' style='height:720px;width:100%;'/>").removeClass("d-none");
 			_this.fadeIn("slow");
@@ -3568,11 +3547,13 @@ var _FUNCTIONS = {
 		});
 	},
 	onInformeVerazExperto: function (_this) {
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		_this.fadeOut("fast");
 		var _url = "/Utilidades/ConsultasExternas";
-		var _params = { "Nombre": $(".nombre").val(), "Opcion": "VEA", "Documento": $(".Documento").val(), "Sexo": $(".Sexo").val(), "Format": "PDF" };
+		var _params = { "Nombre": $(".nombre").val(), "Opcion": "VEA", "Documento": _doc, "Sexo": $(".Sexo").val(), "Format": "PDF" };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			$(".areaResultado").html("<embed type='application/pdf' src='data:application/pdf;base64," + data + "' style='height:720px;width:100%;'/>").removeClass("d-none");
 			_this.fadeIn("slow");
@@ -3584,11 +3565,13 @@ var _FUNCTIONS = {
 		});
 	},
 	onInformeVerazConsumo: function (_this) {
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		_this.fadeOut("fast");
 		var _url = "/Utilidades/ConsultasExternas";
-		var _params = { "Nombre": $(".nombre").val(), "Opcion": "VC", "Documento": $(".Documento").val(), "Sexo": $(".Sexo").val(), "Format": "PDF" };
+		var _params = { "Nombre": $(".nombre").val(), "Opcion": "VC", "Documento": _doc, "Sexo": $(".Sexo").val(), "Format": "PDF" };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			$(".areaResultado").html("<embed type='application/pdf' src='data:application/pdf;base64," + data + "' style='height:720px;width:100%;'/>").removeClass("d-none");
 			_this.fadeIn("slow");
@@ -3600,11 +3583,13 @@ var _FUNCTIONS = {
 		});
 	},
 	onInformeNosisExperto: function (_this) {
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		_this.fadeOut("fast");
 		var _url = "/Utilidades/ConsultasExternas";
-		var _params = { "Nombre": $(".nombre").val(), "Opcion": "NE", "Documento": $(".Documento").val(), "Sexo": $(".Sexo").val(), "Format": "PDF" };
+		var _params = { "Nombre": $(".nombre").val(), "Opcion": "NE", "Documento": _doc, "Sexo": $(".Sexo").val(), "Format": "PDF" };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			$(".areaResultado").html("<embed type='application/pdf' src='data:application/pdf;base64," + data + "' style='height:720px;width:100%;'/>").removeClass("d-none");
 			_this.fadeIn("slow");
@@ -3616,11 +3601,13 @@ var _FUNCTIONS = {
 		});
 	},
 	onInformeNosisConsumo: function (_this) {
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		_this.fadeOut("fast");
 		var _url = "/Utilidades/ConsultasExternas";
-		var _params = { "Nombre": $(".nombre").val(), "Opcion": "NC", "Documento": $(".Documento").val(), "Sexo": $(".Sexo").val(), "Format": "PDF" };
+		var _params = { "Nombre": $(".nombre").val(), "Opcion": "NC", "Documento": _doc, "Sexo": $(".Sexo").val(), "Format": "PDF" };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			$(".areaResultado").html("<embed type='application/pdf' src='data:application/pdf;base64," + data + "' style='height:720px;width:100%;'/>").removeClass("d-none");
 			_this.fadeIn("slow");
