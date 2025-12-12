@@ -3510,6 +3510,25 @@ var _FUNCTIONS = {
 			});
 		});
 	},
+	onAccionesSoporte: function (_this) {
+		var _id = $(".IdAccion").val();
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Utilidades/AccionesSoporte";
+		var _params = { "Id": _id, "Documento": _doc };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al ejecutar el proceso");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
 	onAnularBarridoCardCredByDni: function (_this) {
 		var _doc = $(".Documento").val();
 		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
