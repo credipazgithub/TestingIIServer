@@ -6085,6 +6085,7 @@ var _FUNCTIONS = {
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			var _params = { "id": "infoDetalleVisa", "title": "Detalles del registro", "body": data.html };
 			_FUNCTIONS.onShowStaticModal(_params, function () {
+				$(".modal-dialog").removeClass("modal-md").addClass("modal-lg");
 				$(".modal-footer").remove();
 				_FUNCTIONS.onWait(false);
 			});
