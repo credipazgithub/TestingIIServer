@@ -2497,8 +2497,7 @@ var _FUNCTIONS = {
 		}
 	},
 	onCheckEnGestion: function (_this) {
-		var _showAlert = false;
-		var _rechazos = false;
+		var _showAlert = true;
 		var _bRefinancia = (parseInt($(".iRefinancia").val()) != 0);
 		var _dni = parseInt($(".chkEnGestion").val());
 		var _tipo = parseInt($(".chkEnGestion").attr("data-tipo"));
@@ -2570,49 +2569,8 @@ var _FUNCTIONS = {
 				_body += "   <td>Verificación</td>";
 				_body += "</tr>";
 				$.each(data.records, function (i, item) {
-					var _bShow = false;
 					var _bSame = (_tipo == parseInt(item.Tipo));
 					var _blink = "";
-					switch (_tipo) {
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 5:
-						case 6:
-						case 7:
-						case 8:
-						case 9:
-						case 10:
-							switch (parseInt(item.Tipo)) {
-								case 1:
-								case 2:
-								case 3:
-								case 4:
-								case 5:
-								case 6:
-								case 7:
-								case 8:
-								case 9:
-								case 10:
-								case 14:
-								case 141:
-								case 241:
-									_bShow = true;
-									_showAlert = true;
-							}
-							break;
-						case 351:
-						case 451:
-							switch (parseInt(item.Tipo)) {
-								case 15:
-								case 151:
-								case 251:
-									_bShow = true;
-									_showAlert = true;
-							}
-							break;
-					}
 					var _color = "success";
 					_body += "<tr>";
 					_body += "   <td>";
@@ -2627,10 +2585,7 @@ var _FUNCTIONS = {
 					_body += "   <td>" + item.Id + "</td>";
 					_body += "   <td>" + item.fechaFormat + "</td>";
 					_body += "   <td>" + item.Producto + "</td>";
-					if (parseInt(item.rechazada) != 0) {
-						_rechazos = true;
-						_color = "danger";
-					}
+					if (parseInt(item.rechazada) != 0) {_color = "danger";}
 					_body += "   <td><span class='" + _blink + " badge badge-" + _color + "'>" + item.message_control_validez + "</span></td>";
 					_body += "</tr>";
 				});
