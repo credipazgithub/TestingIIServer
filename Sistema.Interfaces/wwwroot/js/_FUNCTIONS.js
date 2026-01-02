@@ -6440,4 +6440,27 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+
+	onResolverAccion: function (_this) {
+		$(_this.attr("data-target")).val(_this.attr("data-id"));
+	},
+	onConfirmarResolverAccion: function (_this) {
+		var _id = $(".IdAccion").val();
+		var Origen = $(".origen").val();
+		var Destino = $(".destino").val();
+		if (Origen=="" || Destino=="") { alert("Debe indicar origen y destino"); return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Utilidades/ResolverAccionesSoporte";
+		var _params = { "Id": _id, "Origen": Origen, "Destino": Destino };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			_FUNCTIONS.onWait(false);
+			window.location.reload();
+		}).catch(function (e) {
+			alert("Error al ejecutar el proceso");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+
 }
