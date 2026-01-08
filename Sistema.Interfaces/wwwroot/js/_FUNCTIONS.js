@@ -3510,6 +3510,24 @@ var _FUNCTIONS = {
 			});
 		});
 	},
+
+	onDocumentoFirmable: function (_this) {
+		var _id = $(".idDocumento").val();
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Utilidades/DocumentoFirmable";
+		var _params = { "Id": _id };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al ejecutar el proceso");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
 	onAccionesSoporte: function (_this) {
 		var _id = $(".IdAccion").val();
 		var _doc = $(".Documento").val();

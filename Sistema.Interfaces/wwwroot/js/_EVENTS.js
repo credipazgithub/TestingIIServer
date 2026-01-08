@@ -235,6 +235,10 @@ $("body").off("click", ".btn-InformeBCRA").on("click", ".btn-InformeBCRA", funct
 $("body").off("click", ".btn-CardCredAnularBarridoPorDNI").on("click", ".btn-CardCredAnularBarridoPorDNI", function () {
 	_FUNCTIONS.onAnularBarridoCardCredByDni($(this));
 });
+$("body").off("click", ".btn-DocumentoFirmable").on("click", ".btn-DocumentoFirmable", function () {
+	_FUNCTIONS.onDocumentoFirmable($(this));
+});
+
 $("body").off("click", ".btn-AccionesSoporte").on("click", ".btn-AccionesSoporte", function () {
 	_FUNCTIONS.onAccionesSoporte($(this));
 });
