@@ -195,6 +195,12 @@ $("body").off("change", ".selEnGestion").on("change", ".selEnGestion", function 
 $("body").off("change", ".resetScoring").on("change", ".resetScoring", function () {
 	_FUNCTIONS.onResetScoring($(this));
 });
+$("body").off("click", ".btnResolverAccion").on("click", ".btnResolverAccion", function () {
+	_FUNCTIONS.onResolverAccion($(this));
+});
+$("body").off("click", ".btnConfirmarResolverAccion").on("click", ".btnConfirmarResolverAccion", function () {
+	_FUNCTIONS.onConfirmarResolverAccion($(this));
+});
 
 $("body").off("click", ".btn-SaveRedMutual").on("click", ".btn-SaveRedMutual", function () {
 	_FUNCTIONS.onSaveRedMutual($(this));
@@ -228,6 +234,9 @@ $("body").off("click", ".btn-InformeBCRA").on("click", ".btn-InformeBCRA", funct
 });
 $("body").off("click", ".btn-CardCredAnularBarridoPorDNI").on("click", ".btn-CardCredAnularBarridoPorDNI", function () {
 	_FUNCTIONS.onAnularBarridoCardCredByDni($(this));
+});
+$("body").off("click", ".btn-AccionesSoporte").on("click", ".btn-AccionesSoporte", function () {
+	_FUNCTIONS.onAccionesSoporte($(this));
 });
 $("body").off("click", ".btn-InformeVerazExperto").on("click", ".btn-InformeVerazExperto", function () {
 	_FUNCTIONS.onInformeVerazExperto($(this));

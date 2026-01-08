@@ -868,11 +868,11 @@ var _FUNCTIONS = {
 											var _titleQf = "No puede forzar condicional.  Sin permisos o con calificación diferente a A / AA / AAA";
 											if (_TOOLS.isInSecurityGroups("X_APROBADORES_CREDITOS", ".securityGroups")) {
 												if ((_calif == "A" || _calif == "AA" || _calif == "AAA")) {
-													_html += "<a href='#' class='ml-1 btn btn-warning btn-sm btnResolverCondicional' data-reject='N' data-request='0' data-enteexterno='" + data.records[i]["nIDEnteExterno"] +"' data-security='X_APROBADORES_CREDITOS' data-transaccion='" + _innerTransaction + "' data-parent='0' data-title='Autorización excepcional'>Salvar rechazo</a></div>";
+													_html += "<a href='#' class='ml-1 btn btn-warning btn-sm btnResolverCondicional' data-reject='N' data-request='0' data-enteexterno='" + data.records[i]["nIDEnteExterno"] + "' data-security='X_APROBADORES_CREDITOS' data-transaccion='" + _innerTransaction + "' data-parent='0' data-title='Autorización excepcional'>Salvar rechazo</a></div>";
 													_colorQf = "badge-warning";
 													_titleQf = "Puede forzar condicional";
 												}
-												_html += "<span style='cursor:help;' class='badge " + _colorQf + "' title='" + _titleQf +"'>" + _calif + "</span>";
+												_html += "<span style='cursor:help;' class='badge " + _colorQf + "' title='" + _titleQf + "'>" + _calif + "</span>";
 											}
 										} catch (e) { }
 									}
@@ -911,7 +911,7 @@ var _FUNCTIONS = {
 							if (_idOriginal != "") {
 								_original = "<a href='#' class='btn btn-sm btn-success btnTraerFormularios' data-modo='A' data-title='ORIGINAL - " + _title + "' data-formulario='" + data.records[i]["nIDEnteExterno"] + "' data-id_informe_externo='" + _idOriginal + "' data-format='PDF'>Informe original</a></td>";
 								//$(".cliente-" + _idTipo).html(_original);
-							//} else {
+								//} else {
 								$(".cliente-" + _idTipo).html("<span class='badge badge-dark'>Ver en controles manuales</span>");
 							}
 							$(".resolver-" + _idTipo).html("<i class='material-icons' style='color:grey;'>check</i>");
@@ -1473,7 +1473,7 @@ var _FUNCTIONS = {
 		_html += "      </div>";
 		_html += "      <div class='col-2'>";
 		_html += "         <label>Año vto.</label><br/>";
-		var currentYear = new Date().getFullYear();    
+		var currentYear = new Date().getFullYear();
 		var lastYear = (currentYear + 10);
 		_html += "         <select id='wYY' name='wYY' class='form-control dbase wvalidate wYY'>";
 		for (var i = currentYear; i <= lastYear; i++) { _html += "<option value='" + i.toString().slice(-2) + "'>" + i + "</option>"; }
@@ -1533,7 +1533,7 @@ var _FUNCTIONS = {
 					_msg += ("<p>" + _seg[1] + "</p>");
 					_msg += ("<p style='color:red;'><b>Por favor, verifique los datos.</b></p>");
 					_msg += ("<p style='color:darkred;'>Si el problema persiste, la operación no puede ser procesada por el operador externo.</p>");
-				} 
+				}
 				_body += _msg;
 				var _params = { "id": "infoModalSaveModalAlert", "title": "Alerta", "body": _body };
 				_FUNCTIONS.onShowInfoModal(_params, function () {
@@ -3220,7 +3220,7 @@ var _FUNCTIONS = {
 		};
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			var _body = ("<embed type='application/pdf' src='" + data.mensaje + "' style='height:720px;width:100%;'/>");
-			_FUNCTIONS.onShowWindowFormulario("xxx_idw", "Tickets de soporte", _body); 
+			_FUNCTIONS.onShowWindowFormulario("xxx_idw", "Tickets de soporte", _body);
 			_FUNCTIONS.onWait(false);
 		}).catch(function (e) {
 			alert("Error al solicitar el informe");
@@ -3508,6 +3508,25 @@ var _FUNCTIONS = {
 				$(".btn-Save-modal").remove();
 				$(".btn-close-modal").html("Cerrar");
 			});
+		});
+	},
+	onAccionesSoporte: function (_this) {
+		var _id = $(".IdAccion").val();
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Utilidades/AccionesSoporte";
+		var _params = { "Id": _id, "Documento": _doc };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al ejecutar el proceso");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
 		});
 	},
 	onAnularBarridoCardCredByDni: function (_this) {
@@ -5981,7 +6000,7 @@ var _FUNCTIONS = {
 			var _j2 = {};
 			var _pData = data.records[0]["raw_data"];
 			var _pData2 = data.records[0]["raw_data2"];
-			if (_pData != "") {_j = JSON.parse(_pData);}
+			if (_pData != "") { _j = JSON.parse(_pData); }
 			if (_pData2 != "") { _j2 = JSON.parse(_pData2); }
 			_html += "      <div class='col-6'><pre>" + JSON.stringify(_j, null, 2) + "</pre></div>";
 			_html += "      <div class='col-6'><pre>" + JSON.stringify(_j2, null, 2) + "</pre></div>";
@@ -6001,7 +6020,7 @@ var _FUNCTIONS = {
 	onBuildPublishSoporte: function (_estado) {
 		if (_estado == "5" || _estado == 5) {
 			var _html = "";
-			_FUNCTIONS.ExecutePostAjax("/Administracion/GetRowsServiciosRelacionados", { }).then(function (data) {
+			_FUNCTIONS.ExecutePostAjax("/Administracion/GetRowsServiciosRelacionados", {}).then(function (data) {
 				_html += "<table class='table table-sm table-borderless table-striped'>";
 				_html += "   <thead class='thead-dark'>";
 				_html += "      <tr>";
@@ -6066,6 +6085,7 @@ var _FUNCTIONS = {
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			var _params = { "id": "infoDetalleVisa", "title": "Detalles del registro", "body": data.html };
 			_FUNCTIONS.onShowStaticModal(_params, function () {
+				$(".modal-dialog").removeClass("modal-md").addClass("modal-lg");
 				$(".modal-footer").remove();
 				_FUNCTIONS.onWait(false);
 			});
@@ -6164,7 +6184,7 @@ var _FUNCTIONS = {
 					"IdEstado": $(".wIdEstado").val(),
 					"Usuario": $(".idUser").val()
 				};
-				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p}).then(function (data) {
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
 					$("#tarjetas-tab").click();
@@ -6395,7 +6415,7 @@ var _FUNCTIONS = {
 			"Usuario": $(".idUser").val()
 		};
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
-			if (data.mensaje!="") { alert(data.mensaje); }
+			if (data.mensaje != "") { alert(data.mensaje); }
 			_FUNCTIONS.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
@@ -6420,4 +6440,27 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+
+	onResolverAccion: function (_this) {
+		$(_this.attr("data-target")).val(_this.attr("data-id"));
+	},
+	onConfirmarResolverAccion: function (_this) {
+		var _id = $(".IdAccion").val();
+		var Origen = $(".origen").val();
+		var Destino = $(".destino").val();
+		if (Origen=="" || Destino=="") { alert("Debe indicar origen y destino"); return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Utilidades/ResolverAccionesSoporte";
+		var _params = { "Id": _id, "Origen": Origen, "Destino": Destino };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			_FUNCTIONS.onWait(false);
+			window.location.reload();
+		}).catch(function (e) {
+			alert("Error al ejecutar el proceso");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+
 }
