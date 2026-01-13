@@ -1,3 +1,9 @@
+$("body").off("click", ".btnGestionarAlerta").on("click", ".btnGestionarAlerta", function () {
+	_FUNCTIONS.onGestionarAlerta($(this));
+});
+$("body").off("click", ".btnDescartarAlerta").on("click", ".btnDescartarAlerta", function () {
+	_FUNCTIONS.onDescartarAlerta($(this));
+});
 $("body").off("click", ".btnSyncGP").on("click", ".btnSyncGP", function () {
 	_FUNCTIONS.onSyncGP($(this));
 });

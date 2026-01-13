@@ -1122,6 +1122,15 @@ var _FUNCTIONS = {
 
 		});
 	},
+	buildAlertas: function (_tipo, _target) {
+		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=Alertas&p1=" + _VAR.p1).then(function (data) {
+			var _fields = ["registrado", "description", "code", "Gestionar", "Descartar"];
+			var _labels = ["Fecha", "Detalle", "Código", "", ""];
+			var _params = { "interface": _target, "idKey": "", "class": "table table-sm tblAcciones", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
+			$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
+		});
+	},
+
 	buildMediyaTitular: function (_tipo, _target) {
 		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=MediyaTitular&p1=" + _VAR.dniRelacionadoRegistroActivo + "&p3=" + _VAR.sexoRelacionadoRegistroActivo).then(function (data) {
 			var _fields = ["detalles", "see", "IdSocio", "AudFechaAltaF", "ApellidoNombre", "NroDocumento", "Sexo", "edad", "PANsocio", "CredencialSWISS", "FUP", "MUP", "Estado"];
@@ -3169,7 +3178,6 @@ var _FUNCTIONS = {
 			alert("Se ha modificado correctamente la forma de pago");
 		});
 	},
-
 	onScoringSimulator: function (_this, _modo, _refinancia) {
 		var _bRefinancia = (parseInt(_refinancia) != 0);
 		_FUNCTIONS._simuladorScoringActivo = true;
@@ -3510,7 +3518,6 @@ var _FUNCTIONS = {
 			});
 		});
 	},
-
 	onDocumentoFirmable: function (_this) {
 		var _id = $(".idDocumento").val();
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
@@ -5634,7 +5641,6 @@ var _FUNCTIONS = {
 			throw ("<div class='p-1 text-center' style='border:double 3px red;'>EL ARCHIVO A PROCESAR TIENE <b>ERRORES.</b></div><br/>" + err + "<br/><div style='color:black;'>" + _line + "<br/>Nºde segmento: " + index + "<br/>Posición: " + _fromPos + " -> " + _newPos + "<br/>Valores: " + _valores + "</div>");
 		}
 	},
-
 	onMessageProcessIO: function (err, color) {
 		$(".message").html("<b style='color:" + color + ";'>" + err + "</b>");
 		$(".header").html("");
@@ -6072,7 +6078,6 @@ var _FUNCTIONS = {
 			return false;
 		}
 	},
-
 	onTabVisa: function (_this) {
 		_FUNCTIONS.onWait(true);
 		var _idCuenta = $(".IdCuenta").val();
@@ -6458,7 +6463,6 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-
 	onResolverAccion: function (_this) {
 		$(_this.attr("data-target")).val(_this.attr("data-id"));
 	},
@@ -6474,6 +6478,35 @@ var _FUNCTIONS = {
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			_FUNCTIONS.onWait(false);
 			window.location.reload();
+		}).catch(function (e) {
+			alert("Error al ejecutar el proceso");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+
+	onGestionarAlerta: function (_this) {
+		_VAR.idValorRegistroActivo = _this.attr("data-idTransaccion");
+		var _accion = _this.attr("data-accion");
+		switch (_accion) {
+			case "NUEVO_MEDIO_COBRO":
+				var _x = $('<a href="#" data-interface=".accMediosCobro" data-id="0">+</a>');
+				_FUNCTIONS.onClickActivateModalInterface(_x);
+				break;
+			default:
+				alert("No hay acción definida para este tipo de alerta.  No puede gestionarse.");
+				break;
+		}
+	},
+	onDescartarAlerta: function (_this) {
+		if (!confirm("Se marcará la alerta como descartada y no podrá gestionarse nuevamente ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Clientes/DescartarAlerta";
+		var _params = { "Id": _this.attr("data-id"), "Id_user": _VAR.idUser };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			_FUNCTIONS.buildAlertas("", ".accAlertas");
+			_FUNCTIONS.onWait(false);
 		}).catch(function (e) {
 			alert("Error al ejecutar el proceso");
 			_this.fadeIn("slow");
