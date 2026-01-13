@@ -1124,8 +1124,8 @@ var _FUNCTIONS = {
 	},
 	buildAlertas: function (_tipo, _target) {
 		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=Alertas&p1=" + _VAR.p1).then(function (data) {
-			var _fields = ["registrado", "description", "code", "Gestionar", "Descartar"];
-			var _labels = ["Fecha", "Detalle", "Código", "", ""];
+			var _fields = ["registrado", "description", "code", "nSolicitud", "idTransaccion", "Gestionar", "Descartar"];
+			var _labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción", "", ""];
 			var _params = { "interface": _target, "idKey": "", "class": "table table-sm tblAcciones", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
 			$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
 		});
@@ -1648,8 +1648,6 @@ var _FUNCTIONS = {
 			var _params = { "idInformeExterno": _idInformeExterno, "Format": _format, "Formulario": _formulario, "ValueforRetrieve": _id, "Username": _VAR.Username, "modo": _modo };
 			if (_data == "") {
 				_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-					console.log(_format);
-					console.log(data);
 					switch (_format) {
 						case "PDF-B64":
 							if (!data.mensaje.includes("data:application")) { data.mensaje = ("data:application/pdf;base64," + _TOOLS.b64_to_utf8(data.mensaje)); }
