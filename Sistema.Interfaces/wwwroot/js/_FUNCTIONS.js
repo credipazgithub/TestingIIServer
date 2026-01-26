@@ -1587,7 +1587,7 @@ var _FUNCTIONS = {
 	},
 	onTraerCarpetaDigital: function (_this) {
 		_this.fadeOut("fast");
-		var _params = { "idTransaccion": _this.attr("data-idtransaccion"), "dni": _this.attr("data-dni"), "segmento": _this.attr("data-segmento") };
+		var _params = { "_skip":false, "idTransaccion": _this.attr("data-idtransaccion"), "dni": _this.attr("data-dni"), "segmento": _this.attr("data-segmento") };
 		//if (parseInt(_params["segmento"]) == 0) {
 		//	_TOOLS.onShowAlertModal("Alerta", "<h4>Carpeta digital no accesible</h4><h5>Esta operación se ha finalizado por un circuito externo a la Gestión Integral</h5>");
 		//	_this.fadeIn("fast");
