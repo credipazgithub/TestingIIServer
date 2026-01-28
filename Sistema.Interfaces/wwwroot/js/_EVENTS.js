@@ -290,15 +290,20 @@ $("body").off("click", ".btnFullAudit").on("click", ".btnFullAudit", function ()
 });
 $("body").off("click", ".btn-Grabar").on("click", ".btn-Grabar", function () {
 	$(this).hide();
+	_FUNCTIONS.onWait(true);
 	if ($(".validarCBU").val() != undefined) {
 		if (!_TOOLS.validarCBU($(".validarCBU").val())) {
 			alert('¡El CBU especificado no es un CBU válido!');
-			return false;
+			$(this).fadeIn();
+			_FUNCTIONS.onWait(false);
+			return false;	
 		}
 	}
 	if ($(".validarPAN").val() != undefined) {
 		if (!_TOOLS.validarPAN($(".validarPAN").val())) {
 			alert('¡El PAN especificado no es un PAN válido!');
+			$(this).fadeIn();
+			_FUNCTIONS.onWait(false);
 			return false;
 		}
 	}
@@ -315,8 +320,10 @@ $("body").off("click", ".btn-Grabar").on("click", ".btn-Grabar", function () {
 		$("input").attr("disabled", false);
 		$("select").attr("disabled", false);
 		$(_target).submit();
+	} else {
+	    $(this).fadeIn("fast");
+		_FUNCTIONS.onWait(false);
 	}
-	$(this).fadeIn("fast");
 });
 $("body").off("click", ".btn-GrabarAndStay").on("click", ".btn-GrabarAndStay", function () {
 	$(".iReload").val("1");
