@@ -334,7 +334,8 @@ tr {
 }
 
 label {
-	display: inline-block
+	display: inline-block;
+	font-size:0.75rem !important;
 }
 
 button {
