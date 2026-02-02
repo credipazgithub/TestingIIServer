@@ -2850,6 +2850,8 @@ var _FUNCTIONS = {
 			switch (_FUNCTIONS._productoConsulta) {
 				case "CLC":
 				case "TAR":
+				case "CABAL":
+				case "VISA":
 					//$(".tblScoring").addClass("d-none");
 					$(".titleCapital").html("Seleccione monto a incrementar");
 					$(".colPlan").html("Límite actual");
@@ -2957,6 +2959,7 @@ var _FUNCTIONS = {
 						"endeudamientoCredito": endeudamientoCredito,
 						"idComercio": _idComercio
 					};
+					console.log(_params);
 					_FUNCTIONS.ExecutePostAjax("/Utilidades/ConsultaEntidadExterna", _params)
 						.then(function (data) {
 							_FUNCTIONS._lastAreaScoringPdf = data;
@@ -3129,7 +3132,7 @@ var _FUNCTIONS = {
 		_FUNCTIONS.onWait(true);
 		_rec = _this.attr("data-record");
 		var _record = "";
-		if (_rec == "" && _FUNCTIONS._productoConsulta != "TAR" && _FUNCTIONS._productoConsulta != "CLC") {
+		if (_rec == "" && _FUNCTIONS._productoConsulta != "TAR" && _FUNCTIONS._productoConsulta != "CABAL" && _FUNCTIONS._productoConsulta != "VISA" && _FUNCTIONS._productoConsulta != "CLC") {
 			alert("No se puede grabar sin seleccionar plan");
 			return false;
 		}
