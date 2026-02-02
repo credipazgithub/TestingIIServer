@@ -2512,7 +2512,27 @@ var _FUNCTIONS = {
 		var _sexo = $(".selEnGestion").val();
 		/*Controla si requiere sea cliente o no, para refinanciaciones y cambios de límites de crédito */
 		var _OnlyIfClient = (parseInt(_tipo) == 19 || _bRefinancia);
+
 		if (_dni >= 99999 && _sexo != "") {
+
+			/*Evaluar si tiene tarjeta en caso de ser una verificacion de tarjeta! */
+			switch (_tipo) {
+				case 351:
+				case 451:
+				case 560:
+				case 561:
+					_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckTarjetaHabiente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function (data) {
+						if (data.logica) {
+							$(".btn-ScoringSimulator").hide();
+							alert(data.mensaje);
+							return false;
+						}
+					});
+					break;
+			}
+			$(".btn-ScoringSimulator").show();
+
+
 			$(".dbReset").val("");
 			$(".id_type_modo_pago").val("-1");
 			$(".Sucursales_Activas").val($(".nIDSucursal").val()).prop("disabled", true);
@@ -2564,7 +2584,7 @@ var _FUNCTIONS = {
 				$(".validateAge").attr("data-calificacion", $(".dCalificacion").html());
 			});
 			//if (!_OnlyIfClient) {
-			_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckLimitesEnGestion", { "NroDocumento": _dni, "Sexo": _sexo }).then(function (data) {
+			_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckLimitesEnGestion", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function (data) {
 				var _backdrop = true;
 				var _title = ("Operaciones pendientes y límites de gestión para el DNI " + _dni);
 				var _body = "";
@@ -2611,6 +2631,8 @@ var _FUNCTIONS = {
 							break;
 						case 351:
 						case 451:
+						case 560:
+						case 561:
 							switch (parseInt(item.Tipo)) {
 								case 15:
 								case 151:
