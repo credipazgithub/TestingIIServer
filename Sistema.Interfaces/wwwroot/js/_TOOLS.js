@@ -398,6 +398,9 @@ var _TOOLS = {
 	onlyNumbers: function (_this) {
 		_this.val(_this.val().replace(/[^0-9]/g, ''));
 	},
+	stripNumbers: function (_val) {
+		return _val.replace(/[^0-9]/g, '').trim();
+	},
 	isBase64: function (testString) {
 		try {
 			var isEncoded = (btoa(atob(testString)) == atob(btoa(testString)));

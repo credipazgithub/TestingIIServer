@@ -2555,7 +2555,7 @@ var _FUNCTIONS = {
 						$(".Telefono").val(_vTel[1].trim());
 						$(".Nombre").val(item.sNombre.trim());
 						$(".Apellido").val("");
-						$(".CUIL").val(item.nCUIL.trim());
+						$(".CUIL").val(_TOOLS.stripNumbers(item.nCUIL.trim()));
 						$(".Email").val(item.sEmail.trim());
 						$(".Sexo").val(item.sSexo.trim());
 						$(".dFechaNac").val(item.dFechaNac.trim().split("T")[0]).change();
@@ -2729,7 +2729,7 @@ var _FUNCTIONS = {
 			}
 			$(".Documento").val(data.records[0]["NroDocumento"]).attr("disabled", true);
 			if (data.records[0]["Sexo"] != "") { $(".Sexo").val(data.records[0]["Sexo"]).attr("disabled", true); }
-			$(".CUIL").val(data.records[0]["CUIL"]);
+			$(".CUIL").val(_TOOLS.stripNumbers(data.records[0]["CUIL"]));
 			$(".Ocupacion").val(data.records[0]["Ocupacion"].trim());
 			$(".Email").val(data.records[0]["Email"]);
 			$(".Area").val(data.records[0]["prefijoTelefono"]);
