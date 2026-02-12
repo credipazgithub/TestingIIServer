@@ -10,12 +10,11 @@
     z-index: 1;
     right: 5px;
     top: 5px;
-    padding: 7px;
     border: solid 1px grey;
-    color: black;
-    border-radius: 2px;
+    color: white;
+    border-radius: 0px;
     font-size: 0.85rem;
-    background-color: lightgreen;
+    background-color: #FF0C98;
 }
 .areaTabla {
     display:none;
@@ -582,4 +581,7 @@ form.bd-caja-ancho-lados {
     50% {
         opacity: 0;
     }
+}
+.form-label {
+margin-bottom: .2rem !important;
 }
