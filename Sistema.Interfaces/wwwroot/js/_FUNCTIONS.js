@@ -2529,6 +2529,18 @@ var _FUNCTIONS = {
 						}
 					});
 					break;
+				case 2: //refinanciacion credito CP
+				case 4: //refinanciacion credito Amutra
+				case 562: //refinanciacion tarjeta VISA
+				case 563: //refinanciacion tarjeta CABAL
+					_FUNCTIONS.ExecutePostAjax("/Transaccion/ProductoVigente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function(data) {
+						if (data.records[0].Mensaje!='') {
+							$(".btn-ScoringSimulator").hide();
+							alert(data.records[0].Mensaje);
+							return false;
+						}
+					});
+					break;
 			}
 			$(".btn-ScoringSimulator").show();
 
@@ -2611,6 +2623,9 @@ var _FUNCTIONS = {
 						case 8:
 						case 9:
 						case 10:
+						case 562:
+						case 563:
+
 							switch (parseInt(item.Tipo)) {
 								case 1:
 								case 2:
@@ -2625,6 +2640,8 @@ var _FUNCTIONS = {
 								case 14:
 								case 141:
 								case 241:
+								case 562:
+								case 563:
 									_bShow = true;
 									_showAlert = true;
 							}
