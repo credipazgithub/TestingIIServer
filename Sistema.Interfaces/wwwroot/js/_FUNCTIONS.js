@@ -2514,37 +2514,7 @@ var _FUNCTIONS = {
 		var _OnlyIfClient = (parseInt(_tipo) == 19 || _bRefinancia);
 
 		if (_dni >= 99999 && _sexo != "") {
-
-			/*Evaluar si tiene tarjeta en caso de ser una verificacion de tarjeta! */
-			switch (_tipo) {
-				case 351:
-				case 451:
-				case 560:
-				case 561:
-					_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckTarjetaHabiente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function (data) {
-						if (data.logica) {
-							$(".btn-ScoringSimulator").hide();
-							alert(data.mensaje);
-							return false;
-						}
-					});
-					break;
-				case 2: //refinanciacion credito CP
-				case 4: //refinanciacion credito Amutra
-				case 562: //refinanciacion tarjeta VISA
-				case 563: //refinanciacion tarjeta CABAL
-					_FUNCTIONS.ExecutePostAjax("/Transaccion/ProductoVigente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function(data) {
-						if (data.records[0].Mensaje!='') {
-							$(".btn-ScoringSimulator").hide();
-							alert(data.records[0].Mensaje);
-							return false;
-						}
-					});
-					break;
-			}
 			$(".btn-ScoringSimulator").show();
-
-
 			$(".dbReset").val("");
 			$(".id_type_modo_pago").val("-1");
 			$(".Sucursales_Activas").val($(".nIDSucursal").val()).prop("disabled", true);
@@ -2572,6 +2542,42 @@ var _FUNCTIONS = {
 						$(".Sexo").val(item.sSexo.trim());
 						$(".dFechaNac").val(item.dFechaNac.trim().split("T")[0]).change();
 						$(".dCalificacion").html(item.sLKCalificacion.trim()).css({ "border": "double 3px blue" });
+
+						/*Evaluar si tiene tarjeta en caso de ser una verificacion de tarjeta! */
+						switch (_tipo) {
+							case 351:
+							case 451:
+							case 560:
+							case 561:
+								_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckTarjetaHabiente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function (data) {
+									if (data.logica) {
+										$(".btn-ScoringSimulator").hide();
+										alert(data.mensaje);
+										return false;
+									}
+								});
+								break;
+							case 2: //refinanciacion credito CP
+							case 4: //refinanciacion credito Amutra
+							case 562: //refinanciacion tarjeta VISA
+							case 563: //refinanciacion tarjeta CABAL
+								_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckProductoVigente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function (data) {
+									if (data.records[0].Mensaje != '') {
+										$(".btn-ScoringSimulator").hide();
+										alert(data.records[0].Mensaje);
+										$(".dbInit ").val("");
+										$(".onlyNumbers").val("");
+										$(".dbReset").val("");
+										$(".id_type_modo_pago").val("-1");
+										$(".dCalificacion").html("");
+										setTimeout(function () { $(".hEdad").val(""); }, 250);
+										return false;
+									} 
+								});
+								break;
+						}
+
+
 						_FUNCTIONS.ExecutePostAjax("/Transaccion/HabilitarSeguimientoGestion", { "Id": item.nID, "IdProducto": _tipo }).then(function (data) {
 							var _msg = data.records[0]["Respuesta"];
 							if (_msg != "") {
