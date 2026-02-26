@@ -2524,7 +2524,7 @@ var _FUNCTIONS = {
 					$(".dCalificacion").html("No es cliente").css({ "border": "double 3px red", "font-weight": "bold" });
 				}
 				if (data.records.length == 0 && _OnlyIfClient) {
-					_FUNCTIONS.onShowInfoModal({ "id": "errModal", "title": "Alerta", "body": "El DNI no pertenece a un cliente.  Imposible procesar un Cambio de límite de Crédito." }, function () {
+					_FUNCTIONS.onShowInfoModal({ "id": "errModal", "title": "Alerta", "body": "DNI y sexo informado, no pertenecen a un cliente.  Imposible procesar la operación solicitada." }, function () {
 						$(".btn-Save-modal").remove();
 						$(".validateFirst").val("");
 					});
@@ -2760,6 +2760,7 @@ var _FUNCTIONS = {
 		});
 	},
 	onBuildPlanes: function (_scoring) {
+		var _iRefinancia = (parseInt($(".iRefinancia").val())==1);
 		$(".areaScoringWaiter").addClass("d-none");
 		$(".btn-GrabarCapitalCuotas").attr("data-record", "");
 		var _msgAmount = "";
@@ -2783,7 +2784,7 @@ var _FUNCTIONS = {
 					$.each(_scoring, function (i, val) {
 						_importeEntregar += parseInt(_scoring[i]["ImporteAEntregar"]);
 					});
-					if (_importeEntregar <= 0) {
+					if (_importeEntregar <= 0 && !_iRefinancia) {
 						$(".btn-FirstEvaluation").addClass("d-none");
 						_msgAmount = "<div class='my-2 p-2' style='border:solid 2px red;color:darkred;'>No es posible entregar dinero, ya que el importe de cancelación es mayor que el capital solicitado para la consulta.  Modifique el capital solicitado, si es posible, para reevaluar.</div>";
 					} else {
@@ -2917,6 +2918,7 @@ var _FUNCTIONS = {
 				try {
 					var _simulador = 0;
 					_FUNCTIONS._productoConsulta = $(".ProductoConsulta").val();
+					var iRefinancia = (parseInt($(".iRefinancia").val())==1);
 					var endeudamientoTarjeta = $(".endeudamientoTarjeta").val();
 					var endeudamientoCredito = $(".endeudamientoCredito").val();
 					if (endeudamientoTarjeta == "") { endeudamientoTarjeta = 0; }
@@ -2924,10 +2926,12 @@ var _FUNCTIONS = {
 					if (_modo == "calificacion") { $(".rEndeudamiento").removeClass("d-none"); }
 					if (_FUNCTIONS._simuladorScoringActivo) { _simulador = 1; }
 					if (_ingresosEstimados == "" || _ingresosEstimados == null || _ingresosEstimados < 0) { _ingresosEstimados = 0; }
+					var _none = "";
+					if (iRefinancia) { _none = "d-none"; }
 					var _html = "";
 					if (_notSave == 1) {
 						_html += "<div class='row align-items-center' style='font-size: 0.85em;'>";
-						_html += "	<div class='col-4 auxScoring'>";
+						_html += "	<div class='col-4 auxScoring " +_none+ "'>";
 						_html += "		<div class='row align-items-center py-1'>";
 						var _checked = "";
 						if (_chkIngresosForzados != 0) { _checked = "checked"; }
@@ -3004,7 +3008,6 @@ var _FUNCTIONS = {
 						"endeudamientoCredito": endeudamientoCredito,
 						"idComercio": _idComercio
 					};
-					console.log(_params);
 					_FUNCTIONS.ExecutePostAjax("/Utilidades/ConsultaEntidadExterna", _params)
 						.then(function (data) {
 							_FUNCTIONS._lastAreaScoringPdf = data;
