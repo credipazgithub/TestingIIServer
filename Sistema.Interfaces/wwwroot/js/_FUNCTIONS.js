@@ -2528,6 +2528,7 @@ var _FUNCTIONS = {
 						$(".btn-Save-modal").remove();
 						$(".validateFirst").val("");
 					});
+					return false;
 				}
 				$.each(data.records, function (i, item) {
 					if (i == 0) {
