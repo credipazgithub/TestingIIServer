@@ -5787,8 +5787,9 @@ var _FUNCTIONS = {
 		if (!confirm("Se intentará generar datos de lotes a enviar a CardCred. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
 		_FUNCTIONS.ExecutePostAjax("/Cardcred/Enviar", {}).then(function (data) {
+			console.log(data);
 			var _msg = "Se ejecutó correctamente";
-			if (!data.logica && data.mensaje != "") { _msg = data.mensaje; }
+			if (!data.logica && data.error != "") { _msg = data.error; }
 			var _params = { "id": "infoEnviarCardCred", "title": "Resultado del proceso", "body": ("<b>" + _msg + "</b>") };
 			_FUNCTIONS.onShowStaticModal(_params, function () {
 				$(".btn-cancel-modal").remove();
