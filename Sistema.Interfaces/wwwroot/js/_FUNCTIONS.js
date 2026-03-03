@@ -6215,6 +6215,60 @@ var _FUNCTIONS = {
 			});
 		});
 	},
+	onAutorizacionCuentaVisa: function (_this) {
+		var _idSel = _this.attr("data-sel");
+		var _html = "<div class='card shadow'>";
+		_html += "      <label>Tipo</label><br/>";
+		_html += "      <select id='wTipo' name='wTipo' class='form-control wTipo'>";
+		_html += "         <option value='Consumo'>Consumo</option>";
+		_html += "         <option value='Adelanto'>Adelanto</option>";
+		_html += "         <option value='Devolución'>Devolución</option>";
+		_html += "      </select>";
+		_html += "      <label>Moneda</label><br/>";
+		_html += "      <select id='wMoneda' name='wMoneda' class='form-control wMoneda'>";
+		_html += "         <option value='1'>Local</option>";
+		_html += "         <option value='2'>Extranjera</option>";
+		_html += "      </select>";
+		_html += "      <label>Importe</label><br/>";
+		_html += "      <input id='wImporte' name='wImporte' type='number' class='wImporte' value='0'/><br/>";
+		_html += "      <input id='wComercio' name='wComercio' type='hidden' class='wComercio' value='9999'/><br/>";
+		_html += "      <input id='wEstablecimiento' name='wEstablecimiento' type='hidden' class='wEstablecimiento' value='9999'/><br/>";
+		_html += "      <input id='wPlan' name='wPlan' type='hidden' class='wPlan' value='9999'/><br/>";
+		_html += "      <input id='wPlazo' name='wPlazo' type='hidden' class='wPlazo' value='0'/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoAutorizacionCuentaVisa", "title": "Dar de alta autorización", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoAutorizacionCuentaVisa");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!confirm("Está a punto de ingresar una autorización a la cuenta VISA.\n¿Confirma?")) { return false; }
+				_FUNCTIONS.onWait(true);
+				var _p = {
+					"IdCuenta": $(".IdCuenta").val(),
+					"SyncScope": "ingresomanualautorizacion",
+					"Tipo": $(".wTipo").val(),
+					"Vencimiento": $(".wVencimiento").val(),
+					"Moneda": $(".wMoneda").val(),
+					"Importe": $(".wImporte").val(),
+					"Comercio": $(".wComercio").val(),
+					"Establecimiento": $(".wEstablecimiento").val(),
+					"Plan": $(".wPlan").val(),
+					"Plazo": $(".wPlaza").val(),
+					"Usuario": $(".idUser").val()
+				};
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					$("#cuentas-tab").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
 	onCambiarEstadoTarjetaVisa: function (_this) {
 		var _idSel = _this.attr("data-sel");
 		var _numeroTarjeta = _this.attr("data-tarjeta");
@@ -6481,6 +6535,7 @@ var _FUNCTIONS = {
 	onExecNoParams: function (_this) {
 		_FUNCTIONS.onWait(true);
 		var _mode = _this.attr("data-mode");
+		var _tipoTarjeta = _this.attr("data-tipo");
 		var _numeroTarjeta = _this.attr("data-tarjeta");
 		var _p = {
 			"IdCuenta": $(".IdCuenta").val(),
@@ -6488,6 +6543,8 @@ var _FUNCTIONS = {
 			"NumeroTarjeta": _numeroTarjeta,
 			"Usuario": $(".idUser").val()
 		};
+		if (_tipoTarjeta == undefined) { _p["TipoTarjeta"] = _tipoTarjeta; }
+
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 			if (data.mensaje != "") { alert(data.mensaje); }
 			_FUNCTIONS.onWait(false);

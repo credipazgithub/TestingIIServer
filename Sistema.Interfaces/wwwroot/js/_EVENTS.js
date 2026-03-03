@@ -28,6 +28,9 @@ $("body").off("click", ".btnCambiarPin").on("click", ".btnCambiarPin", function 
 $("body").off("click", ".btnCrearCobranza").on("click", ".btnCrearCobranza", function () {
 	_FUNCTIONS.onCrearCobranza($(this));
 });
+$("body").off("click", ".btnAutorizacion").on("click", ".btnAutorizacion", function () {
+	_FUNCTIONS.onAutorizacionCuentaVisa($(this));
+});
 $("body").off("click", ".btnAltaAvisoViaje").on("click", ".btnAltaAvisoViaje", function () {
 	_FUNCTIONS.onAltaAvisoViaje($(this));
 });
