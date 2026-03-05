@@ -2761,7 +2761,8 @@ var _FUNCTIONS = {
 		});
 	},
 	onBuildPlanes: function (_scoring) {
-		var _iRefinancia = (parseInt($(".iRefinancia").val())==1);
+		var _iRefinancia = (parseInt($(".iRefinancia").val()) == 1);
+		var _iTarjeta = (parseInt($(".iTarjeta").val()) == 1);
 		$(".areaScoringWaiter").addClass("d-none");
 		$(".btn-GrabarCapitalCuotas").attr("data-record", "");
 		var _msgAmount = "";
@@ -2812,10 +2813,12 @@ var _FUNCTIONS = {
 			if (_planDesc == "") { _hidde = "d-none"; $(".btnGenerarScoringPdf").remove(); }
 			_html += "	    <table class='tblScoring table table-sm mt-1' style='font-size: 0.85em; width:100%;color:black;'>";
 			_html += "         <tr style='background-color:silver;'>";
-			_html += "            <td align='right' class='px-4 py-1 colPlan'>Plan</td>";
-			_html += "            <td align='right' class='px-4 py-1 colMaximo'>Máximo</td>";
+			if (!_iTarjeta) {
+				_html += "<td align='right' class='px-4 py-1 colPlan'>Plan</td>";
+				_html += "<td align='right' class='px-4 py-1 colMaximo'>Máximo</td>";
+			}
 			_html += "            <td align='right' class='px-4 py-1 colCapital'>Capital</td>";
-			_html += "            <td align='left' class='px-4 py-1 " + _hidde + "'>Cuotas</td>";
+			if (!_iTarjeta) { _html += "            <td align='left' class='px-4 py-1 " + _hidde + "'>Cuotas</td>"; }
 			_html += "            <td align='right' class='px-4 py-1 " + _hidde + "'>Importe</td>";
 			_html += "            <td align='right' class='px-4 py-1 " + _hidde + "'>Importe a entregar</td>";
 			_html += "         </tr>";
@@ -2840,45 +2843,47 @@ var _FUNCTIONS = {
 				} else {
 					if (_fixedCapital >= parseFloat($(".MontoSeleccionado").val()) && parseFloat(_scoring[i]["MontoOfrecido"]) >= parseFloat(_scoring[i]["ImporteAEntregar"])) {
 						_html += "     <tr>";
-						_html += "        <td class='px-4 py-1 colLimiteActual' align='right'>";
-						if (_hidde == "") {
-							_html += _scoring[i]["Plan"];
-						} else {
-							if (_scoring[i]["ImporteCuota"] != "") { _FUNCTIONS._limiteActual = _scoring[i]["ImporteCuota"]; }
-							_html += _TOOLS.formatMoney(_FUNCTIONS._limiteActual);
-						}
-						_html += "        </td>";
-
-						_html += "        <td class='px-4 py-1' align='right'>" + _TOOLS.formatMoney(_scoring[i]["MontoOfrecido"]) + "</td>";
-
-						_html += "        <td class='px-4 py-1 colNuevoLimite' align='right'>";
-						console.log(_scoring[i]);
-						if (_hidde == "") {
-							_html += _TOOLS.formatMoney(_fixedCapital);
-						} else {
-							_FUNCTIONS._nuevoLimite = (parseInt(_FUNCTIONS._limiteActual) + parseInt(_montoSeleccionado));
-							_html += _TOOLS.formatMoney(_FUNCTIONS._nuevoLimite);
-						}
-						_html += "        </td>";
-						_html += "        <td class='px-4 py-1 " + _hidde + "' align='left'>";
-						if (_FUNCTIONS._simuladorScoringActivo) {
-							_html += "       <b>" + val.Plazo + "</b>";
-						} else {
-							var _plan = $(".idPlan").val();
-							var _checked = "";
-							if (_plan != "") {
-								if (parseInt(_plan) == parseInt(val["nIDPlan"])) { _checked = "checked"; }
+						if (!_iTarjeta) {
+							_html += "        <td class='px-4 py-1 colLimiteActual' align='right'>";
+							if (_hidde == "") {
+								_html += _scoring[i]["Plan"];
+							} else {
+								if (_scoring[i]["ImporteCuota"] != "") { _FUNCTIONS._limiteActual = _scoring[i]["ImporteCuota"]; }
+								_html += _TOOLS.formatMoney(_FUNCTIONS._limiteActual);
 							}
-							_html += "       <input " + _checked + " data-record='" + _TOOLS.utf8_to_b64(JSON.stringify(val)) + "' data-type='radio' type='radio' name='cuotas' id='cuotas' value='" + val.Plazo + "' class='cuotas form-radio radio validateMontos dbaseMontos' style='height: 25px; width: 25px;'/> <b>" + val.Plazo + "</b>";
+							_html += "        </td>";
 						}
-						_html += "        </td>";
-						_html += "        <td class='px-4 py-1 " + _hidde + "' align='right'>" + _TOOLS.formatMoney(_scoring[i]["Importe de Cuota"]) + "</td>";
+							_html += "        <td class='px-4 py-1' align='right'>" + _TOOLS.formatMoney(_scoring[i]["MontoOfrecido"]) + "</td>";
+						if (!_iTarjeta) {
+							_html += "        <td class='px-4 py-1 colNuevoLimite' align='right'>";
+							console.log(_scoring[i]);
+							if (_hidde == "") {
+								_html += _TOOLS.formatMoney(_fixedCapital);
+							} else {
+								_FUNCTIONS._nuevoLimite = (parseInt(_FUNCTIONS._limiteActual) + parseInt(_montoSeleccionado));
+								_html += _TOOLS.formatMoney(_FUNCTIONS._nuevoLimite);
+							}
+							_html += "        </td>";
+							_html += "        <td class='px-4 py-1 " + _hidde + "' align='left'>";
+							if (_FUNCTIONS._simuladorScoringActivo) {
+								_html += "       <b>" + val.Plazo + "</b>";
+							} else {
+								var _plan = $(".idPlan").val();
+								var _checked = "";
+								if (_plan != "") {
+									if (parseInt(_plan) == parseInt(val["nIDPlan"])) { _checked = "checked"; }
+								}
+								_html += "       <input " + _checked + " data-record='" + _TOOLS.utf8_to_b64(JSON.stringify(val)) + "' data-type='radio' type='radio' name='cuotas' id='cuotas' value='" + val.Plazo + "' class='cuotas form-radio radio validateMontos dbaseMontos' style='height: 25px; width: 25px;'/> <b>" + val.Plazo + "</b>";
+							}
+							_html += "        </td>";
+							_html += "        <td class='px-4 py-1 " + _hidde + "' align='right'>" + _TOOLS.formatMoney(_scoring[i]["Importe de Cuota"]) + "</td>";
 
-						var _style = "color:red;";
-						var _importeAEntregar = (parseInt(_fixedCapital) - parseInt(_scoring[i]["ImporteCancelacion"]));
-						if (_importeAEntregar < 0) { _importeAEntregar = 0; }
-						if (_importeAEntregar > 0) { _style = "color:green;"; }
-						_html += "        <td class='px-4 py-1 " + _hidde + "' align='right' style='" + _style + "'><b>" + _TOOLS.formatMoney(_importeAEntregar) + "</b></td>";
+							var _style = "color:red;";
+							var _importeAEntregar = (parseInt(_fixedCapital) - parseInt(_scoring[i]["ImporteCancelacion"]));
+							if (_importeAEntregar < 0) { _importeAEntregar = 0; }
+							if (_importeAEntregar > 0) { _style = "color:green;"; }
+							_html += "        <td class='px-4 py-1 " + _hidde + "' align='right' style='" + _style + "'><b>" + _TOOLS.formatMoney(_importeAEntregar) + "</b></td>";
+						}
 						_html += "     </tr>";
 						$(".btn-FirstEvaluation").removeClass("d-none");
 						setTimeout(function () { $(".alertNoScoring").remove(); }, 100);
@@ -2893,19 +2898,17 @@ var _FUNCTIONS = {
 				$(".areaMaximo").html("<input type='hidden' id='maximo' name='maximo' class='maximo' value='" + _maximo + "'/>" + _TOOLS.formatMoney(_maximo));
 				$(".MontoSeleccionado").attr("max", _maximo);
 				$(".SliderMonto").attr("max", _maximo);
+				if (_iTarjeta) {
+					$(".MontoSeleccionado2").attr("max", _maximo);
+					$(".MontoSeleccionado3").attr("max", _maximo);
+					$(".SliderMonto2").attr("max", _maximo);
+					$(".SliderMonto3").attr("max", _maximo);
+				}
 			}
-			switch (_FUNCTIONS._productoConsulta) {
-				case "CLC":
-				case "TAR":
-				case "CABAL":
-				case "VISA":
-					//$(".tblScoring").addClass("d-none");
-					$(".titleCapital").html("Seleccione monto a incrementar");
-					$(".colPlan").html("Límite actual");
-					$(".colMaximo").html("Incremento");
-					$(".colCapital").html("Nuevo límite");
-					$(".titSelCuotas").html("");
-					break;
+			if (_iTarjeta) {
+				$(".titleCapital").html("Seleccione límites");
+				$(".colCapital").html("Máximo");
+				$(".titSelCuotas").html("");
 			}
 		});
 	},
@@ -2919,7 +2922,8 @@ var _FUNCTIONS = {
 				try {
 					var _simulador = 0;
 					_FUNCTIONS._productoConsulta = $(".ProductoConsulta").val();
-					var iRefinancia = (parseInt($(".iRefinancia").val())==1);
+					var iRefinancia = (parseInt($(".iRefinancia").val()) == 1);
+					var iTarjeta = (parseInt($(".iTarjeta").val()) == 1);
 					var endeudamientoTarjeta = $(".endeudamientoTarjeta").val();
 					var endeudamientoCredito = $(".endeudamientoCredito").val();
 					if (endeudamientoTarjeta == "") { endeudamientoTarjeta = 0; }
@@ -2932,7 +2936,15 @@ var _FUNCTIONS = {
 					var _html = "";
 					if (_notSave == 1) {
 						_html += "<div class='row align-items-center' style='font-size: 0.85em;'>";
-						_html += "	<div class='col-4 auxScoring " +_none+ "'>";
+						var _colLeft = "col-4";
+						var _colRight = "col-8";
+						if (iTarjeta) {
+							_colLeft = "col-6";
+							_colRight = "col-6";
+						}
+
+
+						_html += "	<div class='" + _colLeft + " auxScoring " + _none + "'>";
 						_html += "		<div class='row align-items-center py-1'>";
 						var _checked = "";
 						if (_chkIngresosForzados != 0) { _checked = "checked"; }
@@ -2954,6 +2966,7 @@ var _FUNCTIONS = {
 						_html += "		<div class='row align-items-center py-1'>";
 						_html += "			<div class='col-12 text-left'><h5 class='titleCapital'>Modificar capital</h5></div>";
 
+						if (iTarjeta) {_html += "<div class='col-12 text-center'>Compra</div>";}
 						_html += "			<div class='col-3 text-center'>Mínimo</div>";
 						_html += "			<div class='col-6 areaSelector text-center py-2'>";
 						_html += "				<div class='slidecontainer'>";
@@ -2968,18 +2981,56 @@ var _FUNCTIONS = {
 						_html += "			</div>";
 						_html += "			<div class='col-3 areaMaximo text-center'></div>";
 						_html += "		</div>";
+						if (iTarjeta) {
+							_html += "		<div class='row align-items-center py-1 sliderTarjeta2'>";
+							_html += "			<div class='col-12 text-center'>Crédito</div>";
+							_html += "			<div class='col-3 text-center'>Mínimo</div>";
+							_html += "			<div class='col-6 areaSelector2 text-center py-2'>";
+							_html += "				<div class='slidecontainer'>";
+							_html += "					<input type='range' min='1' max='100' value='100' step='1000' class='slider SliderMonto2' id='SliderMonto2' name='SliderMonto2'>";
+							_html += "				</div>";
+							_html += "			</div>";
+							_html += "			<div class='col-3 text-center'>Máximo</div>";
+
+							_html += "			<div class='col-3 areaMinimo2 text-center'></div>";
+							_html += "			<div class='col-6 areaSelector2 text-center'>";
+							_html += "				<input type='number' value='' min='' max='' class='form-control number MontoSeleccionado2' id='MontoSeleccionado2' name='MontoSeleccionado2' style='font-size:1rem;text-align:center;' />";
+							_html += "			</div>";
+							_html += "			<div class='col-3 areaMaximo2 text-center'></div>";
+							_html += "		</div>";
+
+							_html += "      <div class='col-12 text-center'>Préstamo</div>";
+							_html += "		<div class='row align-items-center py-1 sliderTarjeta3'>";
+							_html += "			<div class='col-3 text-center'>Mínimo</div>";
+							_html += "			<div class='col-6 areaSelector3 text-center py-2'>";
+							_html += "				<div class='slidecontainer'>";
+							_html += "					<input type='range' min='1' max='100' value='100' step='1000' class='slider SliderMonto3' id='SliderMonto3' name='SliderMonto3'>";
+							_html += "				</div>";
+							_html += "			</div>";
+							_html += "			<div class='col-3 text-center'>Máximo</div>";
+
+							_html += "			<div class='col-3 areaMinimo3 text-center'></div>";
+							_html += "			<div class='col-6 areaSelector3 text-center'>";
+							_html += "				<input type='number' value='' min='' max='' class='form-control number MontoSeleccionado3' id='MontoSeleccionado3' name='MontoSeleccionado3' style='font-size:1rem;text-align:center;' />";
+							_html += "			</div>";
+							_html += "			<div class='col-3 areaMaximo3 text-center'></div>";
+							_html += "		</div>";
+						}
+
 						if (_FUNCTIONS._simuladorScoringActivo) {
 							_html += "		<div class='row align-items-center py-1'>";
 							_html += "			<div class='col-12 text-left'><a href='#' class='btn btn-primary btnGenerarScoringPdf'>Generar PDF</a></div>";
 							_html += "		</div>";
 						}
 						_html += "	</div>";
-						_html += "	<div class='col-8 align-items-center'>";
+						_html += "	<div class='" + _colRight + "' align-items-center'>";
 						_html += "		<div class='areaCuotas align-items-center'></div>";
 						_html += "	</div>";
 						if (!_FUNCTIONS._simuladorScoringActivo && $(".allowGrabarPlan").val() == "S") {
 							_html += "	<div class='col-12 text-right'>";
-							_html += "	   <a href='#' class='btn btn-warning btn-GrabarCapitalCuotas'><span class='material-icons'>save</span> Grabar selección</a>";
+							var _btnClick = "btn-GrabarCapitalCuotas";
+							if (iTarjeta) { _btnClick = "btn-GrabarLimitesTarjeta"; }
+							_html += "	   <a href='#' class='btn btn-warning " + _btnClick + "'><span class='material-icons'>save</span> Grabar selección</a>";
 							_html += "  </div>";
 						}
 						_html += "</div>";
@@ -3049,12 +3100,6 @@ var _FUNCTIONS = {
 									});
 								});
 							});
-							$("body").off("input", ".SliderMonto").on("input", ".SliderMonto", function () {
-								var _val = $(this).val();
-								$(".MontoSeleccionado").val(_val);
-								clearTimeout(_FUNCTIONS._TIMER_LAZY1);
-								_FUNCTIONS._TIMER_LAZY1 = setTimeout(function () { _FUNCTIONS.onBuildPlanes(_scoring); }, 500);
-							});
 							$("body").off("keyup", ".MontoSeleccionado").on("keyup", ".MontoSeleccionado", function () {
 								var _val = $(this).val();
 								if (_val == "") { $(this).val(0); }
@@ -3064,6 +3109,53 @@ var _FUNCTIONS = {
 									_FUNCTIONS.onBuildPlanes(_scoring);
 								}, 1250);
 							});
+							$("body").off("input", ".SliderMonto").on("input", ".SliderMonto", function () {
+								var _val = $(this).val();
+								$(".MontoSeleccionado").val(_val);
+								if (!iTarjeta) {
+									clearTimeout(_FUNCTIONS._TIMER_LAZY1);
+									_FUNCTIONS._TIMER_LAZY1 = setTimeout(function () { _FUNCTIONS.onBuildPlanes(_scoring); }, 500);
+								}
+							});
+
+							if (iTarjeta) {
+								$("body").off("keyup", ".MontoSeleccionado2").on("keyup", ".MontoSeleccionado2", function () {
+									var _val = $(this).val();
+									if (_val == "") { $(this).val(0); }
+									clearTimeout(_FUNCTIONS._TIMER_LAZY2);
+									_FUNCTIONS._TIMER_LAZY2 = setTimeout(function () {
+										$(".SliderMonto2").val(_val).trigger("input");
+										if (!iTarjeta) { _FUNCTIONS.onBuildPlanes(_scoring); }
+									}, 1250);
+								});
+								$("body").off("input", ".SliderMonto2").on("input", ".SliderMonto2", function () {
+									var _val = $(this).val();
+									$(".MontoSeleccionado2").val(_val);
+									if (!iTarjeta) {
+										clearTimeout(_FUNCTIONS._TIMER_LAZY1);
+										_FUNCTIONS._TIMER_LAZY1 = setTimeout(function () { _FUNCTIONS.onBuildPlanes(_scoring); }, 500);
+									}
+								});
+								$("body").off("keyup", ".MontoSeleccionado3").on("keyup", ".MontoSeleccionado3", function () {
+									var _val = $(this).val();
+									if (_val == "") { $(this).val(0); }
+									clearTimeout(_FUNCTIONS._TIMER_LAZY2);
+									_FUNCTIONS._TIMER_LAZY2 = setTimeout(function () {
+										$(".SliderMonto2").val(_val).trigger("input");
+										if (!iTarjeta) { _FUNCTIONS.onBuildPlanes(_scoring); }
+									}, 1250);
+								});
+								$("body").off("input", ".SliderMonto3").on("input", ".SliderMonto3", function () {
+									var _val = $(this).val();
+									$(".MontoSeleccionado3").val(_val);
+									if (!iTarjeta) {
+										clearTimeout(_FUNCTIONS._TIMER_LAZY1);
+										_FUNCTIONS._TIMER_LAZY1 = setTimeout(function () { _FUNCTIONS.onBuildPlanes(_scoring); }, 500);
+									}
+								});
+
+							}
+
 							$("body").off("keyup", ".changeSimulator").on("keyup", ".changeSimulator", function () {
 								var _val = $(this).val();
 								if (_val == "") { $(this).val(0); }
@@ -3083,9 +3175,7 @@ var _FUNCTIONS = {
 								var _record = JSON.parse(_TOOLS.b64_to_utf8($(this).attr("data-record")));
 								$(".btn-GrabarCapitalCuotas").attr("data-record", $(this).attr("data-record"));
 								var _fixedCapital = parseFloat(_record["Monto a Ofrecer"]);
-								if (parseFloat(_record["Monto a Ofrecer"]) > parseFloat(_record["MontoOfrecido"])) {
-									_fixedCapital = parseFloat(_record["MontoOfrecido"]);
-								}
+								if (parseFloat(_record["Monto a Ofrecer"]) > parseFloat(_record["MontoOfrecido"])) { _fixedCapital = parseFloat(_record["MontoOfrecido"]); }
 								var _maximo = parseFloat(_record["MontoOfrecido"]);
 								$(".importeCancelacion").val(parseInt(_record["ImporteCancelacion"]));
 								$(".importeEntregar").val(parseInt(_record["ImporteAEntregar"]));
@@ -3096,6 +3186,25 @@ var _FUNCTIONS = {
 								y.value = _fixedCapital;
 								$(".areaMaximo").html(_TOOLS.formatMoney(_maximo));
 								$(".MontoSeleccionado").val(_fixedCapital);
+								if (iTarjeta) {
+									$(".areaMaximo2").html(_TOOLS.formatMoney(_maximo));
+									$(".areaMaximo3").html(_TOOLS.formatMoney(_maximo));
+									if ($(".LimiteCompra").val() == "") { $(".LimiteCompra").val("0"); }
+									if ($(".LimiteCredito").val() == "") { $(".LimiteCredito").val("0"); }
+									if ($(".LimitePrestamo").val() == "") { $(".LimitePrestamo").val("0"); }
+									$(".MontoSeleccionado").val($(".LimiteCompra").val());
+									$(".MontoSeleccionado2").val($(".LimiteCredito").val());
+									$(".MontoSeleccionado3").val($(".LimitePrestamo").val());
+									$(".SliderMonto2").attr("min", _minimo).attr("max", _maximo);
+									var y = document.getElementById("SliderMonto");
+									y.value = $(".LimiteCompra").val();
+									var y = document.getElementById("SliderMonto2");
+									y.value = $(".LimiteCredito").val();
+									$(".SliderMonto3").attr("min", _minimo).attr("max", _maximo);
+									var y = document.getElementById("SliderMonto3");
+									y.value = $(".LimitePrestamo").val();
+
+								}
 							});
 							$("body").off("change", ".chkIngresos").on("change", ".chkIngresos", function () {
 								if ($(this).prop("checked")) {
@@ -3155,13 +3264,46 @@ var _FUNCTIONS = {
 							$(".SliderMonto").trigger("input");
 							$(".areaMaximo").html(_TOOLS.formatMoney(_maximo));
 							$(".MontoSeleccionado").val(_capital);
-							//$(".MontoSeleccionado").val(_maximo);
 							$(".areaScoringError").addClass("d-none");
 							$(".areaScoring").removeClass("d-none");
 							$(".areaScoring").show();
 							$(".areaMinimo").html("<input type='hidden' id='minimo' name='minimo' class='minimo' value='" + _minimo + "'/>" + _TOOLS.formatMoney(_minimo));
 							$(".areaMaximo").html("<input type='hidden' id='maximo' name='maximo' class='maximo' value='" + _maximo + "'/>" + _TOOLS.formatMoney(_maximo));
 							$(".MontoSeleccionado").attr("min", _minimo).attr("max", _maximo);
+
+							if (iTarjeta) {
+								$(".SliderMonto2").attr("min", _minimo).attr("max", _maximo);
+								$(".SliderMonto3").attr("min", _minimo).attr("max", _maximo);
+								$(".SliderMonto2").trigger("input");
+								$(".SliderMonto3").trigger("input");
+
+								$(".areaMaximo2").html(_TOOLS.formatMoney(_maximo));
+								$(".areaMaximo3").html(_TOOLS.formatMoney(_maximo));
+								$(".areaMinimo2").html("<input type='hidden' id='minimo2' name='minimo2' class='minimo2' value='" + _minimo + "'/>" + _TOOLS.formatMoney(_minimo));
+								$(".areaMaximo2").html("<input type='hidden' id='maximo2' name='maximo2' class='maximo2' value='" + _maximo + "'/>" + _TOOLS.formatMoney(_maximo));
+								$(".areaMinimo3").html("<input type='hidden' id='minimo3' name='minimo3' class='minimo3' value='" + _minimo + "'/>" + _TOOLS.formatMoney(_minimo));
+								$(".areaMaximo3").html("<input type='hidden' id='maximo3' name='maximo3' class='maximo3' value='" + _maximo + "'/>" + _TOOLS.formatMoney(_maximo));
+								$(".MontoSeleccionado2").attr("min", _minimo).attr("max", _maximo);
+								$(".MontoSeleccionado3").attr("min", _minimo).attr("max", _maximo);
+
+								if ($(".LimiteCompra").val() == "") { $(".LimiteCompra").val("0"); }
+								if ($(".LimiteCredito").val() == "") { $(".LimiteCredito").val("0"); }
+								if ($(".LimitePrestamo").val() == "") { $(".LimitePrestamo").val("0"); }
+								$(".MontoSeleccionado").val($(".LimiteCompra").val());
+								$(".MontoSeleccionado2").val($(".LimiteCredito").val());
+								$(".MontoSeleccionado3").val($(".LimitePrestamo").val());
+
+								var y = document.getElementById("SliderMonto");
+								y.value = $(".LimiteCompra").val();
+								var y = document.getElementById("SliderMonto2");
+								y.value = $(".LimiteCredito").val();
+								var y = document.getElementById("SliderMonto3");
+								y.value = $(".LimitePrestamo").val();
+
+
+								$(".areaScoringWaiter").addClass("d-none");
+								$(".areaNosis").addClass("d-none");
+							}
 							resolve(data);
 						})
 						.catch(function (err) {
@@ -3176,6 +3318,24 @@ var _FUNCTIONS = {
 				}
 			}
 		);
+	},
+	onGrabarLimitesTarjeta: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _params = {};
+		_params["idTransaccion"] = $("#Id").val()
+		_params["idRequest"] = $("#id_obj").val()
+		_params["ingresosForzados"] = $(".IngresosForzados").val();
+		_params["checkIngresoForzados"] = 0;
+		_params["LimiteCompra"] = $(".MontoSeleccionado").val();;
+		_params["LimiteCredito"] = $(".MontoSeleccionado2").val();;
+		_params["LimitePrestamo"] = $(".MontoSeleccionado3").val();;
+		if ($(".chkIngresos").prop("checked") && parseInt($(".IngresosForzados").val()) > 0) { _params["checkIngresoForzados"] = 1; }
+		$(".ingresoMensual").val($(".IngresosForzados").val());
+
+		_FUNCTIONS.ExecutePostAjax("/Transaccion/GrabarLimitesTarjeta", _params).then(function (data) {
+			window.location.reload();
+			_FUNCTIONS.onWait(false);
+		});
 	},
 	onGrabarCapitalCuotas: function (_this) {
 		_FUNCTIONS.onWait(true);

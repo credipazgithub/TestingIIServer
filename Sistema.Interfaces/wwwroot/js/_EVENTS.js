@@ -408,6 +408,9 @@ $("body").off("change", ".modalresMonth").on("change", ".modalresMonth", functio
 $("body").off("click", ".WbtnResumen").on("click", ".WbtnResumen", function () {
 	$(".btnResumen").click();
 });
+$("body").off("click", ".btn-GrabarLimitesTarjeta").on("click", ".btn-GrabarLimitesTarjeta", function () {
+	_FUNCTIONS.onGrabarLimitesTarjeta($(this));
+});
 $("body").off("click", ".btn-GrabarCapitalCuotas").on("click", ".btn-GrabarCapitalCuotas", function () {
 	var _this = $(this);
 	var _rec = _this.attr("data-record");
