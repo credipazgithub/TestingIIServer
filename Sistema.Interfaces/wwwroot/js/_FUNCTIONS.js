@@ -6312,7 +6312,7 @@ var _FUNCTIONS = {
 					"IdEstado": $(".wIdEstado").val(),
 					"Usuario": $(".idUser").val()
 				};
-				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
 					$("#tarjetas-tab").click();
@@ -6355,7 +6355,7 @@ var _FUNCTIONS = {
 					"PinNuevo": $(".PinNuevo").val(),
 					"Usuario": $(".idUser").val()
 				};
-				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP",  _p ).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
 					_FUNCTIONS.onWait(false);
@@ -6420,7 +6420,7 @@ var _FUNCTIONS = {
 					"FechaCobranza": $(".FechaCobranza").val(),
 					"Usuario": $(".idUser").val()
 				};
-				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP",  _p ).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
 					_FUNCTIONS.onWait(false);
@@ -6458,7 +6458,7 @@ var _FUNCTIONS = {
 					"Paises": $(".Países").val().split(","),
 					"Usuario": $(".idUser").val()
 				};
-				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP",  _p ).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
 					_FUNCTIONS.onWait(false);
@@ -6505,7 +6505,7 @@ var _FUNCTIONS = {
 					"Observacion": $(".Observacion").val(),
 					"Estado": $(".Estado").val(),
 				};
-				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", { _p }).then(function (data) {
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
 					_FUNCTIONS.onWait(false);
@@ -6622,4 +6622,24 @@ var _FUNCTIONS = {
 		});
 	},
 
+	onAlertTransaccionState: function () {
+		var _items = "";
+		if ($(".alertaPlan").html() != undefined && $(".alertaPlan").html() != "") { _items += "<li>" + $(".alertaPlan").html() + "</li>"; }
+		if ($(".alertaModoCobro").html() != undefined && $(".alertaModoCobro").html() != "") { _items += "<li>" + $(".alertaModoCobro").html() + "</li>"; }
+		if ($(".alertaPendientes").html() != undefined && $(".alertaPendientes").html() != "") { _items += "<li>" + $(".alertaPendientes").html() + "</li>"; }
+		if ($(".alertaManualesPendientes").html() != undefined && $(".alertaManualesPendientes").html() != "") { _items += "<li>" + $(".alertaManualesPendientes").html() + "</li>"; }
+		if ($(".alertaDomicilios").html() != undefined && $(".alertaDomicilios").html() != "") { _items += "<li>" + $(".alertaDomicilios").html() + "</li>"; }
+		if ($(".alertaTelefonos").html() != undefined && $(".alertaTelefonos").html() != "") { _items += "<li>" + $(".alertaTelefonos").html() + "</li>"; }
+		if ($(".alertaDomiciliosLaboral").html() != undefined && $(".alertaDomiciliosLaboral").html() != "") { _items += "<li>" + $(".alertaDomiciliosLaboral").html() + "</li>"; }
+		if ($(".alertaTelefonosLaboral").html() != undefined && $(".alertaTelefonosLaboral").html() != "") { _items += "<li>" + $(".alertaTelefonosLaboral").html() + "</li>"; }
+		if (_items != "") {
+			var _body = ("<ul>" + _items + "</ul>");
+			var _params = { "id": "infoModalAlertStateTransaccion", "title": "Alerta de estado de pendientes", "body": _body };
+			_FUNCTIONS.onShowHtmlModal(_params, function () {
+				$(".modal-dialog").removeClass("modal-xl").addClass("modal-sm");
+				$(".btn-Save-modal").remove();
+				$(".btn-close-modal").html("Cerrar");
+			});
+		}
+	},
 }
