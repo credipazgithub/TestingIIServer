@@ -2956,6 +2956,7 @@ var _FUNCTIONS = {
 							_html += "				<a href='#' class='pl-2 btn btn-danger btn-sm btnResolverCondicional' data-security='' data-request='" + _idRequest + "' data-enteexterno='9' data-transaccion='" + _idTransaccion + "' data-parent='0' data-title='Comprobante manual para: Comprobante de ingresos'>Comprobante de ingresos</a>";
 							_html += "			</div>";
 						}
+						_html += "          <div class='col-12 text-center'>Ingresos considerados</div>";
 						_html += "			<div class='col-3 text-right areaIngresos noPromocion'></div>";
 						_html += "			<div class='col-6 text-center areaIngresos noPromocion'>";
 						_html += "				<input type='number' disabled value='" + _ingresosEstimados + "' class='changeSimulator form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
@@ -2964,9 +2965,8 @@ var _FUNCTIONS = {
 						_html += "		</div>";
 
 						_html += "		<div class='row align-items-center py-1'>";
-						_html += "			<div class='col-12 text-left'><h5 class='titleCapital'>Modificar capital</h5></div>";
-
-						if (iTarjeta) {_html += "<div class='col-12 text-center'>Compra</div>";}
+						if (!iTarjeta) { _html += "<div class='col-12 text-left'><h5 class='titleCapital'>Modificar capital</h5></div>"; }
+						if (iTarjeta) {_html += "<div class='col-12 text-center'>Límite de crédito</div>";}
 						_html += "			<div class='col-3 text-center'>Mínimo</div>";
 						_html += "			<div class='col-6 areaSelector text-center py-2'>";
 						_html += "				<div class='slidecontainer'>";
@@ -2982,7 +2982,7 @@ var _FUNCTIONS = {
 						_html += "			<div class='col-3 areaMaximo text-center'></div>";
 						_html += "		</div>";
 						if (iTarjeta) {
-							_html += "		<div class='row align-items-center py-1 sliderTarjeta2'>";
+							_html += "		<div class='row align-items-center py-1 sliderTarjeta2 d-none'>";
 							_html += "			<div class='col-12 text-center'>Crédito</div>";
 							_html += "			<div class='col-3 text-center'>Mínimo</div>";
 							_html += "			<div class='col-6 areaSelector2 text-center py-2'>";
@@ -2999,8 +2999,8 @@ var _FUNCTIONS = {
 							_html += "			<div class='col-3 areaMaximo2 text-center'></div>";
 							_html += "		</div>";
 
-							_html += "      <div class='col-12 text-center'>Préstamo</div>";
-							_html += "		<div class='row align-items-center py-1 sliderTarjeta3'>";
+							_html += "		<div class='row align-items-center py-1 sliderTarjeta3 d-none'>";
+							_html += "          <div class='col-12 text-center'>Préstamo</div>";
 							_html += "			<div class='col-3 text-center'>Mínimo</div>";
 							_html += "			<div class='col-6 areaSelector3 text-center py-2'>";
 							_html += "				<div class='slidecontainer'>";
@@ -3326,9 +3326,9 @@ var _FUNCTIONS = {
 		_params["idRequest"] = $("#id_obj").val()
 		_params["ingresosForzados"] = $(".IngresosForzados").val();
 		_params["checkIngresoForzados"] = 0;
-		_params["LimiteCompra"] = $(".MontoSeleccionado").val();;
-		_params["LimiteCredito"] = $(".MontoSeleccionado2").val();;
-		_params["LimitePrestamo"] = $(".MontoSeleccionado3").val();;
+		_params["LimiteCompra"] = $(".MontoSeleccionado").val();
+		_params["LimiteCredito"] = $(".MontoSeleccionado").val(); //$(".MontoSeleccionado2").val();
+		_params["LimitePrestamo"] = 0; //$(".MontoSeleccionado3").val();
 		if ($(".chkIngresos").prop("checked") && parseInt($(".IngresosForzados").val()) > 0) { _params["checkIngresoForzados"] = 1; }
 		$(".ingresoMensual").val($(".IngresosForzados").val());
 
