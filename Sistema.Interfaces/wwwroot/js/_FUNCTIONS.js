@@ -6784,7 +6784,6 @@ var _FUNCTIONS = {
 
 	onAlertTransaccionState: function () {
 		if (!_FUNCTIONS._forzarReadOnly) {
-
 			var _items = "";
 			_items += _FUNCTIONS.buildAlertLine(".alertaPlan");
 			_items += _FUNCTIONS.buildAlertLine(".alertaModoCobro");
@@ -6804,12 +6803,14 @@ var _FUNCTIONS = {
 				});
 			}
 		} else {
-			$(".form-control").attr("disabled", true);
-			$(".btnCambiarFormaDePago").remove();
-			setTimeout(function () {
-				if (parseInt($(".iEstadoTransaccion").val()) != 7) { $(".btnNewModal").remove(); }
-				$(".form-select").attr("disabled", true);
-			}, 2000);
+			if (parseInt($(".iEstadoTransaccion").val()) != 7 && parseInt($(".iEstadoTransaccion").val()) != 6) {
+				setTimeout(function () {
+					$(".btnNewModal").remove();
+					$(".form-select").attr("disabled", true);
+					$(".form-control").attr("disabled", true);
+					$(".btnCambiarFormaDePago").remove();
+				}, 2000);
+			}
 		}
 	},
 	buildAlertLine(_key) {
