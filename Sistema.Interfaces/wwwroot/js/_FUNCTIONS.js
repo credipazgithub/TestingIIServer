@@ -2966,7 +2966,7 @@ var _FUNCTIONS = {
 
 						_html += "		<div class='row align-items-center py-1'>";
 						if (!iTarjeta) { _html += "<div class='col-12 text-left'><h5 class='titleCapital'>Modificar capital</h5></div>"; }
-						if (iTarjeta) {_html += "<div class='col-12 text-center'>Límite de crédito</div>";}
+						if (iTarjeta) { $(".titleScoring").html("Ingresar límite de crédito"); }
 						_html += "			<div class='col-3 text-center'>Mínimo</div>";
 						_html += "			<div class='col-6 areaSelector text-center py-2'>";
 						_html += "				<div class='slidecontainer'>";
