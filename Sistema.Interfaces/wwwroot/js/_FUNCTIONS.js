@@ -6783,23 +6783,40 @@ var _FUNCTIONS = {
 	},
 
 	onAlertTransaccionState: function () {
-		var _items = "";
-		if ($(".alertaPlan").html() != undefined && $(".alertaPlan").html() != "") { _items += "<li>" + $(".alertaPlan").html() + "</li>"; }
-		if ($(".alertaModoCobro").html() != undefined && $(".alertaModoCobro").html() != "") { _items += "<li>" + $(".alertaModoCobro").html() + "</li>"; }
-		if ($(".alertaPendientes").html() != undefined && $(".alertaPendientes").html() != "") { _items += "<li>" + $(".alertaPendientes").html() + "</li>"; }
-		if ($(".alertaManualesPendientes").html() != undefined && $(".alertaManualesPendientes").html() != "") { _items += "<li>" + $(".alertaManualesPendientes").html() + "</li>"; }
-		if ($(".alertaDomicilios").html() != undefined && $(".alertaDomicilios").html() != "") { _items += "<li>" + $(".alertaDomicilios").html() + "</li>"; }
-		if ($(".alertaTelefonos").html() != undefined && $(".alertaTelefonos").html() != "") { _items += "<li>" + $(".alertaTelefonos").html() + "</li>"; }
-		if ($(".alertaDomiciliosLaboral").html() != undefined && $(".alertaDomiciliosLaboral").html() != "") { _items += "<li>" + $(".alertaDomiciliosLaboral").html() + "</li>"; }
-		if ($(".alertaTelefonosLaboral").html() != undefined && $(".alertaTelefonosLaboral").html() != "") { _items += "<li>" + $(".alertaTelefonosLaboral").html() + "</li>"; }
-		if (_items != "") {
-			var _body = ("<ul>" + _items + "</ul>");
-			var _params = { "id": "infoModalAlertStateTransaccion", "title": "Alerta de estado de pendientes", "body": _body };
-			_FUNCTIONS.onShowHtmlModal(_params, function () {
-				$(".modal-dialog").removeClass("modal-xl").addClass("modal-sm");
-				$(".btn-Save-modal").remove();
-				$(".btn-close-modal").html("Cerrar");
-			});
+		if (!_FUNCTIONS._forzarReadOnly) {
+
+			var _items = "";
+			_items += _FUNCTIONS.buildAlertLine(".alertaPlan");
+			_items += _FUNCTIONS.buildAlertLine(".alertaModoCobro");
+			_items += _FUNCTIONS.buildAlertLine(".alertaPendientes");
+			_items += _FUNCTIONS.buildAlertLine(".alertaManualesPendientes");
+			_items += _FUNCTIONS.buildAlertLine(".alertaDomicilios");
+			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonos");
+			_items += _FUNCTIONS.buildAlertLine(".alertaDomiciliosLaboral");
+			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonosLaboral");
+			if (_items != "") {
+				var _body = ("<ul>" + _items + "</ul>");
+				var _params = { "id": "infoModalAlertStateTransaccion", "title": "Alerta de estado de pendientes", "body": _body };
+				_FUNCTIONS.onShowHtmlModal(_params, function () {
+					$(".modal-dialog").removeClass("modal-xl").addClass("modal-sm");
+					$(".btn-Save-modal").remove();
+					$(".btn-close-modal").html("Cerrar");
+				});
+			}
+		} else {
+			$(".form-control").attr("disabled", true);
+			$(".btnCambiarFormaDePago").remove();
+			setTimeout(function () {
+				if (parseInt($(".iEstadoTransaccion").val()) != 7) { $(".btnNewModal").remove(); }
+				$(".form-select").attr("disabled", true);
+			}, 2000);
 		}
 	},
+	buildAlertLine(_key) {
+		var _html = "";
+		if ($(_key).html() != undefined && $(_key).html() != "") { _html = "<li><span class='badge badge-danger p-2 m-1' style='font-size:0.75rem;'>" + $(_key).html() + "</span></li>"; }
+		return _html;
+	},
+
+
 }
