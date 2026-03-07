@@ -6782,69 +6782,101 @@ var _FUNCTIONS = {
 		});
 	},
 
+	/*onAlertTransaccionState: function () {
+		setTimeout(function () {
+			var iTipo = parseInt($(".iTipo").val());
+			var iVisibleEstadoActivo = parseInt($(".iVisibleEstadoActivo").val());
+			var iEstadoTransaccion = parseInt($(".iEstadoTransaccion").val());
+			var iTarjeta = 0;
+			var iRefinancia = 0;
+			var iCambiaFormaPago = parseInt($(".iCambiaFormaPago").val());
+			var inVerification = parseInt($(".inVerification").val());
+			var hideMedioCobro = parseInt($(".hideMedioCobro").val());
+			var link_enviado = parseInt($(".link_enviado").val());
+			var sPlan = $(".Plan").val();
+			var id_request = $(".id_obj").val();
+			if (id_request == "") { id_request = 0; }
+			id_request = parseInt(id_request);
+
+			alert(iVisibleEstadoActivo);
+
+			switch (iVisibleEstadoActivo) {
+				case 0:
+					$(".hiddenScoring").addClass("d-none");
+					break;
+				case 1:
+					$(".hiddenWhenReady").addClass("d-none");
+					break;
+				case 2:
+					$(".hiddenScoring").addClass("d-none");
+					$(".hiddenEmitido").addClass("d-none");
+					break;
+			}
+			switch (iTipo) {
+				case 351://visa titual
+				case 451://visa adicional
+				case 560://cabal atitular
+				case 561://cabal adicional
+					iTarjeta = 1;
+					$(".hideRefinancia").addClass("d-none");
+					break;
+				case 2: //Refinanciacion Credipaz
+				case 4: //Refinanciacion Amutra
+				case 562: //Refinanciacion visa
+				case 563: //Refinanciacion 
+					iRefinancia = 1;
+					$(".hideRefinancia").addClass("d-none");
+					break;
+			}
+			switch (inVerification) {
+				case 1:
+					$(".hiddenVerificacion").addClass("d-none");
+					$(".hiddenFormaPago").addClass("d-none");
+					break;
+				default:
+					if (iCambiaFormaPago == 0) { $(".hiddenFormaPago").addClass("d-none"); }
+					break;
+			}
+			if (iTipo > 10) { $(".hiddenFormaPago").addClass("d-none"); }
+			if (hideMedioCobro == 1) { $(".hideMedioCobro").addClass("d-none"); }
+			if (link_enviado == 1) { $(".hiddenReadOnly").addClass("d-none"); }
+			if (id_request == 0) { $(".hiddenRequest").addClass("d-none"); }
+			if (iTarjeta == 1 || sPlan != "") { $(".hiddenPlan").addClass("d-none"); }
+
+			if (!_FUNCTIONS._forzarReadOnly) {
+				var _items = "";
+				_items += _FUNCTIONS.buildAlertLine(".alertaPlan");
+				_items += _FUNCTIONS.buildAlertLine(".alertaModoCobro");
+				_items += _FUNCTIONS.buildAlertLine(".alertaPendientes");
+				_items += _FUNCTIONS.buildAlertLine(".alertaManualesPendientes");
+				_items += _FUNCTIONS.buildAlertLine(".alertaDomicilios");
+				_items += _FUNCTIONS.buildAlertLine(".alertaTelefonos");
+				_items += _FUNCTIONS.buildAlertLine(".alertaDomiciliosLaboral");
+				_items += _FUNCTIONS.buildAlertLine(".alertaTelefonosLaboral");
+				if (_items != "") {
+					var _body = ("<ul>" + _items + "</ul>");
+					var _params = { "id": "infoModalAlertStateTransaccion", "title": "Alerta de estado de pendientes", "body": _body };
+					_FUNCTIONS.onShowHtmlModal(_params, function () {
+						$(".modal-dialog").removeClass("modal-xl").addClass("modal-sm");
+						$(".btn-Save-modal").remove();
+						$(".btn-close-modal").html("Cerrar");
+					});
+				}
+			} else {
+				$(".hiddenReadOnly").addClass("d-none");
+
+
+				if (parseInt($(".iEstadoTransaccion").val()) != 7 && parseInt($(".iEstadoTransaccion").val()) != 6) {
+					$(".btnNewModal").remove();
+					$(".form-select").attr("disabled", true);
+					$(".form-control").attr("disabled", true);
+					$(".btnCambiarFormaDePago").remove();
+				}
+			}
+		}, 2000);
+	},
+	*/
 	onAlertTransaccionState: function () {
-
-		var iTipo = parseInt($(".iTipo").val());
-		var iVisibleEstadoActivo = parseInt($(".iVisibleEstadoActivo").val());
-		var iEstadoTransaccion = parseInt($(".iEstadoTransaccion").val());
-		var iTarjeta = 0;
-		var iRefinancia = 0;
-		var iCambiaFormaPago = parseInt($(".iCambiaFormaPago").val());
-		var inVerification = parseInt($(".inVerification").val());
-		var hideMedioCobro = parseInt($(".hideMedioCobro").val());
-		var link_enviado = parseInt($(".link_enviado").val());
-		var sPlan = $(".Plan").val();
-		var id_request = $(".id_obj").val();
-		if (id_request == "") { id_request = 0; }
-		id_request = parseInt(id_request);
-
-		switch (iVisibleEstadoActivo) {
-			case 0:
-				$(".hiddenScoring").addClass("d-none");
-				break;
-			case 1:
-				$(".hiddenWhenReady").addClass("d-none");
-				break;
-			case 2:
-				$(".hiddenScoring").addClass("d-none");
-				$(".hiddenEmitido").addClass("d-none");
-				break;
-		}
-		switch (iTipo) {
-			case 351://visa titual
-			case 451://visa adicional
-			case 560://cabal atitular
-			case 561://cabal adicional
-				iTarjeta = 1;
-				$(".hideRefinancia").addClass("d-none");
-				break;
-			case 2: //Refinanciacion Credipaz
-			case 4: //Refinanciacion Amutra
-			case 562: //Refinanciacion visa
-			case 563: //Refinanciacion 
-				iRefinancia = 1;
-				$(".hideRefinancia").addClass("d-none");
-				break;
-		}
-		switch (inVerification) {
-			case 1:
-				$(".hiddenVerificacion").addClass("d-none");
-				$(".hiddenFormaPago").addClass("d-none");
-				break;
-			default:
-				if (iCambiaFormaPago == 0) { $(".hiddenFormaPago").addClass("d-none"); }
-				break;
-		}
-		if (iTipo > 10) {$(".hiddenFormaPago").addClass("d-none");}
-		if (hideMedioCobro == 1) { $(".hideMedioCobro").addClass("d-none"); }
-		if (link_enviado == 1) { $(".hiddenReadOnly").addClass("d-none"); }
-		if (id_request == 0) { $(".hiddenRequest").addClass("d-none"); }
-		if (iTarjeta == 1 || sPlan!="") { $(".hiddenPlan").addClass("d-none"); }
-
-		// hiddenScoring hiddenVerification hiddenWhenReady hideMedioCobro hideRefinancia hiddenFormaPago
-		// hiddenReadOnly hiddenCambioEstado hiddenSolicitud hiddenEmitido hiddenRequest hiddenPlan
-
-
 		if (!_FUNCTIONS._forzarReadOnly) {
 			var _items = "";
 			_items += _FUNCTIONS.buildAlertLine(".alertaPlan");
@@ -6865,9 +6897,6 @@ var _FUNCTIONS = {
 				});
 			}
 		} else {
-			$(".hiddenReadOnly").addClass("d-none");
-
-
 			if (parseInt($(".iEstadoTransaccion").val()) != 7 && parseInt($(".iEstadoTransaccion").val()) != 6) {
 				setTimeout(function () {
 					$(".btnNewModal").remove();
