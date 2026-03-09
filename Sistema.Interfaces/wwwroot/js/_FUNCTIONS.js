@@ -2942,8 +2942,6 @@ var _FUNCTIONS = {
 							_colLeft = "col-6";
 							_colRight = "col-6";
 						}
-
-
 						_html += "	<div class='" + _colLeft + " auxScoring " + _none + "'>";
 						_html += "		<div class='row align-items-center py-1'>";
 						var _checked = "";
@@ -5415,7 +5413,9 @@ var _FUNCTIONS = {
 			.catch(function (err) { alert(err.message); });
 	},
 	onInitScoringInForm: function (_eval) {
+		alert(1);
 		if (!_eval) { return true; }
+		alert(2);
 		var _idRequest = $("#id_obj").val();
 		var _idTransaccion = $("#Id").val();
 		_FUNCTIONS._simuladorScoringActivo = false;
