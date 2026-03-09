@@ -5413,9 +5413,7 @@ var _FUNCTIONS = {
 			.catch(function (err) { alert(err.message); });
 	},
 	onInitScoringInForm: function (_eval) {
-		alert(1);
 		if (!_eval) { return true; }
-		alert(2);
 		var _idRequest = $("#id_obj").val();
 		var _idTransaccion = $("#Id").val();
 		_FUNCTIONS._simuladorScoringActivo = false;
