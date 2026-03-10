@@ -6701,7 +6701,7 @@ var _FUNCTIONS = {
 			"NumeroTarjeta": _numeroTarjeta,
 			"Usuario": $(".idUser").val()
 		};
-		if (_tipoTarjeta == undefined) { _p["TipoTarjeta"] = _tipoTarjeta; }
+		if (_tipoTarjeta != undefined) { _p["TipoTarjeta"] = _tipoTarjeta; }
 
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 			if (data.mensaje != "") { alert(data.mensaje); }
