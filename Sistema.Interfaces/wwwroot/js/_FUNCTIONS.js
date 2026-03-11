@@ -6326,6 +6326,23 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	onDecryptVisa: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _id = _this.attr("data-id");
+		var _url = ("/Visa/GetDecryptVisa");
+		var _params = { "Id": _id, "ForceUpdate": false };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			var _params = { "id": "infoDecryptVisa", "title": "Detalles desencriptados", "body": data.html };
+			_FUNCTIONS.onShowStaticModal(_params, function () {
+				$(".modal-dialog").removeClass("modal-md").addClass("modal-lg");
+				$(".modal-footer").remove();
+				_FUNCTIONS.onWait(false);
+			});
+		}).catch(function (err) {
+			alert("Se ha producido un error indeternimado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
 	onCambiarEstadoCuentaVisa: function (_this) {
 		var _idSel = _this.attr("data-sel");
 		var _html = "<div class='card shadow'>";
@@ -6359,6 +6376,39 @@ var _FUNCTIONS = {
 					"IdCuenta": $(".IdCuenta").val(),
 					"SyncScope": "cambiarestadocuenta",
 					"IdEstado": $(".wIdEstado").val(),
+					"Usuario": $(".idUser").val()
+				};
+				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					$("#cuentas-tab").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+	onModificarCuentaVisa: function (_this) {
+		var _html = "<div class='card shadow'>";
+		_html += "      <label>Nuevo límite de crédito</label><br/>";
+		_html += "      <input id='wLimiteCompra' name='wLimiteCompra' type='number' class='onlyNumbers wLimiteCompra' value='0'/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoModificarCuentaVisa", "title": "Modificar límite de crédito", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoModificarCuentaVisa");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!confirm("Está a punto de modificar el límite de la cuenta VISA.\n¿Confirma?")) { return false; }
+				_FUNCTIONS.onWait(true);
+				var _p = {
+					"IdCuenta": $(".IdCuenta").val(),
+					"SyncScope": "modificarcuenta",
+					"LimiteCompra": $(".wLimiteCompra").val(),
+					"LimiteCredito": $(".wLimiteCompra").val(),
+					"LimitePrestamo": 0,
 					"Usuario": $(".idUser").val()
 				};
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {

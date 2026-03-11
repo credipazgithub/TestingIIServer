@@ -13,11 +13,17 @@ $("body").off("click", ".btnTabVisa").on("click", ".btnTabVisa", function () {
 $("body").off("click", ".btnDetalleVisa").on("click", ".btnDetalleVisa", function () {
 	_FUNCTIONS.onDetalleVisa($(this));
 });
+$("body").off("click", ".btnDecryptVisa").on("click", ".btnDecryptVisa", function () {
+	_FUNCTIONS.onDecryptVisa($(this));
+});
 $("body").off("click", ".btnExecNoParams").on("click", ".btnExecNoParams", function () {
 	_FUNCTIONS.onExecNoParams($(this));
 });
 $("body").off("click", ".btnCambiarEstadoCuentaVisa").on("click", ".btnCambiarEstadoCuentaVisa", function () {
 	_FUNCTIONS.onCambiarEstadoCuentaVisa($(this));
+});
+$("body").off("click", ".btnModificarCuentaVisa").on("click", ".btnModificarCuentaVisa", function () {
+	_FUNCTIONS.onModificarCuentaVisa($(this));
 });
 $("body").off("click", ".btnCambiarEstadoTarjetaVisa").on("click", ".btnCambiarEstadoTarjetaVisa", function () {
 	_FUNCTIONS.onCambiarEstadoTarjetaVisa($(this));
