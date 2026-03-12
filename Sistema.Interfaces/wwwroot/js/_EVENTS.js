@@ -1,3 +1,6 @@
+$("body").off("click", ".btnStatusAlert").on("click", ".btnStatusAlert", function () {
+	_FUNCTIONS.onAlertTransaccionState($(this));
+});
 $("body").off("click", ".btnGestionarAlerta").on("click", ".btnGestionarAlerta", function () {
 	_FUNCTIONS.onGestionarAlerta($(this));
 });

@@ -6924,19 +6924,28 @@ var _FUNCTIONS = {
 		}, 2000);
 	},
 	*/
-	onAlertTransaccionState: function () {
+	onAlertTransaccionState: function (_this) {
 		if (!_FUNCTIONS._forzarReadOnly) {
+			var _foot = "";
 			var _items = "";
-			_items += _FUNCTIONS.buildAlertLine(".alertaPlan");
-			_items += _FUNCTIONS.buildAlertLine(".alertaModoCobro");
-			_items += _FUNCTIONS.buildAlertLine(".alertaPendientes");
-			_items += _FUNCTIONS.buildAlertLine(".alertaManualesPendientes");
-			_items += _FUNCTIONS.buildAlertLine(".alertaDomicilios");
-			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonos");
-			_items += _FUNCTIONS.buildAlertLine(".alertaDomiciliosLaboral");
-			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonosLaboral");
+			_items += _FUNCTIONS.buildAlertLine(".alert-warning .alert-message strong", "warning");
+
+			_items += _FUNCTIONS.buildAlertLine(".alertaPlan", "danger");
+			_items += _FUNCTIONS.buildAlertLine(".alertaModoCobro", "danger");
+			_items += _FUNCTIONS.buildAlertLine(".alertaPendientes", "danger");
+			_items += _FUNCTIONS.buildAlertLine(".alertaManualesPendientes", "danger");
+			_items += _FUNCTIONS.buildAlertLine(".alertaDomicilios", "danger");
+			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonos", "danger");
+			_items += _FUNCTIONS.buildAlertLine(".alertaDomiciliosLaboral", "danger");
+			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonosLaboral", "danger");
+
+			_items += _FUNCTIONS.buildAlertLine(".alert-danger .alert-message", "info");
+			if ($(".alertaPlan").html() != "") { _items += _FUNCTIONS.buildAlertLineText(("Resolver oferta: " + $(".alertaPlan").html()), "primary"); }
+			if (!_TOOLS.validate(".validate", false)) { _foot = _TOOLS.msgValidate(".validate"); }
+			
 			if (_items != "") {
 				var _body = ("<ul>" + _items + "</ul>");
+				if (_foot != "") { _body += ("<br/>" + _foot); }
 				var _params = { "id": "infoModalAlertStateTransaccion", "title": "Alerta de estado de pendientes", "body": _body };
 				_FUNCTIONS.onShowHtmlModal(_params, function () {
 					$(".modal-dialog").removeClass("modal-xl").addClass("modal-sm");
@@ -6955,9 +6964,18 @@ var _FUNCTIONS = {
 			}
 		}
 	},
-	buildAlertLine(_key) {
+	buildAlertLine(_key, _color) {
 		var _html = "";
-		if ($(_key).html() != undefined && $(_key).html() != "") { _html = "<li><span class='badge badge-danger p-2 m-1' style='font-size:0.75rem;'>" + $(_key).html().split("<")[0] + "</span></li>"; }
+		if ($(_key).html() != undefined && $(_key).html() != "") {
+			_html = "<li><span class='badge badge-" + _color + " p-2 m-1' style='font-size:0.75rem;'>" + $(_key).html().split("<")[0] + "</span></li>";
+		}
+		return _html;
+	},
+	buildAlertLineText(_text, _color) {
+		var _html = "";
+		if (_text != "") {
+			_html = "<li><span class='badge badge-" + _color + " p-2 m-1' style='font-size:0.75rem;'>" + _text + "</span></li>";
+		}
 		return _html;
 	},
 }

@@ -216,7 +216,7 @@ var _TOOLS = {
 		var _ret = true;
 		$(_selector).each(function () { _ret = _TOOLS.formatValidation($(this)) && _ret; });
 		if (!_ret && _seeAlert) {
-			var _html = "<h5>Hay datos sin completar en el formulario.</h5>";
+			/*var _html = "<h5>Hay datos sin completar en el formulario.</h5>";
 			_html += "<p>Revise atentamente todas las secciones, los datos requeridos están marcados en color <span style='font-weight:bold;color:red;'>rojo</span></p>";
 			_html += "<ul>";
 			$(_selector).each(function () {
@@ -227,9 +227,24 @@ var _TOOLS = {
 				}
 			});
 			_html += "</ul>";
-			_TOOLS.onShowAlertModal("Datos faltantes", _html);
+			*/
+			_TOOLS.onShowAlertModal("Datos faltantes", _TOOLS.msgValidate(_selector));
 		}
 		return _ret;
+	},
+	msgValidate: function (_selector) {
+		var _html = "<h5>Hay datos sin completar en el formulario.</h5>";
+		_html += "<p>Revise atentamente todas las secciones, los datos requeridos están marcados en color <span style='font-weight:bold;color:red;'>rojo</span></p>";
+		_html += "<ul>";
+		$(_selector).each(function () {
+			if ($(this).attr("placeholder") != undefined && $(this).attr("placeholder") != "") {
+				_html += "<li>" + $(this).attr("placeholder").replace("...", "") + "</li>";
+			} else {
+				_html += "<li>" + $(this).attr("id") + "</li>";
+			}
+		});
+		_html += "</ul>";
+		return _html;
 	},
 	formatValidation: function (_obj) {
 		var _ret = true;
