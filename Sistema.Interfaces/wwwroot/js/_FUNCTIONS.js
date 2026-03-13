@@ -1920,7 +1920,7 @@ var _FUNCTIONS = {
 	onResolverCondicional: function (_this) {
 		_this.fadeOut("fast");
 		var _grupoResuelveCondicional = _this.attr("data-security");
-		var _avoidReject = (_this.attr("data-reject") == "N");
+		var _avoidReject = (_this.attr("data-enteexterno") != "16");
 		/*CONTROLA LOS PERMISOS DEL USUARIO PARA HABILITAR LA CARGA DE LOS NFORME SMANUALES O RESOLUCION DE CONDICIONALES */
 		if (_grupoResuelveCondicional != undefined && _grupoResuelveCondicional != "" && !_TOOLS.isInSecurityGroups(_grupoResuelveCondicional, ".securityGroups")) {
 			_this.fadeIn("fast");
@@ -1982,6 +1982,7 @@ var _FUNCTIONS = {
 		_body += "   </div>";
 		_body += "   <div class='col-7 hideReejecucion'>";
 		_body += "      <h5>Comentario del operador</h5>";
+		if (!_avoidReject) { _body += "		<select class='form-control wvalidate wEstado' data-id='id' data-descripcion='descripcion' id='wEstado' name='wEstado'></select>"; }
 		_body += "      <textarea id='wTexto' name='wTexto' class='form-control wTexto dbase wvalidate' value='' rows='9' style='width:100%;margin:20px auto;' placeholder='Ingrese comentario'></textarea>";
 		_body += "   </div>";
 		_body += "</div>";
@@ -2015,6 +2016,7 @@ var _FUNCTIONS = {
 		_html += "</div>";
 
 		$("body").append(_html);
+		_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_EstadoTransaccionManual", "wEstado", 0).then(function (data) { });
 		$(".wNombre").val($(".Nombre").val() + " " + $(".Apellido").val());
 		$(".wNroDocumento").val($(".NroDocumento").val());
 		$(".wSexo").html($(".Sexo").html());
@@ -2068,7 +2070,8 @@ var _FUNCTIONS = {
 			var _documento = $(".wNroDocumento").val();
 			var _sexo = $(".wSexo").val();
 			var _ingresosEstimados = $(".wIngresoMensualEmpresa").val();
-
+			var _estado = $(".wEstado").val();
+			alert($(".wEstado").val());
 			var _url = "/Utilidades/ResolverCondicional";
 			var _params = {
 				"idRequest": _idRequest,
@@ -2081,7 +2084,8 @@ var _FUNCTIONS = {
 			if (_documento != undefined) { _params["dni"] = _documento; }
 			if (_sexo != undefined) { _params["sexo"] = _sexo; }
 			if (_ingresosEstimados != undefined) { _params["ingresosEstimados"] = _ingresosEstimados; }
-
+			if (_estado != undefined && _estado != "" && _estado != "0" && _estado != "-1") { _params["idEstadoTransaccion"] = _estado; }
+			
 			var _toPDF = false;
 			var _bReady = false;
 			var _html = "";
@@ -5683,7 +5687,7 @@ var _FUNCTIONS = {
 					var _end = 1;
 					var _ok = true;
 					var i = 0;
-					var lines = data.split('\n');
+					var lines = data.split(/\r?\n/).filter(line => line.trim() !== '').join('\n').split('\n');
 					var _resolve = ["", "", ""];
 
 					if (_fHeader == "") { _init = 0; }
@@ -5741,7 +5745,7 @@ var _FUNCTIONS = {
 			var _lineSizeDef = parseInt(_root[0].split(":")[0]);
 			var _lineSizeActual = _line.replace(/[\n\r]/g, '').length;
 			var _valores = "";
-			if (_lineSizeDef != _lineSizeActual) { throw "La longitud de la línea no se corresponde con la definición."; }
+			if (_lineSizeDef != _lineSizeActual) { throw "La longitud de la línea no se corresponde con la definición.<br/>" + _line; }
 			var _segmentos = _root[1].split("|");
 			for (var _seg = 0; (_seg < _segmentos.length); _seg++) {
 				index = (_seg + 1);
@@ -5842,8 +5846,6 @@ var _FUNCTIONS = {
 					}
 				}
 			}
-
-
 			return _return;
 		} catch (err) {
 			throw ("<div class='p-1 text-center' style='border:double 3px red;'>EL ARCHIVO A PROCESAR TIENE <b>ERRORES.</b></div><br/>" + err + "<br/><div style='color:black;'>" + _line + "<br/>Nºde segmento: " + index + "<br/>Posición: " + _fromPos + " -> " + _newPos + "<br/>Valores: " + _valores + "</div>");
@@ -6941,10 +6943,11 @@ var _FUNCTIONS = {
 
 			_items += _FUNCTIONS.buildAlertLine(".alert-danger .alert-message", "info");
 			if ($(".alertaPlan").html() != "") { _items += _FUNCTIONS.buildAlertLineText(("Resolver oferta: " + $(".alertaPlan").html()), "primary"); }
-			if (!_TOOLS.validate(".validate", false)) { _foot = _TOOLS.msgValidate(".validate"); }
+			if ($(".msgEndeudamiento").html() != undefined && $(".msgEndeudamiento").html() != "") { _foot += "<div style='padding:3px;border:double 3px red;'>" + $(".msgEndeudamiento").html() + "</div>"; }
+			if (!_TOOLS.validate(".validate", false)) { _foot += "<br/><div style='padding:3px;border:double 3px red;'>"+_TOOLS.msgValidate(".validate")+"</div>"; }
 			
 			if (_items != "") {
-				var _body = ("<ul>" + _items + "</ul>");
+				var _body = ("<div style='padding:3px;border:double 3px red;'><ul>" + _items + "</ul></div>");
 				if (_foot != "") { _body += ("<br/>" + _foot); }
 				var _params = { "id": "infoModalAlertStateTransaccion", "title": "Alerta de estado de pendientes", "body": _body };
 				_FUNCTIONS.onShowHtmlModal(_params, function () {
