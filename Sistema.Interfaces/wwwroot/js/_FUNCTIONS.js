@@ -6413,6 +6413,7 @@ var _FUNCTIONS = {
 					"LimitePrestamo": 0,
 					"Usuario": $(".idUser").val()
 				};
+				console.log(_p);
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
