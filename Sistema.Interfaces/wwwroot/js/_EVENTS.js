@@ -1,3 +1,20 @@
+$("body").off("click", ".btn-reiniciar-ia").on("click", ".btn-reiniciar-ia", function () {
+	_FUNCTIONS.onReiniciarIA($(this));
+});
+$("body").off("click", ".btn-cargar-ia").on("click", ".btn-cargar-ia", function () {
+	_FUNCTIONS.onCargarIA($(this));
+});
+$("body").off("click", ".btn-entrenar-ia").on("click", ".btn-entrenar-ia", function () {
+	_FUNCTIONS.onEntrenarIA($(this));
+});
+$("body").off("click", ".btn-resolver-ia").on("click", ".btn-resolver-ia", function () {
+	_FUNCTIONS.onResolverIA($(this));
+});
+$("body").off("click", ".btn-detener-ia").on("click", ".btn-detener-ia", function () {
+	_FUNCTIONS.onDetenerIA($(this));
+});
+
+
 $("body").off("click", ".btnStatusAlert").on("click", ".btnStatusAlert", function () {
 	_FUNCTIONS.onAlertTransaccionState($(this));
 });

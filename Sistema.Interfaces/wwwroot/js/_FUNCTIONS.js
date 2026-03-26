@@ -6491,11 +6491,13 @@ var _FUNCTIONS = {
 		_html += "         <option value='2'>Baja para reimpresión</option>";
 		_html += "         <option value='5'>Denuncia robo/Extravío socio</option>";
 		_html += "         <option value='14'>Bloqueo temporal</option>";
+		/*
 		_html += "         <option value='10' disabled>Baja por renovación</option>";
 		_html += "         <option value='15' disabled>Tarjeta no habilitada</option>";
 		_html += "         <option value='17' disabled>Denuncia automática IVR</option>";
 		_html += "         <option value='18' disabled>Bloqueo automático IVR</option>";
 		_html += "         <option value='20' disabled>Vencida</option>";
+		*/
 		_html += "      </select>";
 		_html += "</div>";
 		var _params = { "id": "infoEstadoTarjetaVisa", "title": "Modificar estado de la tarjeta", "body": _html };
@@ -6569,6 +6571,10 @@ var _FUNCTIONS = {
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP",  _p ).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
+					_p["SyncScope"] = "consultapintarjeta";
+					_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
+						$(".btnTabVisa-tarjetas").click();
+					});
 					_FUNCTIONS.onWait(false);
 				}).catch(function (err) {
 					alert("Se ha producido un error indeterminado");
@@ -6759,6 +6765,11 @@ var _FUNCTIONS = {
 		_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 			if (data.mensaje != "") { alert(data.mensaje); }
 			_FUNCTIONS.onWait(false);
+			switch (_mode) {
+				case "consultapintarjeta":
+					$(".btnTabVisa-tarjetas").click();
+					break;
+			}
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
 			_FUNCTIONS.onWait(false);
@@ -6832,101 +6843,6 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-
-	/*onAlertTransaccionState: function () {
-		setTimeout(function () {
-			var iTipo = parseInt($(".iTipo").val());
-			var iVisibleEstadoActivo = parseInt($(".iVisibleEstadoActivo").val());
-			var iEstadoTransaccion = parseInt($(".iEstadoTransaccion").val());
-			var iTarjeta = 0;
-			var iRefinancia = 0;
-			var iCambiaFormaPago = parseInt($(".iCambiaFormaPago").val());
-			var inVerification = parseInt($(".inVerification").val());
-			var hideMedioCobro = parseInt($(".hideMedioCobro").val());
-			var link_enviado = parseInt($(".link_enviado").val());
-			var sPlan = $(".Plan").val();
-			var id_request = $(".id_obj").val();
-			if (id_request == "") { id_request = 0; }
-			id_request = parseInt(id_request);
-
-			alert(iVisibleEstadoActivo);
-
-			switch (iVisibleEstadoActivo) {
-				case 0:
-					$(".hiddenScoring").addClass("d-none");
-					break;
-				case 1:
-					$(".hiddenWhenReady").addClass("d-none");
-					break;
-				case 2:
-					$(".hiddenScoring").addClass("d-none");
-					$(".hiddenEmitido").addClass("d-none");
-					break;
-			}
-			switch (iTipo) {
-				case 351://visa titual
-				case 451://visa adicional
-				case 560://cabal atitular
-				case 561://cabal adicional
-					iTarjeta = 1;
-					$(".hideRefinancia").addClass("d-none");
-					break;
-				case 2: //Refinanciacion Credipaz
-				case 4: //Refinanciacion Amutra
-				case 562: //Refinanciacion visa
-				case 563: //Refinanciacion 
-					iRefinancia = 1;
-					$(".hideRefinancia").addClass("d-none");
-					break;
-			}
-			switch (inVerification) {
-				case 1:
-					$(".hiddenVerificacion").addClass("d-none");
-					$(".hiddenFormaPago").addClass("d-none");
-					break;
-				default:
-					if (iCambiaFormaPago == 0) { $(".hiddenFormaPago").addClass("d-none"); }
-					break;
-			}
-			if (iTipo > 10) { $(".hiddenFormaPago").addClass("d-none"); }
-			if (hideMedioCobro == 1) { $(".hideMedioCobro").addClass("d-none"); }
-			if (link_enviado == 1) { $(".hiddenReadOnly").addClass("d-none"); }
-			if (id_request == 0) { $(".hiddenRequest").addClass("d-none"); }
-			if (iTarjeta == 1 || sPlan != "") { $(".hiddenPlan").addClass("d-none"); }
-
-			if (!_FUNCTIONS._forzarReadOnly) {
-				var _items = "";
-				_items += _FUNCTIONS.buildAlertLine(".alertaPlan");
-				_items += _FUNCTIONS.buildAlertLine(".alertaModoCobro");
-				_items += _FUNCTIONS.buildAlertLine(".alertaPendientes");
-				_items += _FUNCTIONS.buildAlertLine(".alertaManualesPendientes");
-				_items += _FUNCTIONS.buildAlertLine(".alertaDomicilios");
-				_items += _FUNCTIONS.buildAlertLine(".alertaTelefonos");
-				_items += _FUNCTIONS.buildAlertLine(".alertaDomiciliosLaboral");
-				_items += _FUNCTIONS.buildAlertLine(".alertaTelefonosLaboral");
-				if (_items != "") {
-					var _body = ("<ul>" + _items + "</ul>");
-					var _params = { "id": "infoModalAlertStateTransaccion", "title": "Alerta de estado de pendientes", "body": _body };
-					_FUNCTIONS.onShowHtmlModal(_params, function () {
-						$(".modal-dialog").removeClass("modal-xl").addClass("modal-sm");
-						$(".btn-Save-modal").remove();
-						$(".btn-close-modal").html("Cerrar");
-					});
-				}
-			} else {
-				$(".hiddenReadOnly").addClass("d-none");
-
-
-				if (parseInt($(".iEstadoTransaccion").val()) != 7 && parseInt($(".iEstadoTransaccion").val()) != 6) {
-					$(".btnNewModal").remove();
-					$(".form-select").attr("disabled", true);
-					$(".form-control").attr("disabled", true);
-					$(".btnCambiarFormaDePago").remove();
-				}
-			}
-		}, 2000);
-	},
-	*/
 	onAlertTransaccionState: function (_this) {
 		if (!_FUNCTIONS._forzarReadOnly) {
 			var _foot = "";
@@ -6981,5 +6897,170 @@ var _FUNCTIONS = {
 			_html = "<li><span class='badge badge-" + _color + " p-2 m-1' style='font-size:0.75rem;'>" + _text + "</span></li>";
 		}
 		return _html;
+	},
+
+	onReiniciarIA: function (_this) {
+		var _id = _this.attr("data-id");
+		var _description = _this.attr("data-description");
+		var _html = "<div>";
+		_html += "      <h5>" + _description + "</h5>";
+		_html += "      <p>Se eliminarán todos los registros entrenados del proyecto seleccionado: <b>" + _description +"</b></p>";
+		_html += "      <input id='wId' name='wId' class='wId' type='hidden' value='" + _id + "'/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoIA", "title": "Reiniciar proyecto IA", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".btn-accept-modal").html("Reiniciar");
+
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoIA");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				var _p = { "Id": $(".wId").val() };
+				_FUNCTIONS.ExecutePostAjax("/IA/Reiniciar", _p).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+					window.location.reload();
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+	onCargarIA: function (_this) {
+		var _id = _this.attr("data-id");
+		var _description = _this.attr("data-description");
+		var _html = "<div>";
+		_html += "      <h5>" + _description + "</h5>";
+		_html += "      <p>Se ejecutará el proceso de carga de los nuevos ítems de entrenamiento al proyecto seleccionado: <b>" + _description + "</b></p>";
+		_html += "      <label>Año</label><br/>";
+		_html += "      <input id='wYear' name='wYear' type='number' class='form-control onlyNumbers wYear' value=''/><br/>";
+		_html += "      <label>Mes</label><br/>";
+		_html += "      <input id='wMonth' name='wMonth' type='number' class='form-control onlyNumbers wMonth' value=''/><br/>";
+
+		_html += "      <input id='wId' name='wId' class='wId' type='hidden' value='" + _id + "'/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoIA", "title": "Cargar datos a proyecto IA", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".btn-accept-modal").html("Cargar");
+
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoIA");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				var _p = { "Id_project": $(".wId").val() };
+				if ($(".wYear").val() != "" && $(".wYear").val() != "0") { _p["Year"] = $(".wYear").val(); }
+				if ($(".wMonth").val() != "" && $(".wMonth").val() != "0") { _p["Month"] = $(".wMonth").val(); }
+
+				_FUNCTIONS.ExecutePostAjax("/IA/Cargar", _p).then(function (data) {}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+				alert("Se iniciado el proceso de carga.\nNo pueden realizarse acciones sobre el proyecto, hasta que no haya finalizado.\nSe puede observar el avance del proceso actualizando esta pantalla.");
+
+				_FUNCTIONS.onWait(false);
+				window.location.reload();
+			});
+		});
+	},
+	onEntrenarIA: function (_this) {
+		var _id = _this.attr("data-id");
+		var _description = _this.attr("data-description");
+		var _html = "<div>";
+		_html += "      <h5>" + _description + "</h5>";
+		_html += "      <p>Se ejecutará el proceso de entrenamiento de los ítems sin procesar vinculados al proyecto seleccionado: <b>" + _description + "</b></p>";
+		_html += "      <input id='wId' name='wId' class='wId' type='hidden' value='" + _id + "'/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoIA", "title": "Entrenar datos ya cargados a proyecto IA", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".btn-accept-modal").html("Entrenar");
+
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoIA");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				var _p = { "Id_project": $(".wId").val() };
+				_FUNCTIONS.ExecutePostAjax("/IA/Entrenar", _p).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+				_FUNCTIONS.onWait(false);
+				window.location.reload();
+			});
+		});
+	},
+	onResolverIA: function (_this) {
+		var _id = _this.attr("data-id");
+		var _description = _this.attr("data-description");
+		var _html = "<div>";
+		_html += "      <h5>Realizar evaluación de <b>" + _description + "</b></h5>";
+		_html += "      <div class='container-full'>";
+		_html += "       <div class='row'>";
+		_html += "        <div class='col-3'>";
+		_html += "         <table class='table table-sm table-borderless'>";
+		_html += "            <tr>";
+		_html += "               <td><b>Solicitud</b></td>";
+		_html += "               <td><input id='wIdSolicitud' name='wIdSolicitud' type='number' class='form-control onlyNumbers wIdSolicitud' value=''/></td>";
+		_html += "            </tr>";
+		_html += "         </table>";
+		_html += "        </div>";
+		_html += "       </div>";
+		_html += "      </div>";
+		_html += "      <input id='wId' name='wId' class='wId' type='hidden' value='" + _id + "'/><br/>";
+		_html += "      <div class='p2 areaRespuesta'></div>";
+		_html += "</div>";
+		var _params = { "id": "infoIA", "title": "Resolver consulta IA", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".btn-accept-modal").html("Resolver");
+			$(".modal-dialog").addClass("modal-xl");
+
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoIA");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				var _p = { "Id_project": $(".wId").val(), "IdSolicitud": $(".wIdSolicitud").val() };
+				_FUNCTIONS.ExecutePostAjax("/IA/Resolver", _p).then(function (data) {
+					console.log(data);
+					if (!data.logica) { alert(data.mensaje); }
+					$(".areaRespuesta").html(data.html);
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+	onDetenerIA: function (_this) {
+		var _id = _this.attr("data-id");
+		var _description = _this.attr("data-description");
+		var _html = "<div>";
+		_html += "      <h5>" + _description + "</h5>";
+		_html += "      <p>Se detendrá la carga en curso de los datos relacionados al proyecto seleccionado: <b>" + _description + "</b></p>";
+		_html += "      <input id='wId' name='wId' class='wId' type='hidden' value='" + _id + "'/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoIA", "title": "Reiniciar proyecto IA", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".btn-accept-modal").html("Detener");
+
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoIA");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				var _p = { "Id": $(".wId").val() };
+				_FUNCTIONS.ExecutePostAjax("/IA/Detener", _p).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+					window.location.reload();
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
 	},
 }
