@@ -216,6 +216,30 @@ var _FUNCTIONS = {
 			}
 		)
 	},
+	ExecutePostAjaxAsync: function (_url, _params) {
+		return new Promise(
+			function (resolve, reject) {
+				try {
+					$.ajax({
+						async:true,
+						type: "POST",
+						url: _url,
+						data: _params,
+						dataType: "json",
+						encode: true,
+						success: function (data) {
+							resolve(data);
+						},
+						error: function (xhr, ajaxOptions, thrownError) {
+							reject(thrownError);
+						}
+					});
+				} catch (rex) {
+					reject(rex);
+				}
+			}
+		)
+	},
 	LoadDataAjax: function (_url) {
 		return new Promise(
 			function (resolve, reject) {
@@ -6001,6 +6025,20 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	onCheckTotalesCobroCardCred: function (_this) {
+		_FUNCTIONS.ExecutePostAjax("/Cardcred/TotalesCobro", { "FechaDesde": $(".wFecha").val() }).then(function (data) {
+			var _detalle = data.html;
+			var _params = { "id": "infoTotalesCobroCardCred", "title": "Resultado del proceso", "body": _detalle };
+			_FUNCTIONS.onShowStaticModal(_params, function () {
+				$(".btn-accept-modal").remove();
+				$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+					_FUNCTIONS.onDestroyModal("#infoTotalesCobroCardCred");
+				});
+				_FUNCTIONS.onWait(false);
+			});
+		});
+	},
+
 	onRecaudacionCardCred: function (_this) {
 		var _step = parseInt(_this.attr("data-step"));
 		_FUNCTIONS.onWait(true);
@@ -6933,7 +6971,7 @@ var _FUNCTIONS = {
 		var _description = _this.attr("data-description");
 		var _html = "<div>";
 		_html += "      <h5>" + _description + "</h5>";
-		_html += "      <p>Se ejecutará el proceso de carga de los nuevos ítems de entrenamiento al proyecto seleccionado: <b>" + _description + "</b></p>";
+		_html += "      <p>Se ejecutará el proceso de carga de los nuevos ítems de entrenamiento al proyecto: <b>" + _description + "</b></p>";
 		_html += "      <label>Año</label><br/>";
 		_html += "      <input id='wYear' name='wYear' type='number' class='form-control onlyNumbers wYear' value=''/><br/>";
 		_html += "      <label>Mes</label><br/>";
@@ -7034,6 +7072,47 @@ var _FUNCTIONS = {
 			});
 		});
 	},
+	onCompararIA: function (_this) {
+		var _id = _this.attr("data-id");
+		var _description = _this.attr("data-description");
+		var _html = "<div>";
+		_html += "      <h5>" + _description + "</h5>";
+		_html += "      <p>Se ejecutará el proceso comparativo de predicciones para el proyecto: <b>" + _description + "</b></p>";
+		_html += "      <table>"; 
+		_html += "         <tr>";
+		_html += "            <td><label>Año</label></td><td><input id='wYear' name='wYear' type='number' class='form-control onlyNumbers wYear' value=''/></td>";
+		_html += "            <td><label>Mes</label></td><td><input id='wMonth' name='wMonth' type='number' class='form-control onlyNumbers wMonth' value=''/></td>";
+		_html += "         </tr>";
+		_html += "      </table>"; 
+
+		_html += "      <input id='wId' name='wId' class='wId' type='hidden' value='" + _id + "'/><br/>";
+		_html += "</div>";
+		_html += "<div class='container areaRespuesta'></div>";
+
+		var _params = { "id": "infoIA", "title": "Comparativa de resultados IA", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".btn-accept-modal").html("Comparar");
+			$(".modal-dialog").addClass("modal-xl");
+
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoIA");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				var _p = {
+					"Id_project": $(".wId").val()
+				};
+				if ($(".wYear").val() != "" && $(".wYear").val() != "0") { _p["Year"] = $(".wYear").val(); }
+				if ($(".wMonth").val() != "" && $(".wMonth").val() != "0") { _p["Month"] = $(".wMonth").val(); }
+				_FUNCTIONS.onWait(true);
+				_FUNCTIONS.ExecutePostAjaxAsync("/IA/Comparar", _p).then(function (data) {}).catch(function (err) { });
+				alert("Se iniciado el proceso de comparación.\nSe puede observar el avance del proceso actualizando esta pantalla.");
+
+				_FUNCTIONS.onWait(false);
+				window.location.reload();
+			});
+		});
+	},
+
 	onDetenerIA: function (_this) {
 		var _id = _this.attr("data-id");
 		var _description = _this.attr("data-description");

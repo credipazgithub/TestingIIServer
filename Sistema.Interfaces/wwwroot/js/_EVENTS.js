@@ -13,7 +13,9 @@ $("body").off("click", ".btn-resolver-ia").on("click", ".btn-resolver-ia", funct
 $("body").off("click", ".btn-detener-ia").on("click", ".btn-detener-ia", function () {
 	_FUNCTIONS.onDetenerIA($(this));
 });
-
+$("body").off("click", ".btn-comparar-ia").on("click", ".btn-comparar-ia", function () {
+	_FUNCTIONS.onCompararIA($(this));
+});
 
 $("body").off("click", ".btnStatusAlert").on("click", ".btnStatusAlert", function () {
 	_FUNCTIONS.onAlertTransaccionState($(this));
@@ -459,6 +461,9 @@ $("body").off("click", ".btnEnviarCardCred").on("click", ".btnEnviarCardCred", f
 });
 $("body").off("click", ".btnActualizarCardCred").on("click", ".btnActualizarCardCred", function () {
 	_FUNCTIONS.onActualizarCardCred($(this));
+});
+$("body").off("click", ".btnCheckTotalesCobroCardCred").on("click", ".btnCheckTotalesCobroCardCred", function () {
+	_FUNCTIONS.onCheckTotalesCobroCardCred($(this));
 });
 $("body").off("click", ".btnImputacionesCardCred").on("click", ".btnImputacionesCardCred", function () {
 	_FUNCTIONS.onImputacionesCardCred($(this));
