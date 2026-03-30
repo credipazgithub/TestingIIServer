@@ -16,7 +16,9 @@ $("body").off("click", ".btn-detener-ia").on("click", ".btn-detener-ia", functio
 $("body").off("click", ".btn-comparar-ia").on("click", ".btn-comparar-ia", function () {
 	_FUNCTIONS.onCompararIA($(this));
 });
-
+$("body").off("click", ".btn-stats-ia").on("click", ".btn-stats-ia", function () {
+	_FUNCTIONS.onStatsIA($(this));
+});
 $("body").off("click", ".btnStatusAlert").on("click", ".btnStatusAlert", function () {
 	_FUNCTIONS.onAlertTransaccionState($(this));
 });

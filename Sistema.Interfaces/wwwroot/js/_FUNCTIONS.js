@@ -7112,7 +7112,6 @@ var _FUNCTIONS = {
 			});
 		});
 	},
-
 	onDetenerIA: function (_this) {
 		var _id = _this.attr("data-id");
 		var _description = _this.attr("data-description");
@@ -7141,5 +7140,23 @@ var _FUNCTIONS = {
 				});
 			});
 		});
+	},
+	onStatsIA: function (_this) {
+		var _id = _this.attr("data-id");
+		var _description = _this.attr("data-description");
+		var _p = { "Id_project": _id };
+		_FUNCTIONS.ExecutePostAjaxAsync("/IA/Stats", _p).then(function (data) {
+			var _params = { "id": "infoIA", "title": ("Estadísticas del proyecto " + _description), "body": data.html };
+			_FUNCTIONS.onShowStaticModal(_params, function () {
+				$(".btn-cancel-modal").html("Cerrar");
+				$(".btn-accept-modal").remove();
+				$(".modal-dialog").addClass("modal-xl");
+
+				$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+					_FUNCTIONS.onDestroyModal("#infoIA");
+				});
+			});
+
+		}).catch(function (err) { });
 	},
 }
