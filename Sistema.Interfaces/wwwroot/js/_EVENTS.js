@@ -19,6 +19,10 @@ $("body").off("click", ".btn-comparar-ia").on("click", ".btn-comparar-ia", funct
 $("body").off("click", ".btn-stats-ia").on("click", ".btn-stats-ia", function () {
 	_FUNCTIONS.onStatsIA($(this));
 });
+$("body").off("click", ".btn-borrarcomparativa-ia").on("click", ".btn-borrarcomparativa-ia", function () {
+	_FUNCTIONS.onBorrarComparativaIA($(this));
+});
+
 $("body").off("click", ".btnStatusAlert").on("click", ".btnStatusAlert", function () {
 	_FUNCTIONS.onAlertTransaccionState($(this));
 });

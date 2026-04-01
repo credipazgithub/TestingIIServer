@@ -6966,6 +6966,35 @@ var _FUNCTIONS = {
 			});
 		});
 	},
+	onBorrarComparativaIA: function (_this) {
+		var _id = _this.attr("data-id");
+		var _description = _this.attr("data-description");
+		var _html = "<div>";
+		_html += "      <h5>" + _description + "</h5>";
+		_html += "      <p>Se eliminarán todos los registros de comparativas realizadas del proyecto seleccionado: <b>" + _description + "</b></p>";
+		_html += "      <input id='wId' name='wId' class='wId' type='hidden' value='" + _id + "'/><br/>";
+		_html += "</div>";
+		var _params = { "id": "infoIA", "title": "Reiniciar comparativas del proyecto IA", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".btn-accept-modal").html("Reiniciar");
+
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#infoIA");
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				var _p = { "Id_project": $(".wId").val() };
+				_FUNCTIONS.ExecutePostAjax("/IA/BorrarComparativa", _p).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+					window.location.reload();
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
 	onCargarIA: function (_this) {
 		var _id = _this.attr("data-id");
 		var _description = _this.attr("data-description");
@@ -6996,7 +7025,6 @@ var _FUNCTIONS = {
 					_FUNCTIONS.onWait(false);
 				});
 				alert("Se iniciado el proceso de carga.\nNo pueden realizarse acciones sobre el proyecto, hasta que no haya finalizado.\nSe puede observar el avance del proceso actualizando esta pantalla.");
-
 				_FUNCTIONS.onWait(false);
 				window.location.reload();
 			});
