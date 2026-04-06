@@ -575,93 +575,93 @@
           }
         }
       },
-      "itext/9.5.0": {
+      "itext/9.6.0": {
         "dependencies": {
           "Microsoft.DotNet.PlatformAbstractions": "1.1.0",
           "Microsoft.Extensions.DependencyModel": "10.0.2",
-          "itext.commons": "9.5.0"
+          "itext.commons": "9.6.0"
         },
         "runtime": {
           "lib/netstandard2.0/itext.barcodes.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.bouncy-castle-connector.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.forms.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.io.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.kernel.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.layout.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.pdfa.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.pdfua.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.sign.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.styledxmlparser.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           },
           "lib/netstandard2.0/itext.svg.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           }
         }
       },
-      "itext.bouncy-castle-adapter/9.5.0": {
+      "itext.bouncy-castle-adapter/9.6.0": {
         "dependencies": {
           "BouncyCastle.Cryptography": "2.6.2",
-          "itext.commons": "9.5.0"
+          "itext.commons": "9.6.0"
         },
         "runtime": {
           "lib/netstandard2.0/itext.bouncy-castle-adapter.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           }
         }
       },
-      "itext.commons/9.5.0": {
+      "itext.commons/9.6.0": {
         "runtime": {
           "lib/netstandard2.0/itext.commons.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.0.0"
           }
         }
       },
-      "itext.pdfhtml/6.3.1": {
+      "itext.pdfhtml/6.3.2": {
         "dependencies": {
-          "itext": "9.5.0"
+          "itext": "9.6.0"
         },
         "runtime": {
           "lib/netstandard2.0/itext.html2pdf.dll": {
-            "assemblyVersion": "6.3.1.0",
-            "fileVersion": "6.3.1.0"
+            "assemblyVersion": "6.3.2.0",
+            "fileVersion": "6.3.2.0"
           }
         }
       },
-      "itext7.pdfhtml/6.3.1": {
+      "itext7.pdfhtml/6.3.2": {
         "dependencies": {
-          "itext.pdfhtml": "6.3.1"
+          "itext.pdfhtml": "6.3.2"
         }
       },
       "LightGBM/4.6.0": {
@@ -2733,7 +2733,7 @@
           "Microsoft.ML": "5.0.0",
           "Microsoft.ML.AutoML": "0.23.0",
           "Newtonsoft.Json": "13.0.4",
-          "itext7.pdfhtml": "6.3.1"
+          "itext7.pdfhtml": "6.3.2"
         },
         "runtime": {
           "Credipaz.Entidades.dll": {
@@ -2751,8 +2751,8 @@
           "Portable.BouncyCastle": "1.9.0",
           "RestSharp": "114.0.0",
           "System.Data.SqlClient": "4.9.1",
-          "itext.bouncy-castle-adapter": "9.5.0",
-          "itext7.pdfhtml": "6.3.1"
+          "itext.bouncy-castle-adapter": "9.6.0",
+          "itext7.pdfhtml": "6.3.2"
         },
         "runtime": {
           "Credipaz.Utilidades.dll": {
@@ -3133,40 +3133,40 @@
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
     },
-    "itext/9.5.0": {
+    "itext/9.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qN+CYYQCKnkEdUzmiDACNpfZGUEhsTMOUZ2YOYQ9NQL+Qi6EC+5kEF8utGKuwaMXQnvq8IeZVPczGd27k/TasQ==",
-      "path": "itext/9.5.0",
-      "hashPath": "itext.9.5.0.nupkg.sha512"
+      "sha512": "sha512-Zs+t9M5gSux6eAd/5PqKU0YDFuxhXFSCx9mDqCEe3Uaz+1EajmNdNJDEi+cVK1KdN4vCNCoBe6cU0NV5ZNSvcw==",
+      "path": "itext/9.6.0",
+      "hashPath": "itext.9.6.0.nupkg.sha512"
     },
-    "itext.bouncy-castle-adapter/9.5.0": {
+    "itext.bouncy-castle-adapter/9.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NyttPZzpFS0iAVDo2GJHQ1tmYScqKozEmp9YRTUsxCEg/HIfqL6qBo9l/eaLYmPmjhR99AkZWL1S08OQ+6c2Bw==",
-      "path": "itext.bouncy-castle-adapter/9.5.0",
-      "hashPath": "itext.bouncy-castle-adapter.9.5.0.nupkg.sha512"
+      "sha512": "sha512-3qEURrZV1hP16WVE9Qng2C73/FmfBbLB6hloA38LhfNNpILEZMhi6yNjYJfc2ORBWDmL1S6ZrhhIbc4lsObHig==",
+      "path": "itext.bouncy-castle-adapter/9.6.0",
+      "hashPath": "itext.bouncy-castle-adapter.9.6.0.nupkg.sha512"
     },
-    "itext.commons/9.5.0": {
+    "itext.commons/9.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3A7GknafwvGytOe4Jbba+7wYmhBaiZnaP+C8/Qw3sADzHElAjH3HZFRMF9u6Tt01LW7HdwCBTJb7V9ErFxSk8w==",
-      "path": "itext.commons/9.5.0",
-      "hashPath": "itext.commons.9.5.0.nupkg.sha512"
+      "sha512": "sha512-tnq8J28uLNQ5Fsc6e40/gKziXT7eD1nWTQ7IO50HPFraWx+dRlbd9iSiT97XJPgaIi+BRAenACUG8ODU7cZuiw==",
+      "path": "itext.commons/9.6.0",
+      "hashPath": "itext.commons.9.6.0.nupkg.sha512"
     },
-    "itext.pdfhtml/6.3.1": {
+    "itext.pdfhtml/6.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-w4lhsn68EP0JLTcrPH0HD8ynAMLykmav0ytZErXSuxGTjUSEE855s+LHC77fqdCO2nTsaAOe1jh2mvZ9njyC+w==",
-      "path": "itext.pdfhtml/6.3.1",
-      "hashPath": "itext.pdfhtml.6.3.1.nupkg.sha512"
+      "sha512": "sha512-XZ+Ji6vpDkS6sBAPr5LRhA317DjVEXHTu6ch3mcUTbg8nAZ02Fa6hy3bvw7R7oyZkcsPiiFr3LffuGNCPLHhsQ==",
+      "path": "itext.pdfhtml/6.3.2",
+      "hashPath": "itext.pdfhtml.6.3.2.nupkg.sha512"
     },
-    "itext7.pdfhtml/6.3.1": {
+    "itext7.pdfhtml/6.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KYoVlrSPX0jvPzRTlOhsnCJkuU+97zWcVQOBmxUWf+t/FoqcpTgi1tWyykVPFZ928FPwm8ueKQgVZUetQimW6g==",
-      "path": "itext7.pdfhtml/6.3.1",
-      "hashPath": "itext7.pdfhtml.6.3.1.nupkg.sha512"
+      "sha512": "sha512-7GBLHhP/Qfotcnjxz388Wd8KIp9NLP/hZk7/nYOGD8LhtFbcWJ087NwPDN6AKuwU82vhKeQ99P/PCMhO4iFgrA==",
+      "path": "itext7.pdfhtml/6.3.2",
+      "hashPath": "itext7.pdfhtml.6.3.2.nupkg.sha512"
     },
     "LightGBM/4.6.0": {
       "type": "package",
