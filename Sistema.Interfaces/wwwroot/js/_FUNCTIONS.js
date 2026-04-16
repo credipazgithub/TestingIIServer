@@ -133,7 +133,6 @@ var _FUNCTIONS = {
 			}
 		);
 	},
-
 	LoadComboAjax: function (_url, _control, _selected) {
 		return new Promise(
 			function (resolve, reject) {
@@ -204,6 +203,7 @@ var _FUNCTIONS = {
 						dataType: "json",
 						encode: true,
 						success: function (data) {
+							_FUNCTIONS.drawLog(data);
 							resolve(data);
 						},
 						error: function (xhr, ajaxOptions, thrownError) {
@@ -228,6 +228,7 @@ var _FUNCTIONS = {
 						dataType: "json",
 						encode: true,
 						success: function (data) {
+							_FUNCTIONS.drawLog(data);
 							resolve(data);
 						},
 						error: function (xhr, ajaxOptions, thrownError) {
@@ -264,7 +265,24 @@ var _FUNCTIONS = {
 			}
 		)
 	},
-
+	drawLog: function (data) {
+		try {
+			if (data.hasOwnProperty("htmlInfo")) {
+				if (data.htmlInfo != null && data.htmlInfo != "") {
+					$(".divLog").prepend(data.htmlInfo);
+				}
+			}
+		} catch (err) { }
+	},
+	onToggleTagLog: function (_t) {
+		if (_t) {
+			$(".btnOpenLog").hide();
+			$(".divLog").fadeIn("slow");
+		} else {
+			$(".btnOpenLog").show();
+			$(".divLog").fadeOut("slow");
+		}
+	},
 	/**
 	 * Nivel 1
 	 * Funciones generales de armado de interfaces y activación de eventos en registros N a 1

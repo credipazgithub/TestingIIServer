@@ -1,3 +1,9 @@
+$("body").off("click", ".btnOpenLog").on("click", ".btnOpenLog", function () {
+	_FUNCTIONS.onToggleTagLog(true);
+});
+$("body").off("click", ".btnCloseLog").on("click", ".btnCloseLog", function () {
+	_FUNCTIONS.onToggleTagLog(false);
+});
 $("body").off("click", ".btn-reiniciar-ia").on("click", ".btn-reiniciar-ia", function () {
 	_FUNCTIONS.onReiniciarIA($(this));
 });

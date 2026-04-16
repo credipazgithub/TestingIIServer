@@ -10,10 +10,10 @@
         "dependencies": {
           "Credipaz.Entidades": "1.0.0",
           "Credipaz.Utilidades": "1.0.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.5",
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "10.0.5",
-          "Microsoft.EntityFrameworkCore": "10.0.5",
-          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.5",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.6",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "10.0.6",
+          "Microsoft.EntityFrameworkCore": "10.0.6",
+          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.6",
           "Microsoft.ML": "5.0.0",
           "Microsoft.ML.AutoML": "0.23.0",
           "RestSharp": "114.0.0",
@@ -161,38 +161,38 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.5": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.6": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.0.1"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "assemblyVersion": "10.0.5.0",
-            "fileVersion": "10.0.526.15411"
+            "assemblyVersion": "10.0.6.0",
+            "fileVersion": "10.0.626.17701"
           }
         }
       },
-      "Microsoft.AspNetCore.JsonPatch/10.0.5": {
+      "Microsoft.AspNetCore.JsonPatch/10.0.6": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.4"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.JsonPatch.dll": {
-            "assemblyVersion": "10.0.5.0",
-            "fileVersion": "10.0.526.15411"
+            "assemblyVersion": "10.0.6.0",
+            "fileVersion": "10.0.626.17701"
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.5": {
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.6": {
         "dependencies": {
-          "Microsoft.AspNetCore.JsonPatch": "10.0.5",
+          "Microsoft.AspNetCore.JsonPatch": "10.0.6",
           "Newtonsoft.Json": "13.0.4",
           "Newtonsoft.Json.Bson": "1.0.2"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
-            "assemblyVersion": "10.0.5.0",
-            "fileVersion": "10.0.526.15411"
+            "assemblyVersion": "10.0.6.0",
+            "fileVersion": "10.0.626.17701"
           }
         }
       },
@@ -212,11 +212,11 @@
           }
         }
       },
-      "Microsoft.Bcl.Memory/10.0.5": {
+      "Microsoft.Bcl.Memory/10.0.6": {
         "runtime": {
           "lib/net10.0/Microsoft.Bcl.Memory.dll": {
-            "assemblyVersion": "10.0.0.5",
-            "fileVersion": "10.0.526.15411"
+            "assemblyVersion": "10.0.0.6",
+            "fileVersion": "10.0.626.17701"
           }
         }
       },
@@ -329,22 +329,22 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore/10.0.5": {
+      "Microsoft.EntityFrameworkCore/10.0.6": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.5"
+          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.6"
         },
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
-            "assemblyVersion": "10.0.5.0",
-            "fileVersion": "10.0.526.15411"
+            "assemblyVersion": "10.0.6.0",
+            "fileVersion": "10.0.626.17701"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/10.0.5": {
+      "Microsoft.EntityFrameworkCore.Abstractions/10.0.6": {
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "assemblyVersion": "10.0.5.0",
-            "fileVersion": "10.0.526.15411"
+            "assemblyVersion": "10.0.6.0",
+            "fileVersion": "10.0.626.17701"
           }
         }
       },
@@ -529,7 +529,7 @@
           "LightGBM": "4.6.0",
           "Microsoft.Bcl.AsyncInterfaces": "9.0.4",
           "Microsoft.Bcl.HashCode": "6.0.0",
-          "Microsoft.Bcl.Memory": "10.0.5",
+          "Microsoft.Bcl.Memory": "10.0.6",
           "Microsoft.CodeAnalysis.CSharp": "4.13.0",
           "Microsoft.ML": "5.0.0",
           "Microsoft.ML.CpuMath": "5.0.0",
@@ -1000,7 +1000,7 @@
           "Google.Protobuf": "3.30.2",
           "Microsoft.Bcl.AsyncInterfaces": "9.0.4",
           "Microsoft.Bcl.HashCode": "6.0.0",
-          "Microsoft.Bcl.Memory": "10.0.5",
+          "Microsoft.Bcl.Memory": "10.0.6",
           "Microsoft.ML": "5.0.0",
           "Microsoft.ML.ImageAnalytics": "5.0.0",
           "Microsoft.ML.Tokenizers": "2.0.0",
@@ -1471,8 +1471,8 @@
       },
       "Credipaz.Entidades/1.0.0": {
         "dependencies": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.5",
-          "Microsoft.Bcl.Memory": "10.0.5",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.6",
+          "Microsoft.Bcl.Memory": "10.0.6",
           "Microsoft.ML": "5.0.0",
           "Microsoft.ML.AutoML": "0.23.0",
           "Newtonsoft.Json": "13.0.4",
@@ -1488,8 +1488,8 @@
       "Credipaz.Utilidades/1.0.0": {
         "dependencies": {
           "Credipaz.Entidades": "1.0.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.5",
-          "Microsoft.Bcl.Memory": "10.0.5",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.6",
+          "Microsoft.Bcl.Memory": "10.0.6",
           "Newtonsoft.Json": "13.0.4",
           "Portable.BouncyCastle": "1.9.0",
           "RestSharp": "114.0.0",
@@ -1575,26 +1575,26 @@
       "path": "methodboundaryaspect.fody/2.0.148",
       "hashPath": "methodboundaryaspect.fody.2.0.148.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.5": {
+    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-fZzXogChrwQ/SfifQJgeW7AtR8hUv5+LH9oLWjm5OqfnVt3N8MwcMHHMdawvqqdjP79lIZgetnSpj77BLsSI1g==",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.5",
-      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.10.0.5.nupkg.sha512"
+      "sha512": "sha512-JVPyTTr5J/Z5PikptDP2g8qwNJBJ09GZ7yHpaPDAMZ0qKeA2ZKqpZhUNJk1clBqZJeMj2T7gZ5o6oOrmLxuBdw==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.6",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.10.0.6.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.JsonPatch/10.0.5": {
+    "Microsoft.AspNetCore.JsonPatch/10.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ODGomRlmt8/mFAqVyD9MgE4fXNkO6qDNeKuvmqNDuKjOL2UOkh/wJK0gEXS5VcViHFs+uQKOXD5xoTg1/ouKtA==",
-      "path": "microsoft.aspnetcore.jsonpatch/10.0.5",
-      "hashPath": "microsoft.aspnetcore.jsonpatch.10.0.5.nupkg.sha512"
+      "sha512": "sha512-1Y5D1Eq4RpzAqlx2/ihWpotlemX8QezN89ftVTqkL+KgRe60+cNOPINIVqG/j5riv1VXBGI1zg0C5p6OBNi0xg==",
+      "path": "microsoft.aspnetcore.jsonpatch/10.0.6",
+      "hashPath": "microsoft.aspnetcore.jsonpatch.10.0.6.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.5": {
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WFwm63h4YhVOfEvTeieUGRKUz8nYKSd6mXC1vfqqr7ZW+b8mQBkaxMeAOvA2YFjjgRCKgVC72jhmxjLEDFwC4A==",
-      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/10.0.5",
-      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.10.0.5.nupkg.sha512"
+      "sha512": "sha512-4oWPI9F9jQnKPD7v5495HgSAsmOu2rjs6sgf3acwhgi/3ZTjc9lCfTWRAi1/yFYZYtp9NrHuduyk8FVJsJoAHQ==",
+      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/10.0.6",
+      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.10.0.6.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/9.0.4": {
       "type": "package",
@@ -1610,12 +1610,12 @@
       "path": "microsoft.bcl.hashcode/6.0.0",
       "hashPath": "microsoft.bcl.hashcode.6.0.0.nupkg.sha512"
     },
-    "Microsoft.Bcl.Memory/10.0.5": {
+    "Microsoft.Bcl.Memory/10.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-odTrIyDJPgqCKEo6sOOfMzh0TaPufY/SLHrrMkqGlxGWVc5NQbZD5h1fxf/Q+PrGnhct5VWmmfKREA4h6JtTng==",
-      "path": "microsoft.bcl.memory/10.0.5",
-      "hashPath": "microsoft.bcl.memory.10.0.5.nupkg.sha512"
+      "sha512": "sha512-UwfP931zu2NjuZd54ydCxjZvf7yfY8RcBQurCQcq1CbUz1Chg6exvc5frkZDMzzk68+nvC10Ahn4fcSJeI8W1A==",
+      "path": "microsoft.bcl.memory/10.0.6",
+      "hashPath": "microsoft.bcl.memory.10.0.6.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.Common/4.13.0": {
       "type": "package",
@@ -1638,19 +1638,19 @@
       "path": "microsoft.dotnet.platformabstractions/1.1.0",
       "hashPath": "microsoft.dotnet.platformabstractions.1.1.0.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore/10.0.5": {
+    "Microsoft.EntityFrameworkCore/10.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-9tNBmK3EpYVGRQLiqP+bqK2m+TD0Gv//4vCzR7ZOgl4FWzCFyOpYdIVka13M4kcBdPdSJcs3wbHr3rmzOqbIMA==",
-      "path": "microsoft.entityframeworkcore/10.0.5",
-      "hashPath": "microsoft.entityframeworkcore.10.0.5.nupkg.sha512"
+      "sha512": "sha512-eDy7bu3G+51FRC0cPtXTqUI9iAdDYl/XBQ5UguN8NFOA7QNmFvUEf36wA7PZ4ctsnxRN4t3dIvs2VKVE5H+EQQ==",
+      "path": "microsoft.entityframeworkcore/10.0.6",
+      "hashPath": "microsoft.entityframeworkcore.10.0.6.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/10.0.5": {
+    "Microsoft.EntityFrameworkCore.Abstractions/10.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-32c58Rnm47Qvhimawf67KO9PytgPz3QoWye7Abapt0Yocw/JnzMiSNj/pRoIKyn8Jxypkv86zxKD4Q/zNTc0Ag==",
-      "path": "microsoft.entityframeworkcore.abstractions/10.0.5",
-      "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.5.nupkg.sha512"
+      "sha512": "sha512-4F+e6uxhVmyduu+Ve1INxek94adt4RAddWqykXNDnOOWQrJJ20izw/9qRpZdkLnIW9oj/3qnLWUtsv37U0xJCw==",
+      "path": "microsoft.entityframeworkcore.abstractions/10.0.6",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.6.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyModel/10.0.2": {
       "type": "package",
