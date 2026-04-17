@@ -2610,6 +2610,7 @@ var _FUNCTIONS = {
 							case 563: //refinanciacion tarjeta CABAL
 							case 564: //Refinanciacion credito+visa
 							case 565: //Refinanciacion credito+cabal
+							case 566: //Refinanciacion cabal/cabal
 								_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckProductoVigente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function (data) {
 									if (data.records[0].Mensaje != '') {
 										$(".btn-ScoringSimulator").hide();
@@ -2682,6 +2683,7 @@ var _FUNCTIONS = {
 						case 563:
 						case 564: //Refinanciacion credito+visa
 						case 565: //Refinanciacion credito+cabal
+						case 566: //Refinanciacion cabal+cabal
 
 							switch (parseInt(item.Tipo)) {
 								case 1:
@@ -2701,6 +2703,7 @@ var _FUNCTIONS = {
 								case 563:
 								case 564: //Refinanciacion credito+visa
 								case 565: //Refinanciacion credito+cabal
+								case 566: //Refinanciacion cabal+cabal
 									_bShow = true;
 									_showAlert = true;
 							}
