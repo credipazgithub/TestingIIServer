@@ -269,12 +269,14 @@ var _FUNCTIONS = {
 		try {
 			if (data.hasOwnProperty("htmlInfo")) {
 				if (data.htmlInfo != null && data.htmlInfo != "") {
+					data.htmlInfo = data.htmlInfo.replace("[BLL]", "");
 					$(".divLog").prepend(data.htmlInfo);
 				}
 			}
 		} catch (err) { }
 	},
 	onToggleTagLog: function (_t) {
+		$(".divLog").removeClass("d-none");
 		if (_t) {
 			$(".btnOpenLog").hide();
 			$(".divLog").fadeIn("slow");
@@ -5978,7 +5980,7 @@ var _FUNCTIONS = {
 	onCrearCardCred: function (_this) {
 		if (!confirm("Se intentará generar datos de lotes a enviar a CardCred. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Cardcred/Crear", {}).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/Cardcred/Crear", { "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			var _msg = "Se ejecutó correctamente";
 			if (!data.logica && data.mensaje != "") { _msg = data.mensaje; }
 			var _params = { "id": "infoCrearCardCred", "title": "Resultado del proceso", "body": ("<b>" + _msg + "</b>") };
@@ -5997,7 +5999,7 @@ var _FUNCTIONS = {
 	onEnviarCardCred: function (_this) {
 		if (!confirm("Se intentará generar datos de lotes a enviar a CardCred. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Cardcred/Enviar", {}).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/Cardcred/Enviar", { "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			console.log(data);
 			var _msg = "Se ejecutó correctamente";
 			if (!data.logica && data.error != "") { _msg = data.error; }
@@ -6017,7 +6019,7 @@ var _FUNCTIONS = {
 	onActualizarCardCred: function (_this) {
 		if (!confirm("Se forzará una actualización de los ítems CardCred activos. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Cardcred/Actualizar", {}).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/Cardcred/Actualizar", { "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			var _msg = "Se ejecutó correctamente";
 			if (!data.logica && data.mensaje != "") { _msg = data.mensaje; }
 			var _params = { "id": "infoActualizarCardCred", "title": "Resultado del proceso", "body": ("<b>" + _msg + "</b>") };
@@ -6036,7 +6038,7 @@ var _FUNCTIONS = {
 	onImputacionesCardCred: function (_this) {
 		if (!confirm("Se forzará una actualización de los ítems CardCred activos. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Cardcred/Imputaciones", {}).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/Cardcred/Imputaciones", { "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			var _msg = "Se ejecutó correctamente";
 			if (!data.logica && data.mensaje != "") { _msg = data.mensaje; }
 			var _params = { "id": "infoImputacionesCardCred", "title": "Resultado del proceso", "body": ("<b>" + _msg + "</b>") };
@@ -6053,7 +6055,7 @@ var _FUNCTIONS = {
 		});
 	},
 	onCheckTotalesCobroCardCred: function (_this) {
-		_FUNCTIONS.ExecutePostAjax("/Cardcred/TotalesCobro", { "FechaDesde": $(".wFecha").val() }).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/Cardcred/TotalesCobro", { "FechaDesde": $(".wFecha").val(), "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			var _detalle = data.html;
 			var _params = { "id": "infoTotalesCobroCardCred", "title": "Resultado del proceso", "body": _detalle };
 			_FUNCTIONS.onShowStaticModal(_params, function () {
