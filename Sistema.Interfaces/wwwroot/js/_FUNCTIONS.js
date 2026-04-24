@@ -1573,12 +1573,11 @@ var _FUNCTIONS = {
 	 * 
 	 */
 	saveModal: function (_params) {
+		var _idelay = 2500;
 		_params["wId"] = $("#wId").val();
 		_FUNCTIONS.ExecutePostAjax(_params["url"], _params).then(function (data) {
-			console.log("respuesta saveModal data");
-			console.log(data);
 			if (!data.logica) {
-				var _body = ("<h4>La operación no pudo realizarse</h4>");
+				var _body = ("<h4>Verifique si la operación ha finalizado correctamente</h4>");
 				var _msg = ("<p>" + data.mensaje + "</p>");
 				if (data.mensaje.includes(" data: ")) {
 					var _seg = data.mensaje.split(" data: ");
@@ -1586,12 +1585,14 @@ var _FUNCTIONS = {
 					_msg += ("<p>" + _seg[1] + "</p>");
 					_msg += ("<p style='color:red;'><b>Por favor, verifique los datos.</b></p>");
 					_msg += ("<p style='color:darkred;'>Si el problema persiste, la operación no puede ser procesada por el operador externo.</p>");
+					_idelay = 7500;
 				}
 				_body += _msg;
 				var _params = { "id": "infoModalSaveModalAlert", "title": "Alerta", "body": _body };
 				_FUNCTIONS.onShowInfoModal(_params, function () {
 					$(".modal-dialog").removeClass("modal-xl").addClass("modal-sm");
 					$(".modal-footer").remove();
+					SetTimeout(function () { window.location.reload() }, _idelay);
 				});
 			} else {
 				_FUNCTIONS.onWait(true);
@@ -3826,7 +3827,7 @@ var _FUNCTIONS = {
 		_FUNCTIONS.onWait(true);
 		_this.fadeOut("fast");
 		var _url = "/CardCred/AnularBarridoByDni";
-		var _params = { "Id": _doc };
+		var _params = { "Id": _doc, "Id_empresa_origen": $(".Id_empresa_origen").val() };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			$(".areaResultado").html(data.html).removeClass("d-none");
 			_this.fadeIn("slow");
@@ -6071,7 +6072,7 @@ var _FUNCTIONS = {
 	onRecaudacionCardCred: function (_this) {
 		var _step = parseInt(_this.attr("data-step"));
 		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Cardcred/Recaudacion", { "Id_type": _step }).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/Cardcred/Recaudacion", { "Id_type": _step, "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			switch (_step) {
 				case 1:// imputar
 					var _msg = "Se ejecutó correctamente";
@@ -6133,7 +6134,7 @@ var _FUNCTIONS = {
 		if (!confirm("Se anulará completamente el lote ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _id = _this.attr("data-id");
-		_FUNCTIONS.ExecutePostAjax("/CardCred/CancelarLote", { "Id": _id }).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/CardCred/CancelarLote", { "Id": _id, "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			window.location.reload();
 		}).catch(function (err) {
 			_FUNCTIONS.onWait(false);
@@ -6142,7 +6143,7 @@ var _FUNCTIONS = {
 	onDetalleCabeceraLote: function (_this) {
 		var _html = "";
 		var _id = _this.attr("data-id");
-		_FUNCTIONS.ExecutePostAjax("/CardCred/GetRows", { "Id": _id }).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/CardCred/GetRows", { "Id": _id, "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			_html += "<table class='table table-sm table-borderless table-striped'>";
 			_html += "   <tbody>";
 			_html += "      <tr>";
@@ -6177,14 +6178,14 @@ var _FUNCTIONS = {
 	},
 	onReenviarRechazados: function (_this) {
 		if (!confirm("Está a punto de reenviar los items de lote rechazados.\n¿Confirma?")) { return false; }
-		_FUNCTIONS.ExecutePostAjax("/CardCred/ReEnviar", { "Id": _this.attr("data-id") }).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/CardCred/ReEnviar", { "Id": _this.attr("data-id"), "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			window.location.reload();
 		});
 	},
 	onDetalleLote: function (_this) {
 		var _html = "";
 		var _id = _this.attr("data-id");
-		_FUNCTIONS.ExecutePostAjax("/CardCred/GetRows", { "Id": _id }).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/CardCred/GetRows", { "Id": _id, "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			_html += "<table class='table table'>";
 			_html += "   <thead class='thead-dark'>";
 			_html += "      <tr>";
@@ -6213,7 +6214,7 @@ var _FUNCTIONS = {
 			_html += "      </tr>";
 			_html += "   </tbody>";
 			_html += "</table>";
-			_FUNCTIONS.ExecutePostAjax("/CardCred/GetItemsLote", { "Id": _id }).then(function (items) {
+			_FUNCTIONS.ExecutePostAjax("/CardCred/GetItemsLote", { "Id": _id, "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (items) {
 				_html += "<div class='container'>";
 				_html += "   <table class='table table-sm table-hover' style='width:100%;'>";
 				_html += "   <thead class='thead-primary'>";
@@ -6261,7 +6262,7 @@ var _FUNCTIONS = {
 	onDetalleImputacion: function (_this) {
 		var _html = "";
 		var _id = _this.attr("data-id");
-		_FUNCTIONS.ExecutePostAjax("/CardCred/GetRowsImputaciones", { "Id": _id }).then(function (data) {
+		_FUNCTIONS.ExecutePostAjax("/CardCred/GetRowsImputaciones", { "Id": _id, "Id_empresa_origen": $(".Id_empresa_origen").val() }).then(function (data) {
 			_html += "<table class='table table-sm'>";
 			_html += "   <thead class='thead-dark'>";
 			_html += "      <tr>";
