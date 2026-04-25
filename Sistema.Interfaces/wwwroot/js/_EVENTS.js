@@ -451,6 +451,10 @@ $("body").off("click", ".WbtnResumen").on("click", ".WbtnResumen", function () {
 $("body").off("click", ".btn-GrabarLimitesTarjeta").on("click", ".btn-GrabarLimitesTarjeta", function () {
 	_FUNCTIONS.onGrabarLimitesTarjeta($(this));
 });
+$("body").off("change", ".chkEmitirMediya").on("change", ".chkEmitirMediya", function () {
+	_FUNCTIONS.onEmitirMediya($(this));
+});
+
 $("body").off("click", ".btn-GrabarCapitalCuotas").on("click", ".btn-GrabarCapitalCuotas", function () {
 	var _this = $(this);
 	var _rec = _this.attr("data-record");
