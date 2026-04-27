@@ -2848,6 +2848,7 @@ var _FUNCTIONS = {
 				$(".Deuda_Total_Cierre").val(_scoring[0]["Deuda_Total_Cierre"]);
 				$(".Pagos_Periodo").val(_scoring[0]["Pagos_Periodo"]);
 				$(".Consumos_Periodo").val(_scoring[0]["Consumos_Periodo"]);
+				$(".Monto_Refinancia").val(_scoring[0]["Monto a Ofrecer"]);
 
 				if (_scoring[0]["Nombre"]!="REF_Cabal_Cabal" && _scoring[0]["NroCredito"] != undefined && parseInt(_scoring[0]["NroCredito"]) != 0) {
 					$.each(_scoring, function (i, val) {
@@ -2884,14 +2885,14 @@ var _FUNCTIONS = {
 				_html += "<div class='p-1' style='border:double 3px darkred;background-color:ivory;'>";
 				_html += "<table style='font-size: 0.90em; width:100%;color:black;'>";
 				_html += "   <tr>";
-				_html += "      <td class='p-1' align='right'>Pago total cierre</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Pago_Total_Cierre"]) + "</b></td>";
-				_html += "      <td class='p-1' align='right'>Deuda futura cierre</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Deuda_Futura_Cierre"]) + "</b></td>";
-				_html += "      <td class='p-1' align='right'>Deuda total cierre</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Deuda_Total_Cierre"]) + "</b></td>";
+				_html += "      <td class='p-1' align='right'>Pago total cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Pago_Total_Cierre"]) + "</td>";
+				_html += "      <td class='p-1' align='right'>Deuda futura cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Deuda_Futura_Cierre"]) + "</td>";
+				_html += "      <td class='p-1' align='right'>Deuda total cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Deuda_Total_Cierre"]) + "</td>";
 				_html += "   </tr>";
 				_html += "   <tr>";
-				_html += "      <td class='p-1' align='right'>Pagos período</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Pagos_Periodo"]) + "</b></td>";
-				_html += "      <td class='p-1' align='right'>Consumos período</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Consumos_Periodo"]) + "</b></td>";
-				_html += "      <td class='p-1' align='right'></td><td align='right'></td>";
+				_html += "      <td class='p-1' align='right'>Pagos período</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Pagos_Periodo"]) + "</td>";
+				_html += "      <td class='p-1' align='right'>Consumos período</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Consumos_Periodo"]) + "</td>";
+				_html += "      <td class='p-1' align='right'>Monto a refinanciar</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Monto a Ofrecer"]) + "</b></td>";
 				_html += "   </tr>";
 				_html += "</table>";
 				_html += "</div>";
@@ -3029,6 +3030,11 @@ var _FUNCTIONS = {
 							_colLeft = "col-6";
 							_colRight = "col-6";
 						}
+						if (_FUNCTIONS._productoConsulta == "RC2C") {
+							_colLeft = "col-1";
+							_colRight = "col-11";
+						}
+
 						_html += "	<div class='" + _colLeft + " auxScoring " + _none + "'>";
 						_html += "		<div class='row align-items-center py-1'>";
 						var _checked = "";
@@ -3040,7 +3046,7 @@ var _FUNCTIONS = {
 							_html += "				<a href='#' class='pl-2 btn btn-danger btn-sm btnResolverCondicional' data-security='' data-request='" + _idRequest + "' data-enteexterno='9' data-transaccion='" + _idTransaccion + "' data-parent='0' data-title='Comprobante manual para: Comprobante de ingresos'>Comprobante de ingresos</a>";
 							_html += "			</div>";
 						}
-						_html += "          <div class='col-12 text-center'>Ingresos considerados</div>";
+						_html += "          <div class='col-12 text-center areaIngresos'>Ingresos considerados</div>";
 						_html += "			<div class='col-3 text-right areaIngresos noPromocion'></div>";
 						_html += "			<div class='col-6 text-center areaIngresos noPromocion'>";
 						_html += "				<input type='number' disabled value='" + _ingresosEstimados + "' class='changeSimulator form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
@@ -3347,6 +3353,7 @@ var _FUNCTIONS = {
 							if (_FUNCTIONS._productoConsulta == "RC2C") {
 								$(".areaForzar").addClass("d-none");
 								$(".areaCapital").addClass("d-none");
+								$(".areaIngresos").addClass("d-none");
 							}
 
 							var y = document.getElementById("SliderMonto");
