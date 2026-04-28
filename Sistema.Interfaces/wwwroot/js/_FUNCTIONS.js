@@ -2828,7 +2828,6 @@ var _FUNCTIONS = {
 		var _maximo = 0;
 		var _planes = [];
 		var _monto = $(".MontoSeleccionado").val();
-
 		console.log(_scoring);
 
 		$.each(_scoring, function (i, val) { _planes.push(val["nIDPlan"]); });
@@ -2837,9 +2836,9 @@ var _FUNCTIONS = {
 		_FUNCTIONS.ExecutePostAjax(_url, _dPlanes).then(function (ret) {
 			$.each(ret.records, function (ix, imp) {
 				_scoring[ix]["ImporteCuota"] = imp["monto"];
-				_scoring[ix]["Importe de Cuota"] = imp["monto"];
-				_scoring[ix]["Monto a Ofrecer"] = _monto;
-				//_scoring[ix]["Monto a Ofrecer"] = _scoring[ix]["MontoOfrecido"];
+				_scoring[ix]["Importe_de_Cuota"] = imp["monto"];
+				_scoring[ix]["Monto_a_Ofrecer"] = _monto;
+				//_scoring[ix]["Monto_a_Ofrecer"] = _scoring[ix]["MontoOfrecido"];
 			});
 			var _html = "";
 			if (_scoring.length > 0) {
@@ -2848,7 +2847,7 @@ var _FUNCTIONS = {
 				$(".Deuda_Total_Cierre").val(_scoring[0]["Deuda_Total_Cierre"]);
 				$(".Pagos_Periodo").val(_scoring[0]["Pagos_Periodo"]);
 				$(".Consumos_Periodo").val(_scoring[0]["Consumos_Periodo"]);
-				$(".Monto_Refinancia").val(_scoring[0]["Monto a Ofrecer"]);
+				$(".Monto_Refinancia").val(_scoring[0]["Monto_a_Ofrecer"]);
 
 				if (_scoring[0]["Nombre"]!="REF_Cabal_Cabal" && _scoring[0]["NroCredito"] != undefined && parseInt(_scoring[0]["NroCredito"]) != 0) {
 					$.each(_scoring, function (i, val) {
@@ -2892,7 +2891,7 @@ var _FUNCTIONS = {
 				_html += "   <tr>";
 				_html += "      <td class='p-1' align='right'>Pagos período</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Pagos_Periodo"]) + "</td>";
 				_html += "      <td class='p-1' align='right'>Consumos período</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Consumos_Periodo"]) + "</td>";
-				_html += "      <td class='p-1' align='right'>Monto a refinanciar</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Monto a Ofrecer"]) + "</b></td>";
+				_html += "      <td class='p-1' align='right'>Monto a refinanciar</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Monto_a_Ofrecer"]) + "</b></td>";
 				_html += "   </tr>";
 				_html += "</table>";
 				_html += "</div>";
@@ -2915,13 +2914,13 @@ var _FUNCTIONS = {
 				_maximo = parseFloat(_scoring[i]["MontoOfrecido"]);
 				var _montoSeleccionado = 0;// $(".MontoSeleccionado").val();
 				var _fixedCapital = 0;
-				_fixedCapital = _scoring[i]["Monto a Ofrecer"];
-				if (parseFloat(_scoring[i]["Monto a Ofrecer"]) > parseFloat(_scoring[i]["MontoOfrecido"])) {
+				_fixedCapital = _scoring[i]["Monto_a_Ofrecer"];
+				if (parseFloat(_scoring[i]["Monto_a_Ofrecer"]) > parseFloat(_scoring[i]["MontoOfrecido"])) {
 					_fixedCapital = _scoring[i]["MontoOfrecido"];
 				}
 				_planDesc = _scoring[i]["Plan"];
 				if (_planDesc == "") { _hidde = "d-none"; }
-				if (_scoring[i]["Nombre"]!="REF_Cabal_Cabal" && _planDesc != "" && (_scoring[i]["Importe de Cuota"] == null || _scoring[i]["Importe de Cuota"] == "" || _scoring[i]["Importe de Cuota"] == 0 || _scoring[i]["Importe de Cuota"] == "0")) {
+				if (_scoring[i]["Nombre"]!="REF_Cabal_Cabal" && _planDesc != "" && (_scoring[i]["Importe_de_Cuota"] == null || _scoring[i]["Importe_de_Cuota"] == "" || _scoring[i]["Importe_de_Cuota"] == 0 || _scoring[i]["Importe_de_Cuota"] == "0")) {
 					_html += "     <tr class='alertNoScoring'>";
 					_html += "        <td colspan='5' class='px-4 py-1' align='left'>";
 					_html += "           No se ha podido resolver scoring";
@@ -2964,7 +2963,7 @@ var _FUNCTIONS = {
 								_html += "       <input " + _checked + " data-record='" + _TOOLS.utf8_to_b64(JSON.stringify(val)) + "' data-type='radio' type='radio' name='cuotas' id='cuotas' value='" + val.Plazo + "' class='cuotas form-radio radio validateMontos dbaseMontos' style='height: 25px; width: 25px;'/> <b>" + val.Plazo + "</b>";
 							}
 							_html += "        </td>";
-							_html += "        <td class='px-4 py-1 " + _hidde + "' align='right'>" + _TOOLS.formatMoney(_scoring[i]["Importe de Cuota"]) + "</td>";
+							_html += "        <td class='px-4 py-1 " + _hidde + "' align='right'>" + _TOOLS.formatMoney(_scoring[i]["Importe_de_Cuota"]) + "</td>";
 
 							var _style = "color:red;";
 							var _importeAEntregar = (parseInt(_fixedCapital) - parseInt(_scoring[i]["ImporteCancelacion"]));
@@ -3264,8 +3263,8 @@ var _FUNCTIONS = {
 							$("body").off("change", ".cuotas").on("change", ".cuotas", function () {
 								var _record = JSON.parse(_TOOLS.b64_to_utf8($(this).attr("data-record")));
 								$(".btn-GrabarCapitalCuotas").attr("data-record", $(this).attr("data-record"));
-								var _fixedCapital = parseFloat(_record["Monto a Ofrecer"]);
-								if (parseFloat(_record["Monto a Ofrecer"]) > parseFloat(_record["MontoOfrecido"])) { _fixedCapital = parseFloat(_record["MontoOfrecido"]); }
+								var _fixedCapital = parseFloat(_record["Monto_a_Ofrecer"]);
+								if (parseFloat(_record["Monto_a_Ofrecer"]) > parseFloat(_record["MontoOfrecido"])) { _fixedCapital = parseFloat(_record["MontoOfrecido"]); }
 								var _maximo = parseFloat(_record["MontoOfrecido"]);
 								$(".importeCancelacion").val(parseInt(_record["ImporteCancelacion"]));
 								$(".importeEntregar").val(parseInt(_record["ImporteAEntregar"]));
@@ -3310,7 +3309,16 @@ var _FUNCTIONS = {
 							var _minimo = 0;
 							var _maximo = 0;
 							var _capital = 0;
+
+							console.log("dos->");
+							console.log(data);
+							console.log(data.scoring);
 							var _scoring = JSON.parse(data.scoring);
+
+							console.log("tres->");
+							console.log(_scoring);
+
+
 							if (_scoring.length == 0) {
 								_scoring = [{}];
 								$(".btn-FirstEvaluation").addClass("d-none");
@@ -3333,8 +3341,8 @@ var _FUNCTIONS = {
 								_minimo = parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["Minimo"]);
 								if (_scoring[_FUNCTIONS._lastPlanIndex]["MontoOfrecido"] == null || _scoring[_FUNCTIONS._lastPlanIndex]["MontoOfrecido"] == "") { _scoring[_FUNCTIONS._lastPlanIndex]["MontoOfrecido"] = 0; }
 								_maximo = parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["MontoOfrecido"]);
-								_capital = parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["Monto a Ofrecer"]);
-								if (parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["Monto a Ofrecer"]) > parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["MontoOfrecido"])) {
+								_capital = parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["Monto_a_Ofrecer"]);
+								if (parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["Monto_a_Ofrecer"]) > parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["MontoOfrecido"])) {
 									_capital = parseFloat(_scoring[_FUNCTIONS._lastPlanIndex]["MontoOfrecido"]);
 								}
 							}
@@ -3444,7 +3452,7 @@ var _FUNCTIONS = {
 		}
 		if (_rec == "") {
 			_record = { "nIDPlan": 0, "ImporteCuota": 0 };
-			_record["Monto a Ofrecer"] = $(".MontoSeleccionado").val();
+			_record["Monto_a_Ofrecer"] = $(".MontoSeleccionado").val();
 			_record["MontoOfrecido"] = $(".MontoSeleccionado").val();
 		} else {
 			_record = JSON.parse(_TOOLS.b64_to_utf8(_rec));
@@ -3455,7 +3463,7 @@ var _FUNCTIONS = {
 		_params["idPlan"] = _record.nIDPlan;
 		_params["importeCuota"] = _record.ImporteCuota;
 		_params["ingresosForzados"] = $(".IngresosForzados").val();
-		_params["montoOfrecido"] = _record["Monto a Ofrecer"];
+		_params["montoOfrecido"] = _record["Monto_a_Ofrecer"];
 		_params["importeCancelacion"] = $(".importeCancelacion").val();
 		_params["importeEntregar"] = $(".importeEntregar").val();
 		_params["checkIngresoForzados"] = 0;
