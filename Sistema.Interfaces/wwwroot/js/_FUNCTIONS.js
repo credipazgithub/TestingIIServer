@@ -2963,7 +2963,9 @@ var _FUNCTIONS = {
 								_html += "       <input " + _checked + " data-record='" + _TOOLS.utf8_to_b64(JSON.stringify(val)) + "' data-type='radio' type='radio' name='cuotas' id='cuotas' value='" + val.Plazo + "' class='cuotas form-radio radio validateMontos dbaseMontos' style='height: 25px; width: 25px;'/> <b>" + val.Plazo + "</b>";
 							}
 							_html += "        </td>";
-							_html += "        <td class='px-4 py-1 " + _hidde + "' align='right'>" + _TOOLS.formatMoney(_scoring[i]["Importe_de_Cuota"]) + "</td>";
+							var _fieldImporteCuota = "Importe_de_Cuota";
+							if (_scoring[i]["Nombre"] == "REF_Cabal_Cabal") {_fieldImporteCuota = "ImportePlan";}
+							_html += "        <td class='px-4 py-1 " + _hidde + "' align='right'>" + _TOOLS.formatMoney(_scoring[i][_fieldImporteCuota]) + "</td>";
 
 							var _style = "color:red;";
 							var _importeAEntregar = (parseInt(_fixedCapital) - parseInt(_scoring[i]["ImporteCancelacion"]));
