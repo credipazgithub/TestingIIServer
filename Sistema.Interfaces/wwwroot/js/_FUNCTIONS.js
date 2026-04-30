@@ -3460,6 +3460,9 @@ var _FUNCTIONS = {
 			_record = JSON.parse(_TOOLS.b64_to_utf8(_rec));
 		}
 		var _params = {};
+
+		console.log(_record);
+
 		_params["idTransaccion"] = $("#Id").val()
 		_params["idRequest"] = $("#id_obj").val()
 		_params["idPlan"] = _record.nIDPlan;
@@ -6984,7 +6987,7 @@ var _FUNCTIONS = {
 			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonosLaboral", "danger");
 
 			_items += _FUNCTIONS.buildAlertLine(".alert-danger .alert-message", "info");
-			if ($(".alertaPlan").html() != "") { _items += _FUNCTIONS.buildAlertLineText(("Resolver oferta: " + $(".alertaPlan").html()), "primary"); }
+			if ($(".alertaPlan").html() != undefined && $(".alertaPlan").html() != "") { _items += _FUNCTIONS.buildAlertLineText(("Resolver oferta: " + $(".alertaPlan").html()), "primary"); }
 			if ($(".msgEndeudamiento").html() != undefined && $(".msgEndeudamiento").html() != "") { _foot += "<div style='padding:3px;border:double 3px red;'>" + $(".msgEndeudamiento").html() + "</div>"; }
 			if (!_TOOLS.validate(".validate", false)) { _foot += "<br/><div style='padding:3px;border:double 3px red;'>"+_TOOLS.msgValidate(".validate")+"</div>"; }
 			
@@ -7012,7 +7015,9 @@ var _FUNCTIONS = {
 	buildAlertLine(_key, _color) {
 		var _html = "";
 		if ($(_key).html() != undefined && $(_key).html() != "") {
-			_html = "<li><span class='badge badge-" + _color + " p-2 m-1' style='font-size:0.75rem;'>" + $(_key).html().split("<")[0] + "</span></li>";
+			if ($(_key).html().split("<")[0].trim() != "") {
+				_html = "<li><span class='badge badge-" + _color + " p-2 m-1' style='font-size:0.75rem;'>" + $(_key).html().split("<")[0] + "</span></li>";
+			}
 		}
 		return _html;
 	},
