@@ -2828,8 +2828,6 @@ var _FUNCTIONS = {
 		var _maximo = 0;
 		var _planes = [];
 		var _monto = $(".MontoSeleccionado").val();
-		console.log(_scoring);
-
 		$.each(_scoring, function (i, val) { _planes.push(val["nIDPlan"]); });
 		_url = "/Utilidades/RecalcularImporteCuotaCredito";
 		var _dPlanes = { "Monto": _monto, "Planes": _planes.toString() + "," };
@@ -3311,16 +3309,7 @@ var _FUNCTIONS = {
 							var _minimo = 0;
 							var _maximo = 0;
 							var _capital = 0;
-
-							console.log("dos->");
-							console.log(data);
-							console.log(data.scoring);
 							var _scoring = JSON.parse(data.scoring);
-
-							console.log("tres->");
-							console.log(_scoring);
-
-
 							if (_scoring.length == 0) {
 								_scoring = [{}];
 								$(".btn-FirstEvaluation").addClass("d-none");
@@ -3460,9 +3449,6 @@ var _FUNCTIONS = {
 			_record = JSON.parse(_TOOLS.b64_to_utf8(_rec));
 		}
 		var _params = {};
-
-		console.log(_record);
-
 		_params["idTransaccion"] = $("#Id").val()
 		_params["idRequest"] = $("#id_obj").val()
 		_params["idPlan"] = _record.nIDPlan;
@@ -4265,7 +4251,6 @@ var _FUNCTIONS = {
 			if (_TOOLS.validate(".validateInit", true)) {
 				var _params = _TOOLS.getFormValues(".validateInit", $(this));
 				_FUNCTIONS.ExecutePostAjax("/Mediya/GetAdicionalMediya", _params).then(function (_adic) {
-					console.log(_adic.records);
 					if (_adic.records.length != 0 && _adic.records[0]["EstadoSocio"] == "VIG") {
 						_FUNCTIONS.onShowInfoModal({ "id": "errModal", "title": "Alerta", "body": "No se puede dar de alta este DNI como socio, ya que es adicional" }, function () {
 							$(".btn-Save-modal").remove();
@@ -4273,7 +4258,6 @@ var _FUNCTIONS = {
 						_FUNCTIONS.onWait(false);
 					} else {
 						_FUNCTIONS.ExecutePostAjax("/Mediya/GetTitularMediya", _params).then(function (_data) {
-							console.log(_data);
 							if (_data.records == null || _data.records.length == 0) {
 								_message = "Todo está en orden.  El DNI no es de un cliente ni de un socio.  Complete todos los datos solicitados.";
 								$(".info-verify").removeClass("badge-warning").addClass("badge-success");
@@ -4863,7 +4847,6 @@ var _FUNCTIONS = {
 				var _params = { "Descripcion": "TOTAL", "Id": _IdPlantilla, "Id_Type": $(".id_type_plantilla").val() };
 				_FUNCTIONS.ExecutePostAjax("/Marketing/ResolveCampaign", _params)
 					.then(function (_data) {
-						console.log(_data);
 						iTotal = parseInt(_data.records[0]["Total"]);
 						if (iTotal != 0) { $(".btnGenerarCampaign").removeClass("d-none"); }
 						resolve(iTotal);
@@ -6541,7 +6524,6 @@ var _FUNCTIONS = {
 					"LimitePrestamo": 0,
 					"Usuario": $(".idUser").val()
 				};
-				console.log(_p);
 				_FUNCTIONS.ExecutePostAjax("/Visa/SyncGP", _p).then(function (data) {
 					if (!data.logica) { alert(data.mensaje); }
 					$(".btn-close-modal").click();
@@ -6989,7 +6971,9 @@ var _FUNCTIONS = {
 			_items += _FUNCTIONS.buildAlertLine(".alert-danger .alert-message", "info");
 			if ($(".alertaPlan").html() != undefined && $(".alertaPlan").html() != "") { _items += _FUNCTIONS.buildAlertLineText(("Resolver oferta: " + $(".alertaPlan").html()), "primary"); }
 			if ($(".msgEndeudamiento").html() != undefined && $(".msgEndeudamiento").html() != "") { _foot += "<div style='padding:3px;border:double 3px red;'>" + $(".msgEndeudamiento").html() + "</div>"; }
-			if (!_TOOLS.validate(".validate", false)) { _foot += "<br/><div style='padding:3px;border:double 3px red;'>"+_TOOLS.msgValidate(".validate")+"</div>"; }
+			if (!_TOOLS.validate(".validate", false)) {
+				_foot += "<br/><div style='padding:3px;border:double 3px red;'>" + _TOOLS.msgValidate(".validate") + "</div>";
+			}
 			
 			if (_items != "") {
 				var _body = ("<div style='padding:3px;border:double 3px red;'><ul>" + _items + "</ul></div>");
