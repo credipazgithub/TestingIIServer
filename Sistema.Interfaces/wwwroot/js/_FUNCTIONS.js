@@ -7275,4 +7275,74 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	onChangeIdModoPagoMediya: function (_this) {
+		var _new = (parseInt($(".Id").val()) == 0);
+		var _iModoPago = parseInt(_this.val());
+		$(".cbuMediya").removeClass("validarCBU");
+		$(".relative").removeClass("validateAdherir");
+		$(".PAN").removeClass("validarPAN");
+		$(".DAC").addClass("d-none");
+		$(".DAT").addClass("d-none");
+		$(".DEM").addClass("d-none");
+		$(".DATCOBRO").addClass("d-none");
+		switch (_iModoPago) {
+			case 1: // tarjeta de credito
+				_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=OpcionModoPagoDBClub&Field=IdModoPago&Filter=" + _iModoPago, "Marca", "");
+				$(".DAT").removeClass("d-none");
+				$(".Marca").addClass("validateAdherir");
+				$(".PAN").addClass("validateAdherir");
+				$(".PAN").addClass("validarPAN");
+				$(".NombreTarjeta").addClass("validateAdherir");
+				$(".MesVTO").addClass("validateAdherir");
+				$(".AnioVTO").addClass("validateAdherir");
+				break;
+			case 5: // tarjeta de débito
+				_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=OpcionModoPagoDBClub&Field=IdModoPago&Filter=" + _iModoPago, "Marca", "");
+				$(".DAT").removeClass("d-none");
+				$(".Marca").addClass("validateAdherir");
+				$(".PAN").addClass("validateAdherir");
+				$(".PAN").addClass("validarPAN");
+				$(".NombreTarjeta").addClass("validateAdherir");
+				$(".MesVTO").addClass("validateAdherir");
+				$(".AnioVTO").addClass("validateAdherir");
+				$(".DATCOBRO").removeClass("d-none");
+				break;
+			case 2: // CBU
+				$(".cbuMediya").addClass("validarCBU");
+				$(".DAC").removeClass("d-none");
+				break;
+			case 3: // Tarjeta CP
+				if (parseInt($(".TarjetaCPHabilitada").val()) != 1) {
+					alert("No puede utilizar este medio de pago para esta operación.  El DNI no tiene tarjeta activa.");
+					$(".IdModoPago").val(-1);
+				} else {
+					$(".CBU").val($(".TarjetaCP").val());
+				}
+				break;
+			case 4: // Pago empresa
+				$(".DEM").removeClass("d-none");
+				break;
+			case 6: // Efectivo
+				$(".validateAdherir").removeClass("validateAdherir");
+				break;
+			case 11: // debito cardcred
+				_FUNCTIONS.buildMediosCobro("", ".accMediosCobroMediya", false, true).then(function () {
+					if ($(".accMediosCobroMediya").html() == "") {
+						alert("Debe cargar lo datos de la tarjeta de débito en el área de Datos de Cobro o enviando el link al cliente para que se autogestione el alta desde el despegable 'Acciones'");
+					}
+					$(".DEM").addClass("d-none");
+					$(".DAC").addClass("d-none");
+					$(".DAT").addClass("d-none");
+					$(".DATCOBRO").removeClass("d-none");
+					$(".Marca").removeClass("validateAdherir");
+					$(".PAN").removeClass("validateAdherir");
+					$(".PAN").removeClass("validarPAN");
+					$(".NombreTarjeta").removeClass("validateAdherir");
+					$(".MesVTO").removeClass("validateAdherir");
+					$(".AnioVTO").removeClass("validateAdherir");
+					_VAR.p3 = $("#NroDocumento").val();
+				});
+				break;
+		}
+	},
 }
