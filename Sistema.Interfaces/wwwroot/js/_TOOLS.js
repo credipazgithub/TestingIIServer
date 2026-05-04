@@ -333,7 +333,7 @@ var _TOOLS = {
 			if (_msg == undefined) { _msg = "el valor de selección"; }
 			$(".invalid-" + _obj.prop("name")).html("Debe completar " + _msg).removeClass("d-none");
 		}
-		if (!_ret) { alert(property);}
+		//if (!_ret) { alert(property);}
 		return _ret;
 	},
 	getFormValues: function (_selector, _this) {

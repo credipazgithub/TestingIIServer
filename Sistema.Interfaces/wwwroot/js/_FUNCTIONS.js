@@ -2565,7 +2565,7 @@ var _FUNCTIONS = {
 		if (_dni >= 99999 && _sexo != "") {
 			$(".btn-ScoringSimulator").show();
 			$(".dbReset").val("");
-			$(".id_type_modo_pago").val("-1");
+			$(".id_type_modo_pago").val("0").change();
 			$(".Sucursales_Activas").val($(".nIDSucursal").val()).prop("disabled", true);
 			$(".dCalificacion").html("");
 			_FUNCTIONS.ExecutePostAjax("/Clientes/GetCliente", { "NroDocumento": _dni, "Sexo": _sexo }).then(function (data) {
@@ -2621,7 +2621,7 @@ var _FUNCTIONS = {
 										$(".dbInit ").val("");
 										$(".onlyNumbers").val("");
 										$(".dbReset").val("");
-										$(".id_type_modo_pago").val("-1");
+										$(".id_type_modo_pago").val("0").change();
 										$(".dCalificacion").html("");
 										setTimeout(function () { $(".hEdad").val(""); }, 250);
 										return false;
@@ -2775,7 +2775,7 @@ var _FUNCTIONS = {
 			//}
 		} else {
 			$(".dbReset").val("");
-			$(".id_type_modo_pago").val("-1");
+			$(".id_type_modo_pago").val("0").change();
 			$(".Sucursales_Activas").val($(".nIDSucursal").val()).prop("disabled", true);
 			$(".dCalificacion").html("");
 		}
