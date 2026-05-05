@@ -1,4 +1,5 @@
 var _FUNCTIONS = {
+	_IntervalSlider: 100,
 	_tabSeleccionado: "",
 	_forzarReadOnly: false,
 	_limiteActual: 0,
@@ -3059,7 +3060,7 @@ var _FUNCTIONS = {
 						_html += "			<div class='col-3 text-center'>Mínimo</div>";
 						_html += "			<div class='col-6 areaSelector text-center py-2'>";
 						_html += "				<div class='slidecontainer'>";
-						_html += "					<input type='range' min='1' max='100' value='100' step='1000' class='slider SliderMonto' id='SliderMonto' name='SliderMonto'>";
+						_html += "					<input type='range' min='1' max='100' value='100' step='" + _FUNCTIONS._IntervalSlider + "' class='slider SliderMonto' id='SliderMonto' name='SliderMonto'>";
 						_html += "				</div>";
 						_html += "			</div>";
 						_html += "			<div class='col-3 text-center'>Máximo</div>";
@@ -3076,7 +3077,7 @@ var _FUNCTIONS = {
 							_html += "			<div class='col-3 text-center'>Mínimo</div>";
 							_html += "			<div class='col-6 areaSelector2 text-center py-2'>";
 							_html += "				<div class='slidecontainer'>";
-							_html += "					<input type='range' min='1' max='100' value='100' step='1000' class='slider SliderMonto2' id='SliderMonto2' name='SliderMonto2'>";
+							_html += "					<input type='range' min='1' max='100' value='100' step='" + _FUNCTIONS._IntervalSlider + "' class='slider SliderMonto2' id='SliderMonto2' name='SliderMonto2'>";
 							_html += "				</div>";
 							_html += "			</div>";
 							_html += "			<div class='col-3 text-center'>Máximo</div>";
@@ -3093,7 +3094,7 @@ var _FUNCTIONS = {
 							_html += "			<div class='col-3 text-center'>Mínimo</div>";
 							_html += "			<div class='col-6 areaSelector3 text-center py-2'>";
 							_html += "				<div class='slidecontainer'>";
-							_html += "					<input type='range' min='1' max='100' value='100' step='1000' class='slider SliderMonto3' id='SliderMonto3' name='SliderMonto3'>";
+							_html += "					<input type='range' min='1' max='100' value='100' step='" + _FUNCTIONS._IntervalSlider + "' class='slider SliderMonto3' id='SliderMonto3' name='SliderMonto3'>";
 							_html += "				</div>";
 							_html += "			</div>";
 							_html += "			<div class='col-3 text-center'>Máximo</div>";
@@ -3266,8 +3267,8 @@ var _FUNCTIONS = {
 								var _fixedCapital = parseFloat(_record["Monto_a_Ofrecer"]);
 								if (parseFloat(_record["Monto_a_Ofrecer"]) > parseFloat(_record["MontoOfrecido"])) { _fixedCapital = parseFloat(_record["MontoOfrecido"]); }
 								var _maximo = parseFloat(_record["MontoOfrecido"]);
-								$(".importeCancelacion").val(parseInt(_record["ImporteCancelacion"]));
-								$(".importeEntregar").val(parseInt(_record["ImporteAEntregar"]));
+								$(".importeCancelacion").val(_record["ImporteCancelacion"]);
+								$(".importeEntregar").val(_record["ImporteAEntregar"]);
 								if (isNaN(_maximo)) { _maximo = 0; }
 								if (_maximo <= _minimo) { _maximo = _minimo; }
 								$(".SliderMonto").attr("min", _minimo).attr("max", _maximo);
@@ -3436,6 +3437,7 @@ var _FUNCTIONS = {
 	onGrabarCapitalCuotas: function (_this) {
 		_FUNCTIONS.onWait(true);
 		_rec = _this.attr("data-record");
+
 		var _record = "";
 		if (_rec == "" && _FUNCTIONS._productoConsulta != "TAR" && _FUNCTIONS._productoConsulta != "CABAL" && _FUNCTIONS._productoConsulta != "VISA" && _FUNCTIONS._productoConsulta != "CLC") {
 			alert("No se puede grabar sin seleccionar plan");
@@ -3448,6 +3450,13 @@ var _FUNCTIONS = {
 		} else {
 			_record = JSON.parse(_TOOLS.b64_to_utf8(_rec));
 		}
+
+		if (_record.Nombre == "REF_Cabal_Cabal") {
+			_record.ImporteCuota = _record.ImportePlan;
+			$(".IngresosForzados").val(0);
+		} 
+
+		console.log(_record);
 		var _params = {};
 		_params["idTransaccion"] = $("#Id").val()
 		_params["idRequest"] = $("#id_obj").val()
@@ -3455,20 +3464,21 @@ var _FUNCTIONS = {
 		_params["importeCuota"] = _record.ImporteCuota;
 		_params["ingresosForzados"] = $(".IngresosForzados").val();
 		_params["montoOfrecido"] = _record["Monto_a_Ofrecer"];
-		_params["importeCancelacion"] = $(".importeCancelacion").val();
+		_params["importeCancelacion"] = _record.importeCancelacion;
 		_params["importeEntregar"] = $(".importeEntregar").val();
 		_params["checkIngresoForzados"] = 0;
 		_params["endeudamientoTarjeta"] = 0;
 		_params["endeudamientoCredito"] = 0;
 	
-		_params["Pago_Total_Cierre"] = $(".Pago_Total_Cierre").val();
-		_params["Deuda_Futura_Cierre"] = $(".Deuda_Futura_Cierre").val();
-		_params["Deuda_Total_Cierre"] = $(".Deuda_Total_Cierre").val();
-		_params["Pagos_Periodo"] = $(".Pagos_Periodo").val();
-		_params["Consumos_Periodo"] = $(".Consumos_Periodo").val();
+		_params["Pago_Total_Cierre"] = _record.Pago_Total_Cierre;
+		_params["Deuda_Futura_Cierre"] = _record.Deuda_Futura_Cierre;
+		_params["Deuda_Total_Cierre"] = _record.Deuda_Total_Cierre;
+		_params["Pagos_Periodo"] = _record.Pagos_Periodo;
+		_params["Consumos_Periodo"] = _record.Consumos_Periodo;
 
 		if ($(".chkIngresos").prop("checked") && parseInt($(".IngresosForzados").val()) > 0) { _params["checkIngresoForzados"] = 1; }
 		$(".ingresoMensual").val($(".IngresosForzados").val());
+		console.log(_params);
 
 		_FUNCTIONS.ExecutePostAjax("/Transaccion/GrabarCapitalCuotas", _params).then(function (data) {
 			if (parseInt(_record.MontoOfrecido) != 0) {
