@@ -1601,7 +1601,7 @@ var _FUNCTIONS = {
 			}
 			//_params.refresh(_params.tipo, _params.target);
 		}).catch(function (err) {
-			alert("Se ha producido un error inesperado.\n" + JSON.stringify(err));
+			//alert("Se ha producido un error inesperado.\n" + JSON.stringify(err));
 			$("body").css({ "overflow-y": "auto" });
 		});
 	},
