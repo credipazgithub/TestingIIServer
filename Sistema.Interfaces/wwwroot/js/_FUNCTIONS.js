@@ -152,7 +152,7 @@ var _FUNCTIONS = {
 							var _empty = $(_target).attr("data-empty");
 							$(_target).empty();
 							if (_value == -1 || _value == "") { _sel = "selected"; }
-							if (_empty != "N") { $(_target).append('<option ' + _sel + ' value="">[Seleccione]</option>'); }
+							if (_empty != "N") { $(_target).append('<option ' + _sel + ' value="-1">[Seleccione]</option>'); }
 							$.each(_data, function (i, item) {
 								_sel = "";
 								if (_value == item[_id]) {
