@@ -1546,8 +1546,10 @@ var _FUNCTIONS = {
 		_html += "<input id='wPreferido' name='wPreferido' type='hidden' class='dbase' value='1'/>";
 		if (!_mediya) {
 			_html += "<input id='IdTransaccion' name='IdTransaccion' type='hidden' class='dbase IdTransaccion' value='" + _VAR.idValorRegistroActivo + "'/>";
+			_html += "<input id='wIdEmpresaOrigen' name='wIdEmpresaOrigen' type='hidden' class='dbase wIdEmpresaOrigen' value='1' />";
 		} else {
 			_html += "<input id='IdSocio' name='IdSocio' type='hidden' class='dbase IdSocio' value='" + _VAR.idValorRegistroActivo + "'/>";
+			_html += "<input id='wIdEmpresaOrigen' name='wIdEmpresaOrigen' type='hidden' class='dbase wIdEmpresaOrigen' value='3' />";
 			if (!_alone) {
 				_html += "<input id='wDocumento' name='wDocumento' type='hidden' class='dbase wDocumento' value='" + _VAR.p3 + "'/>";
 			}
@@ -2690,7 +2692,6 @@ var _FUNCTIONS = {
 						case 564: //Refinanciacion credito+visa
 						case 565: //Refinanciacion credito+cabal
 						case 566: //Refinanciacion cabal+cabal
-
 							switch (parseInt(item.Tipo)) {
 								case 1:
 								case 2:
