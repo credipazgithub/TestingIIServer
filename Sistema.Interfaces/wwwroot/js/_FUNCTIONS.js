@@ -2670,10 +2670,7 @@ var _FUNCTIONS = {
 						case 8:
 						case 9:
 						case 10:
-						case 562:
 						case 563:
-						case 564: //Refinanciacion credito+visa
-						case 565: //Refinanciacion credito+cabal
 						case 566: //Refinanciacion cabal+cabal
 							switch (parseInt(item.Tipo)) {
 								case 1:
@@ -2689,23 +2686,8 @@ var _FUNCTIONS = {
 								case 14:
 								case 141:
 								case 241:
-								case 562: 
 								case 563:
-								case 564: //Refinanciacion credito+visa
-								case 565: //Refinanciacion credito+cabal
 								case 566: //Refinanciacion cabal+cabal
-									_bShow = true;
-									_showAlert = true;
-							}
-							break;
-						case 351:
-						case 451:
-						case 560:
-						case 561:
-							switch (parseInt(item.Tipo)) {
-								case 15:
-								case 151:
-								case 251:
 									_bShow = true;
 									_showAlert = true;
 							}
