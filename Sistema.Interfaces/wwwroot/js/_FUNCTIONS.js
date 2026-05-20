@@ -2600,24 +2600,9 @@ var _FUNCTIONS = {
 
 						/*Evaluar si tiene tarjeta en caso de ser una verificacion de tarjeta! */
 						switch (_tipo) {
-							case 351:
-							case 451:
-							case 560:
-							case 561:
-								_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckTarjetaHabiente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function (data) {
-									if (data.logica) {
-										$(".btn-ScoringSimulator").hide();
-										alert(data.mensaje);
-										return false;
-									}
-								});
-								break;
 							case 2: //refinanciacion credito CP
 							case 4: //refinanciacion credito Amutra
-							case 562: //refinanciacion tarjeta VISA
 							case 563: //refinanciacion tarjeta CABAL
-							case 564: //Refinanciacion credito+visa
-							case 565: //Refinanciacion credito+cabal
 							case 566: //Refinanciacion cabal/cabal
 								_FUNCTIONS.ExecutePostAjax("/Transaccion/CheckProductoVigente", { "NroDocumento": _dni, "Sexo": _sexo, "Tipo": _tipo }).then(function (data) {
 									if (data.records[0].Mensaje != '') {
@@ -2634,8 +2619,6 @@ var _FUNCTIONS = {
 								});
 								break;
 						}
-
-
 						_FUNCTIONS.ExecutePostAjax("/Transaccion/HabilitarSeguimientoGestion", { "Id": item.nID, "IdProducto": _tipo }).then(function (data) {
 							var _msg = data.records[0]["Respuesta"];
 							if (_msg != "") {
