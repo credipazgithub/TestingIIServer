@@ -1,3 +1,4 @@
+/*Click*/
 $("body").off("click", ".btnOpenLog").on("click", ".btnOpenLog", function () {
 	_FUNCTIONS.onToggleTagLog(true);
 });
@@ -28,7 +29,6 @@ $("body").off("click", ".btn-stats-ia").on("click", ".btn-stats-ia", function ()
 $("body").off("click", ".btn-borrarcomparativa-ia").on("click", ".btn-borrarcomparativa-ia", function () {
 	_FUNCTIONS.onBorrarComparativaIA($(this));
 });
-
 $("body").off("click", ".btnStatusAlert").on("click", ".btnStatusAlert", function () {
 	_FUNCTIONS.onAlertTransaccionState($(this));
 });
@@ -98,9 +98,6 @@ $("body").off("click", ".btn-DeleteTransfer").on("click", ".btn-DeleteTransfer",
 $("body").off("click", ".btn-GoTransfer").on("click", ".btn-GoTransfer", function () {
 	_FUNCTIONS.onGoTransfer($(this));
 });
-$("body").off("change", ".ctrlAllNone").on("change", ".ctrlAllNone", function () {
-	_FUNCTIONS.onCtrlAllnone($(this));
-});
 $("body").off("click", ".btnRefreshQR").on("click", ".btnRefreshQR", function () {
 	_FUNCTIONS.onRefreshQRcode($(this));
 });
@@ -116,21 +113,6 @@ $("body").off("click", ".btnGenerarCampaign").on("click", ".btnGenerarCampaign",
 $("body").off("click", ".btn-generarPlanosWaldbott").on("click", ".btn-generarPlanosWaldbott", function () {
 	_FUNCTIONS.onGenerarPlanosWaldbott($(this));
 });
-$("body").off("change", ".chkReasignarAll").on("change", ".chkReasignarAll", function () {
-	_FUNCTIONS.onSelectReasignarAll($(this));
-});
-$("body").off("change", ".chkReasignarOperadorAll").on("change", ".chkReasignarOperadorAll", function () {
-	_FUNCTIONS.onSelectReasignarOperadorAll($(this));
-});
-$("body").off("change", ".chkReasignarOperador").on("change", ".chkReasignarOperador", function () {
-	_FUNCTIONS.onSelectReasignarOperador($(this));
-});
-$("body").off("change", ".reasignarLanding").on("change", ".reasignarLanding", function () {
-	_FUNCTIONS.onReasignarLanding($(this));
-});
-$("body").off("change", ".gestorReasignado").on("change", ".gestorReasignado", function () {
-	_FUNCTIONS.onReasignarGestor($(this));
-});
 $("body").off("click", ".btnEmitirProducto").on("click", ".btnEmitirProducto", function () {
 	_FUNCTIONS.onEmitirProducto($(this));
 });
@@ -143,37 +125,8 @@ $("body").off("click", ".btn-Reservar").on("click", ".btn-Reservar", function ()
 $("body").off("click", ".btnModificarEndeudamiento").on("click", ".btnModificarEndeudamiento", function () {
 	_FUNCTIONS.onModificarEndeudamiento($(this));
 });
-
-$("body").off("change", ".ws-EnviarLinkGestionProducto").on("change", ".ws-EnviarLinkGestionProducto", function () {
-	_FUNCTIONS.onEnviarLinkGestionProducto($(this));
-});
 $("body").off("click", ".btnAprobarTransaccion").on("click", ".btnAprobarTransaccion", function () {
 	_FUNCTIONS.onAprobarTransaccion($(this));
-});
-
-$("body").off("change", ".chkPago").on("change", ".chkPago", function () {
-	_FUNCTIONS.onSelectOperacionPago($(this));
-});
-$("body").off("change", ".chkPagoAll").on("change", ".chkPagoAll", function () {
-	_FUNCTIONS.onSelectPagoAll($(this));
-});
-
-$("body").off("change", ".chkConfirmAuditoria").on("change", ".chkConfirmAuditoria", function () {
-	_FUNCTIONS.onConfirmarAuditoriaInforme($(this));
-});
-$("body").off("change", ".typeObservacion").on("change", ".typeObservacion", function (e) {
-	_FUNCTIONS.onConfirmarAuditoriaInforme($(this));
-});
-$("body").off("keyup", ".notaAuditoria").on("keyup", ".notaAuditoria", function (e) {
-	var _this = $(this);
-	clearTimeout(_FUNCTIONS._TIMER_LAZY);
-	_FUNCTIONS._TIMER_LAZY = setTimeout(function () {
-		_FUNCTIONS.onConfirmarAuditoriaInforme(_this);
-	}, 1000);
-});
-
-$("body").off("change", ".chkConfirm").on("change", ".chkConfirm", function () {
-	_FUNCTIONS.onConfirmarOperacionPago($(this));
 });
 $("body").off("click", ".btnTerminarConciliacionDia").on("click", ".btnTerminarConciliacionDia", function () {
 	_FUNCTIONS.onTerminarConciliacionDia($(this));
@@ -216,12 +169,6 @@ $("body").off("click", ".btnExportarArchivoPlano").on("click", ".btnExportarArch
 $("body").off("click", ".btnArmarAccionesOperaciones").on("click", ".btnArmarAccionesOperaciones", function () {
 	_FUNCTIONS.onArmarAccionesLotesOperaciones($(this));
 });
-$("body").off("change", ".id_type_modo_pago").on("change", ".id_type_modo_pago", function () {
-	_FUNCTIONS.onSelectModoPago($(this));
-});
-$("body").off("change", ".Sucursales_Activas").on("change", ".Sucursales_Activas", function () {
-	_FUNCTIONS.onSelectSucursalPago($(this));
-});
 $("body").off("click", ".btnSecurityGroups").on("click", ".btnSecurityGroups", function () {
 	_FUNCTIONS.onSecurityGroups($(this));
 });
@@ -231,26 +178,12 @@ $("body").off("click", ".btnConvertir").on("click", ".btnConvertir", function ()
 $("body").off("click", ".btnRetomar").on("click", ".btnRetomar", function () {
 	_FUNCTIONS.onRetomar($(this));
 });
-$("body").off("keyup", ".chkEnGestion").on("keyup", ".chkEnGestion", function (e) {
-	var _this = $(this);
-	clearTimeout(_FUNCTIONS._TIMER_LAZY);
-	_FUNCTIONS._TIMER_LAZY = setTimeout(function () {
-		_FUNCTIONS.onCheckEnGestion(_this);
-	}, 1500);
-});
-$("body").off("change", ".selEnGestion").on("change", ".selEnGestion", function () {
-	_FUNCTIONS.onCheckEnGestion($(this));
-});
-$("body").off("change", ".resetScoring").on("change", ".resetScoring", function () {
-	_FUNCTIONS.onResetScoring($(this));
-});
 $("body").off("click", ".btnResolverAccion").on("click", ".btnResolverAccion", function () {
 	_FUNCTIONS.onResolverAccion($(this));
 });
 $("body").off("click", ".btnConfirmarResolverAccion").on("click", ".btnConfirmarResolverAccion", function () {
 	_FUNCTIONS.onConfirmarResolverAccion($(this));
 });
-
 $("body").off("click", ".btn-SaveRedMutual").on("click", ".btn-SaveRedMutual", function () {
 	_FUNCTIONS.onSaveRedMutual($(this));
 });
@@ -287,7 +220,6 @@ $("body").off("click", ".btn-CardCredAnularBarridoPorDNI").on("click", ".btn-Car
 $("body").off("click", ".btn-DocumentoFirmable").on("click", ".btn-DocumentoFirmable", function () {
 	_FUNCTIONS.onDocumentoFirmable($(this));
 });
-
 $("body").off("click", ".btn-AccionesSoporte").on("click", ".btn-AccionesSoporte", function () {
 	_FUNCTIONS.onAccionesSoporte($(this));
 });
@@ -327,7 +259,6 @@ $("body").off("click", ".btnAuditoriaTransaccion").on("click", ".btnAuditoriaTra
 $("body").off("click", ".btnReabrirAuditoriaTransaccion").on("click", ".btnReabrirAuditoriaTransaccion", function () {
 	_FUNCTIONS.onReabrirAuditoriaTransaccion($(this));
 });
-
 $("body").off("click", ".btnFullAudit").on("click", ".btnFullAudit", function () {
 	_FUNCTIONS.onFullAudit($(this));
 });
@@ -414,12 +345,6 @@ $("body").off("click", ".btnVerifyModal").on("click", ".btnVerifyModal", functio
 $("body").off("click", ".btnMarcarLeido").on("click", ".btnMarcarLeido", function () {
 	_FUNCTIONS.onClickMarcarLeido($(this));
 });
-$("body").off("input", ".onlyNumbers").on("input", ".onlyNumbers", function () {
-	_TOOLS.onlyNumbers($(this));
-});
-$("body").off("change", ".validateAge").on("change", ".validateAge", function () {
-	_TOOLS.validateAge($(this));
-});
 $("body").off("click", ".btnResolverCondicional").on("click", ".btnResolverCondicional", function () {
 	_FUNCTIONS.onResolverCondicional($(this));
 });
@@ -435,26 +360,12 @@ $("body").off("click", ".btnBridgeFile").on("click", ".btnBridgeFile", function 
 $("body").off("click", ".btnToggleByClass").on("click", ".btnToggleByClass", function () {
 	_TOOLS.toggleByClass($(this));
 });
-$("body").off("change", ".modalresYear").on("change", ".modalresYear", function () {
-	_FUNCTIONS.onTraerConsumosHistoricos($(this).val(), $(".modalresMonth").val());
-	$(".resYear").val($(".modalresYear").val());
-	$(".resMonth").val($(".modalresMonth").val());
-});
-$("body").off("change", ".modalresMonth").on("change", ".modalresMonth", function () {
-	_FUNCTIONS.onTraerConsumosHistoricos($(".modalresYear").val(), $(".modalresMonth").val());
-	$(".resYear").val($(".modalresYear").val());
-	$(".resMonth").val($(".modalresMonth").val());
-});
 $("body").off("click", ".WbtnResumen").on("click", ".WbtnResumen", function () {
 	$(".btnResumen").click();
 });
 $("body").off("click", ".btn-GrabarLimitesTarjeta").on("click", ".btn-GrabarLimitesTarjeta", function () {
 	_FUNCTIONS.onGrabarLimitesTarjeta($(this));
 });
-$("body").off("change", ".chkEmitirMediya").on("change", ".chkEmitirMediya", function () {
-	_FUNCTIONS.onEmitirMediya($(this));
-});
-
 $("body").off("click", ".btn-GrabarCapitalCuotas").on("click", ".btn-GrabarCapitalCuotas", function () {
 	var _this = $(this);
 	var _rec = _this.attr("data-record");
@@ -512,4 +423,89 @@ $("body").off("click", ".btnReporteSoporte").on("click", ".btnReporteSoporte", f
 	_FUNCTIONS.onInformeSoporte($(this));
 });
 
+/*Input*/
+$("body").off("input", ".onlyNumbers").on("input", ".onlyNumbers", function () {
+	_TOOLS.onlyNumbers($(this));
+});
 
+/*Keyup*/
+$("body").off("keyup", ".chkEnGestion").on("keyup", ".chkEnGestion", function (e) {
+	var _this = $(this);
+	clearTimeout(_FUNCTIONS._TIMER_LAZY);
+	_FUNCTIONS._TIMER_LAZY = setTimeout(function () {
+		_FUNCTIONS.onCheckEnGestion(_this);
+	}, 1500);
+});
+$("body").off("keyup", ".notaAuditoria").on("keyup", ".notaAuditoria", function (e) {
+	var _this = $(this);
+	clearTimeout(_FUNCTIONS._TIMER_LAZY);
+	_FUNCTIONS._TIMER_LAZY = setTimeout(function () {
+		_FUNCTIONS.onConfirmarAuditoriaInforme(_this);
+	}, 1000);
+});
+
+/*Change*/
+$("body").off("change", ".chkConfirm").on("change", ".chkConfirm", function () {
+	_FUNCTIONS.onConfirmarOperacionPago($(this));
+});
+$("body").off("change", ".ws-EnviarLinkGestionProducto").on("change", ".ws-EnviarLinkGestionProducto", function () {
+	_FUNCTIONS.onEnviarLinkGestionProducto($(this));
+});
+$("body").off("change", ".chkPago").on("change", ".chkPago", function () {
+	_FUNCTIONS.onSelectOperacionPago($(this));
+});
+$("body").off("change", ".chkPagoAll").on("change", ".chkPagoAll", function () {
+	_FUNCTIONS.onSelectPagoAll($(this));
+});
+$("body").off("change", ".id_type_modo_pago").on("change", ".id_type_modo_pago", function () {
+	_FUNCTIONS.onSelectModoPago($(this));
+});
+$("body").off("change", ".Sucursales_Activas").on("change", ".Sucursales_Activas", function () {
+	_FUNCTIONS.onSelectSucursalPago($(this));
+});
+$("body").off("change", ".chkConfirmAuditoria").on("change", ".chkConfirmAuditoria", function () {
+	_FUNCTIONS.onConfirmarAuditoriaInforme($(this));
+});
+$("body").off("change", ".typeObservacion").on("change", ".typeObservacion", function (e) {
+	_FUNCTIONS.onConfirmarAuditoriaInforme($(this));
+});
+$("body").off("change", ".selEnGestion").on("change", ".selEnGestion", function () {
+	_FUNCTIONS.onCheckEnGestion($(this));
+});
+$("body").off("change", ".resetScoring").on("change", ".resetScoring", function () {
+	_FUNCTIONS.onResetScoring($(this));
+});
+$("body").off("change", ".chkEmitirMediya").on("change", ".chkEmitirMediya", function () {
+	_FUNCTIONS.onEmitirMediya($(this));
+});
+$("body").off("change", ".modalresYear").on("change", ".modalresYear", function () {
+	_FUNCTIONS.onTraerConsumosHistoricos($(this).val(), $(".modalresMonth").val());
+	$(".resYear").val($(".modalresYear").val());
+	$(".resMonth").val($(".modalresMonth").val());
+});
+$("body").off("change", ".modalresMonth").on("change", ".modalresMonth", function () {
+	_FUNCTIONS.onTraerConsumosHistoricos($(".modalresYear").val(), $(".modalresMonth").val());
+	$(".resYear").val($(".modalresYear").val());
+	$(".resMonth").val($(".modalresMonth").val());
+});
+$("body").off("change", ".validateAge").on("change", ".validateAge", function () {
+	_TOOLS.validateAge($(this));
+});
+$("body").off("change", ".ctrlAllNone").on("change", ".ctrlAllNone", function () {
+	_FUNCTIONS.onCtrlAllnone($(this));
+});
+$("body").off("change", ".chkReasignarAll").on("change", ".chkReasignarAll", function () {
+	_FUNCTIONS.onSelectReasignarAll($(this));
+});
+$("body").off("change", ".chkReasignarOperadorAll").on("change", ".chkReasignarOperadorAll", function () {
+	_FUNCTIONS.onSelectReasignarOperadorAll($(this));
+});
+$("body").off("change", ".chkReasignarOperador").on("change", ".chkReasignarOperador", function () {
+	_FUNCTIONS.onSelectReasignarOperador($(this));
+});
+$("body").off("change", ".reasignarLanding").on("change", ".reasignarLanding", function () {
+	_FUNCTIONS.onReasignarLanding($(this));
+});
+$("body").off("change", ".gestorReasignado").on("change", ".gestorReasignado", function () {
+	_FUNCTIONS.onReasignarGestor($(this));
+});

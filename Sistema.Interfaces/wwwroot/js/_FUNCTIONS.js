@@ -39,7 +39,6 @@ var _FUNCTIONS = {
 			}
 		);
 	},
-
 	preventDefaultsOver: function (e) {
 		$('.drop-area').addClass("drag-over");
 		e.preventDefault();
@@ -286,6 +285,7 @@ var _FUNCTIONS = {
 			$(".divLog").fadeOut("slow");
 		}
 	},
+
 	/**
 	 * Nivel 1
 	 * Funciones generales de armado de interfaces y activación de eventos en registros N a 1
@@ -6089,7 +6089,6 @@ var _FUNCTIONS = {
 			});
 		});
 	},
-
 	onRecaudacionCardCred: function (_this) {
 		var _step = parseInt(_this.attr("data-step"));
 		_FUNCTIONS.onWait(true);
@@ -6902,7 +6901,6 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-
 	onGestionarAlerta: function (_this) {
 		_VAR.idValorRegistroActivo = _this.attr("data-idTransaccion");
 		var _accion = _this.attr("data-accion");
@@ -6990,7 +6988,6 @@ var _FUNCTIONS = {
 		}
 		return _html;
 	},
-
 	onReiniciarIA: function (_this) {
 		var _id = _this.attr("data-id");
 		var _description = _this.attr("data-description");
