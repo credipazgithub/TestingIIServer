@@ -1167,9 +1167,9 @@ var _FUNCTIONS = {
 
 		});
 	},
-	buildAlertas: function (_tipo, _target) {
-		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=Alertas&p1=" + _VAR.p1).then(function (data) {
-			var _fields = ["registrado", "description", "code", "nSolicitud", "idTransaccion", "Gestionar", "Descartar"];
+	buildAlertasGestionables: function (_tipo, _target) {
+		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AlertasGestionables&p1=" + _VAR.p1 +"&p2=1&p3=0").then(function (data) {
+			var _fields = ["registrado", "descriptionAlert", "codeAlert", "nSolicitud", "idTransaccion", "Gestionar", "Descartar"];
 			var _labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción", "", ""];
 			var _params = { "interface": _target, "idKey": "", "class": "table table-sm tblAcciones", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
 			$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
