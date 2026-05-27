@@ -3446,8 +3446,6 @@ var _FUNCTIONS = {
 
 		if ($(".chkIngresos").prop("checked") && parseInt($(".IngresosForzados").val()) > 0) { _params["checkIngresoForzados"] = 1; }
 		$(".ingresoMensual").val($(".IngresosForzados").val());
-		console.log(_params);
-
 		_FUNCTIONS.ExecutePostAjax("/Transaccion/GrabarCapitalCuotas", _params).then(function (data) {
 			if (parseInt(_record.MontoOfrecido) != 0) {
 				window.location = "/Transaccion/ABMTransaccion?id_sucursal=" + $(".IdUserSucursal").val() + "&sucursal=" + $(".UserSucursal").val() + "&_id=" + _params["idTransaccion"];
@@ -6915,26 +6913,55 @@ var _FUNCTIONS = {
 		}
 	},
 	onDescartarAlerta: function (_this) {
-		if (!confirm("Se marcará la alerta como descartada y no podrá gestionarse nuevamente ¿Confirma?")) { return false; }
-		_FUNCTIONS.onWait(true);
-		_this.fadeOut("fast");
-		var _url = "/Clientes/DescartarAlerta";
-		var _params = { "Id": _this.attr("data-id"), "Id_user": _VAR.idUser };
-		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-			_FUNCTIONS.buildAlertas("", ".accAlertas");
-			_FUNCTIONS.onWait(false);
-		}).catch(function (e) {
-			alert("Error al ejecutar el proceso");
-			_this.fadeIn("slow");
-			_FUNCTIONS.onWait(false);
-		});
+		var _html = "<h5 style='color:blue;'>Seleccione el motivo por el cual se descarta esta alerta.</h5>";
+		_html += "</hr>";
+		_html += "<div class='py-4 px-0'>";
+		_html += "   <table style='width:100%;'>";
+		_html += "      <tr>";
+		_html += "         <td><label>Motivo</label></td>";
+		_html += "         <td><select class='form-control wvalidate wid_type_status_alert' data-id='id' data-descripcion='descripcion' id='wid_type_status_alert' name='wid_type_status_alert'></select></td>"; 
+		_html += "      </tr>";
+		_html += "   </table>";
+		_html += "   <input id='wid' name='wid' class='wid' type='hidden' value='" + _this.attr("data-id") + "'>";
+		_html += "</div>";
+		var _params = { "id": "modal-status-alert", "title": "Descartar alerta", "body": _html };
+		_FUNCTIONS.onShowHtmlModal(
+			_params,
+			function () {
+				_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_Type_Status_Alert", "wid_type_status_alert", "").then(function (data) { });
+
+				$("body").off("click", ".btn-close-modal").on("click", ".btn-close-modal", function () {
+					$(".modal-backdrop").remove();
+					$("#" + _params.id).remove();
+					$("body").css({ "overflow-y": "auto" });
+					_FUNCTIONS.RestorePosY();
+				});
+				$("body").off("click", ".btn-Save-modal").on("click", ".btn-Save-modal", function () {
+					if (!_TOOLS.validate(".wvalidate", false)) { return false; }
+					/*revisar los valores que se pasan porque no va el iduser o idcliente ni idtransaccion en casos de telefonos laborales */
+					if (!confirm("Se marcará la alerta como descartada y no podrá gestionarse nuevamente ¿Confirma?")) { return false; }
+					_FUNCTIONS.onWait(true);
+					_this.fadeOut("fast");
+					var _url = "/Clientes/DescartarAlerta";
+					var _params = { "Id": $(".wid").val(), "Id_user": _VAR.idUser, "IdStatusAlert": $(".wid_type_status_alert").val() };
+					_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+						_this.fadeIn("slow");
+						_FUNCTIONS.onWait(false);
+						$(".btn-close-modal").click();
+					}).catch(function (e) {
+						alert("Error al ejecutar el proceso");
+						_this.fadeIn("slow");
+						_FUNCTIONS.onWait(false);
+					});
+				});
+			}
+		);
 	},
 	onAlertTransaccionState: function (_this) {
 		if (!_FUNCTIONS._forzarReadOnly) {
 			var _foot = "";
 			var _items = "";
 			_items += _FUNCTIONS.buildAlertLine(".alert-warning .alert-message strong", "warning");
-
 			_items += _FUNCTIONS.buildAlertLine(".alertaPlan", "danger");
 			_items += _FUNCTIONS.buildAlertLine(".alertaModoCobro", "danger");
 			_items += _FUNCTIONS.buildAlertLine(".alertaPendientes", "danger");
@@ -6943,7 +6970,6 @@ var _FUNCTIONS = {
 			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonos", "danger");
 			_items += _FUNCTIONS.buildAlertLine(".alertaDomiciliosLaboral", "danger");
 			_items += _FUNCTIONS.buildAlertLine(".alertaTelefonosLaboral", "danger");
-
 			_items += _FUNCTIONS.buildAlertLine(".alert-danger .alert-message", "info");
 			if ($(".alertaPlan").html() != undefined && $(".alertaPlan").html() != "") { _items += _FUNCTIONS.buildAlertLineText(("Resolver oferta: " + $(".alertaPlan").html()), "primary"); }
 			if ($(".msgEndeudamiento").html() != undefined && $(".msgEndeudamiento").html() != "") { _foot += "<div style='padding:3px;border:double 3px red;'>" + $(".msgEndeudamiento").html() + "</div>"; }
