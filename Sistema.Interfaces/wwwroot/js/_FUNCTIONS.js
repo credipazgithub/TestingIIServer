@@ -4049,7 +4049,7 @@ var _FUNCTIONS = {
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _mode = _this.attr("data-mode");
-		var _url = "/InformeSaldos/InformeTarjetas";
+		var _url = "/Clientes/InformeTarjetas";
 		var _tipo = $(".tipo").val();
 		var _valor = $(".valor").val();
 		switch (_tipo) {
