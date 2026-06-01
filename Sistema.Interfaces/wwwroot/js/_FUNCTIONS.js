@@ -4396,9 +4396,9 @@ var _FUNCTIONS = {
 		if ($(".empleadoCredipaz").val() == "S") { $(".Empresa").val(999); }
 		_html += "</tr>";
 		_html += "<tr>";
-		_html += "<td><span class='p-2 badge badge-primary'><b>" + $(".EmpresaNombre").val() + "</b></span></td>";
+		_html += "<td><span class='p-2 badge badge-primary'>Empresa: " + $(".EmpresaNombre").val() + "</span></td>";
 		_html += "<td><span class='p-2 badge badge-dark'>Equipo: " + $(".EquipoVenta").val() + "</span></td>";
-		_html += "<td><span class='p-2 badge badge-dark'>" + $(".DatosEmpresario").val() + "</span></td>";
+		_html += "<td><span class='p-2 badge badge-dark'>Empresario: " + $(".DatosEmpresario").val() + "</span></td>";
 		_color = "badge-success";
 		$(".TarjetaCP").val($(".sCuenta").val());
 		$(".TarjetaCPHabilitada").val(0);
