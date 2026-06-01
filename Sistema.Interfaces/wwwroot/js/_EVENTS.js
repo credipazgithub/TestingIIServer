@@ -1,4 +1,14 @@
 /*Click*/
+
+$("body").off("click", ".btnMediyaCambioEstado").on("click", ".btnMediyaCambioEstado", function () {
+	_FUNCTIONS.onMediyaCambioEstado($(this));
+});
+$("body").off("click", ".btnMediyaReactivacion").on("click", ".btnMediyaReactivacion", function () {
+	_FUNCTIONS.onMediyaReactivacion($(this));
+});
+$("body").off("click", ".btnMediyaModosPago").on("click", ".btnMediyaModosPago", function () {
+	_FUNCTIONS.onMediyaModosPago($(this));
+});
 $("body").off("click", ".btnOpenLog").on("click", ".btnOpenLog", function () {
 	_FUNCTIONS.onToggleTagLog(true);
 });

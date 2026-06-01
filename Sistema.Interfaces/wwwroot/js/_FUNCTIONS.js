@@ -4386,12 +4386,12 @@ var _FUNCTIONS = {
 		var _html = "<table class='tblBarTopMediya'>";
 		_html += "		<tr>";
 		if ($(".disponible").val() == "S") { _html += "<td><a href='#' class='p-2 btn btn-raised btn-warning btn-Reservar'>Reservar</></td>"; }
-		if ($(".AltaSocioF").val() != "") { _html += "<td><span class='p-2 badge badge-success'>Alta: <b>" + $(".AltaSocioF").val() + "</b></span></td>"; }
+		if ($(".AltaSocioF").val() != "") { _html += "<td class='datosAlta'><span class='p-2 badge badge-success'>Alta: <b>" + $(".AltaSocioF").val() + "</b></span></td>"; }
 		if ($(".IdSocio").val() != "") {
 			_html += "<td><span class='p-2 badge badge-dark'>ID socio: <b>" + $(".IdSocio").val() + "</b></span></td>";
 			_html += "<td><span class='p-2 badge " + _color + "'>Estado: <b>" + $(".EstadoSocio").val() + "</b></span></td>";
 		}
-		if ($(".FUP").val() != "") { _html += "<td><span class='p-2 badge badge-success'>Último pago: <b>" + $(".FUP").val() + "-" + $(".MUP").val() + "</b></span></td>"; }
+		if ($(".FUP").val() != "") { _html += "<td class='datosPago'><span class='p-2 badge badge-success'>Último pago: <b>" + $(".FUP").val() + "-" + $(".MUP").val() + "</b></span></td>"; }
 		if (_stateAdditional != "") { _html += "<td>" + _stateAdditional + "</td>"; }
 		if ($(".empleadoCredipaz").val() == "S") { $(".Empresa").val(999); }
 		_html += "</tr>";
@@ -7345,5 +7345,149 @@ var _FUNCTIONS = {
 				});
 				break;
 		}
+	},
+
+	onMediyaCambioEstado: function (_this) {
+		var _EstadoActual = $(".EstadoSocio").val();
+		var _html = "<table class='table table-sm table-borderless'>";
+		_html += "   <tr>";
+		_html += "      <td><label>Estado actual</label></td><td><span class='badge badge-dark'>" + _EstadoActual + "</span></td>";
+		_html += "      <td><label>pasar a</label></td><td><select id='wNuevoEstado' name='wNuevoEstado' data-id='codigo' data-descripcion='descripcion' class='form-control dbase wvalidate wNuevoEstado'></select></td>";
+		_html += "   </tr>";
+		_html += "   <tr><td colspan='4'><label>Observaciones</label><br/><textarea id='wObservaciones' name='wObservaciones' type='text' class='form-control wObservaciones wvalidate' rows='3' value=''></textarea></td></tr>";
+		_html += "</table>";
+
+		_html += "<h5>Últimos pagos</h5>";
+		_html += "<div class='accordion-body accUltimosPagos'></div>";
+		_html += "<h5>Cambios de estado</h5>";
+		_html += "<div class='accordion-body accCambiosEstado'></div>";
+
+		_html += "<input id='wEstadoActual' name='wEstadoActual' type='hidden' class='form-control wEstadoActual' value='" + _EstadoActual + "'/><br/>";
+		var _params = { "id": "infoMediyaCambioEstado", "title": "Cambio de estado socio Mediya", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".modal-dialog").addClass("modal-lg");
+			_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=EstadoSocio", "wNuevoEstado", "").then(function () { });
+			_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=MediyaUltimosPagos&p1=" + _VAR.p1).then(function (data) {
+				var _fields = ["TransaccionOrigen", "FechaAlta", "Origen", "Importe"];
+				var _labels = ["Transacción", "Fecha", "Origen", "Importe"];
+				var _params = { "one": true, "interface": ".accUltimosPagos", "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
+				$(".accUltimosPagos").html(_FUNCTIONS.BuildTable(_params, ""));
+			});
+			_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=MediyaCambiosEstado&p1=" + _VAR.p1).then(function (data) {
+				var _fields = ["Fecha", "Tipo", "Codigo", "ValorAnterior", "ValorNuevo", "Usuario", "Observaciones"];
+				var _labels = ["Fecha", "Tipo", "Código", "Anterior", "Nuevo", "Usuario", "Observaciones"];
+				var _params = { "one": true, "interface": ".accCambiosEstado", "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
+				$(".accCambiosEstado").html(_FUNCTIONS.BuildTable(_params, ""));
+			});
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#" + _params.id);
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!_TOOLS.validate(".wvalidate", false)) { return false; }
+				if (!confirm("Está a punto de cambiar el estado del socio.\n¿Confirma?")) { return false; }
+
+				var _p = { "Id": _VAR.p1, "Observaciones": $(".wObservaciones").val(), "EstadoNuevo": $(".wNuevoEstado").val(), "Usuario": $(".Username").val() };
+				_FUNCTIONS.onWait(true);
+				_FUNCTIONS.ExecutePostAjax("/Mediya/SetCambiosEstadoMediya", _p).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+		});
+	},
+	onMediyaReactivacion: function (_this) {
+		var _html = "<table class='table table-sm table-borderless'>";
+		_html += "   <tr><td>" + $(".datosAlta").html() + "</td></tr>";
+		_html += "   <tr><td>" + $(".datosPago").html() + "</td></tr>";
+		_html += "   <tr><td><span class='badge badge-dark'>Pago anterior: " + $(".ANTEUltimoPago").val() + "</span></td></tr>";
+		_html += "</table>";
+		_html += "<h5>Cambio de empresario</h5>";
+		_html += "<table class='table table-sm table-borderless'>";
+		_html += "   <tr>";
+		_html += "      <td width='20%'><label>DNI empresario</label></td>";
+		_html += "      <td width='25%'><input type='text' inputmode='numeric' id='wDniEmpresario' name='wDniEmpresario' class='form-control dbase onlyNumbers wDniEmpresario wvalidate' value='' placeholder='DNI'/></td>";
+		_html += "      <td width='35%' class='dataEmpresario'></td>";
+		_html += "      <td width='30%'><input id='wIdSocioEmpresario' name='wIdSocioEmpresario' disabled type='text' class='form-control wIdSocioEmpresario wvalidate' value=''/></td>";
+		_html += "   </tr>";
+		_html += "</table>";
+		_html += "<input id='wNombre' name='wNombre' type='hidden' class='form-control wNombre' value=''/><br/>";
+		_html += "<input id='wApellido' name='wApellido' type='hidden' class='form-control wApellido' value='wApellido'/><br/>";
+		_html += "<input id='wEmpresario' name='wEmpresario' type='hidden' class='form-control wEmpresario' value=''/><br/>";
+
+		var _params = { "id": "infoMediyaReactivacion", "title": "Reactivación", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=MediyaModosPago&p1=" + _VAR.p1).then(function (data) {
+				var _fields = ["Fecha", "Descripcion", "Identificacion", "Marca", "NombreTarjeta", "FechaVtoPAN", "Estado", "Observaciones"];
+				var _labels = ["Fecha", "Descripción", "Nº", "Marca", "Nombre", "Fecha VTO", "Estado", "Observaciones"];
+				var _params = { "one": true, "interface": ".accCambiosEstado", "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
+				$(".accModosPago").html(_FUNCTIONS.BuildTable(_params, ""));
+			});
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#" + _params.id);
+			});
+			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+				if (!_TOOLS.validate(".wvalidate", false)) { return false; }
+				if (!confirm("Está a punto de cambiar el empresario del socio.\n¿Confirma?")) { return false; }
+
+				var _p = { "Id": _VAR.p1, "IdEmpresario": $(".wIdSocioEmpresario").val(), "Usuario": $(".Username").val() };
+				_FUNCTIONS.onWait(true);
+				_FUNCTIONS.ExecutePostAjax("/Mediya/SetCambioEmpresarioSocioMediya", _p).then(function (data) {
+					if (!data.logica) { alert(data.mensaje); }
+					$(".btn-close-modal").click();
+					_FUNCTIONS.onWait(false);
+				}).catch(function (err) {
+					alert("Se ha producido un error indeterminado");
+					_FUNCTIONS.onWait(false);
+				});
+			});
+			$("body").off("keyup", ".wDniEmpresario").on("keyup", ".wDniEmpresario", function (e) {
+				var _this = $(this);
+				clearTimeout(_FUNCTIONS._TIMER_LAZY);
+				_FUNCTIONS._TIMER_LAZY = setTimeout(function () {
+					$(".dataEmpresario").html("");
+					$(".wIdSocioEmpresario").val("");
+					$(".wNombre").val("");
+					$(".wApellido").val("");
+					$(".wEmpresario").val("");
+
+					var _url = "/Clientes/CajaFisica";
+					var _params = { "NroDocumento": $(".wDniEmpresario").val(), "IdSocio": null };
+					_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+						if (data.records.length != 0) {
+							var _dataEmpresario = "<span class='badge badge-primary'>" + data.records[0]["Nombre"] + " " + data.records[0]["Apellido"] + "</span>";
+							$(".dataEmpresario").html(_dataEmpresario);
+							$(".wIdSocioEmpresario").val(data.records[0]["IdSocio"]);
+							$(".wNombre").val(data.records[0]["Nombre"]);
+							$(".wApellido").val(data.records[0]["Apellido"]);
+							$(".wEmpresario").val(data.records[0]["Empresario"]);
+						}
+					});
+				}, 1000);
+			});
+		});
+	},
+	onMediyaModosPago: function (_this) {
+		var _html = "<h5>Modos de pago</h5>";
+		_html += "<div class='accordion-body accModosPago'></div>";
+
+		var _params = { "id": "infoMediyaModosPago", "title": "Histórico de modos de pago", "body": _html };
+		_FUNCTIONS.onShowStaticModal(_params, function () {
+			$(".modal-dialog").addClass("modal-lg");
+			$(".btn-cancel-modal").html("Cerrar");
+			$(".btn-accept-modal").remove();
+			_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=MediyaModosPago&p1=" + _VAR.p1).then(function (data) {
+				var _fields = ["Fecha", "Descripcion", "Identificacion", "Marca", "NombreTarjeta", "FechaVtoPAN", "Estado", "Observaciones"];
+				var _labels = ["Fecha", "Descripción", "Nº", "Marca", "Nombre", "Fecha VTO", "Estado", "Observaciones"];
+				var _params = { "one": true, "interface": ".accCambiosEstado", "idKey": "id", "class": "table table-sm", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
+				$(".accModosPago").html(_FUNCTIONS.BuildTable(_params, ""));
+			});
+			$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+				_FUNCTIONS.onDestroyModal("#" + _params.id);
+			});
+		});
 	},
 }
