@@ -1,4 +1,16 @@
 /*Click*/
+$("body").off("click", ".btnBuscarMediyaFacturaLote").on("click", ".btnBuscarMediyaFacturaLote", function () {
+	_FUNCTIONS.onBuscarMediyaFacturaLote($(this));
+});
+$("body").off("click", ". btn-ProcesarMediyaFacturaLote").on("click", ".btnProcesarMediyaFacturaLote", function () {
+	_FUNCTIONS.onProcesarMediyaFacturaLote($(this));
+});
+$("body").off("click", ".btnBuscarMediyaNominaSwiss").on("click", ".btnBuscarMediyaNominaSwiss", function () {
+	_FUNCTIONS.onBuscarMediyaNominaSwiss($(this));
+});
+$("body").off("click", ".btnProcesarMediyaNominaSwiss").on("click", ".btnProcesarMediyaNominaSwiss", function () {
+	_FUNCTIONS.onProcesarMediyaNominaSwiss($(this));
+});
 
 $("body").off("click", ".btnMediyaCambioEstado").on("click", ".btnMediyaCambioEstado", function () {
 	_FUNCTIONS.onMediyaCambioEstado($(this));
