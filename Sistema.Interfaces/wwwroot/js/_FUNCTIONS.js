@@ -7346,7 +7346,6 @@ var _FUNCTIONS = {
 				break;
 		}
 	},
-
 	onMediyaCambioEstado: function (_this) {
 		var _EstadoActual = $(".EstadoSocio").val();
 		var _html = "<table class='table table-sm table-borderless'>";
@@ -7491,47 +7490,14 @@ var _FUNCTIONS = {
 		});
 	},
 	onBuscarMediyaFacturaLote: function (_this) {
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
 		$("." + _tab + "-proccess").addClass("d-none");
 		$(".LoteImportacion").val("");
-		if (!_TOOLS.validate(_this.attr("data-validate"), false)) { return false; }
-		_FUNCTIONS.onWait(true);
-
 		_FUNCTIONS.ExecutePostAjax("/Mediya/GetCobranzaPorLote", { "Fecha": $(".FechaFacturaLote").val()}).then(function (data) {
-			if (!data.logica) {
-				alert(data.mensaje);
-			} else {
-				var _html = "<table class='table table-sm' style='font-size:0.75rem;'>";
-				_html += "      <thead>";
-				_html += "         <tr>";
-				_html += "            <th>Fecha</th>";
-				_html += "            <th>Origen</th>";
-				_html += "            <th>Prestación</th>";
-				_html += "            <th>Estado</th>";
-				_html += "            <th>Nºlote</th>";
-				_html += "            <th>Estado proceso</th>";
-				_html += "            <th>Cantidad</th>";
-				_html += "            <th>Total</th>";
-				_html += "         </tr>";
-				_html += "      </thead>";
-				_html += "      <tbody>";
-				for (var i = 0; i < data.records.length; i++) {
-					_html += "<tr>";
-					_html += "   <td>"+ data.records[i]["Fecha"]+"</td>";
-					_html += "   <td>" + data.records[i]["Origen"] + "</td>";
-					_html += "   <td>" + data.records[i]["Prestacion"] + "</td>";
-					_html += "   <td>" + data.records[i]["Estado"] + "</td>";
-					_html += "   <td>" + data.records[i]["NroLote"] + "</td>";
-					_html += "   <td>" + data.records[i]["Estadoproceso"] + "</td>";
-					_html += "   <td>" + data.records[i]["Cantidad"] + "</td>";
-					_html += "   <td>" + data.records[i]["Total"] + "</td>";
-					_html += "</tr>";
-				}
-				_html += "   </tbody>";
-				_html += "</table>";
-				$(".areaResultado-" + _tab).html(_html).removeClass("d-none");
-				$("." + _tab + "-proccess").removeClass("d-none");
-			}
+			$(".areaResultado-" + _tab).html(data.html).removeClass("d-none");
+			$("." + _tab + "-proccess").removeClass("d-none");
 			_FUNCTIONS.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
@@ -7539,21 +7505,33 @@ var _FUNCTIONS = {
 		});
 	},
 	onProcesarMediyaFacturaLote: function (_this) {
-		if (!_TOOLS.validate(_this.attr("data-validate"), false)) { return false; }
-		if (!confirm("Se procesará la tarea solicitada, obteniendo el resultado en un archivo descargado.  Consulte sus descargas. ¿Confirma?")) { return false; }
-		alert("¡Tareas finalizadas!");
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		if (!confirm("Se procesará la tarea solicitada, consulte detalles de ubicaciones de descarga. ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		$("." + _tab + "-links").html("").addClass("d-none");
+		var _email = 0;
+		if ($(".chkEmailLoteImportacion").prop("checked")) { _email = 1; }
+		var _p = { "Lote": $(".LoteImportacion").val(), "Email": _email, "GenerarPlanillaDetalle": 1, "GeneraAsiento": 0 }
+		_FUNCTIONS.ExecutePostAjax("/Mediya/GenerarFacturasPorLote", _p).then(function (data) {
+			$("." + _tab + "-links").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
 	},
 	onBuscarMediyaNominaSwiss: function (_this) {
-		if (!_TOOLS.validate(_this.attr("data-validate"), false)) { return false; }
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
 		$("." + _tab + "-proccess").addClass("d-none");
 		$(".FechaCierreSwiss").val("");
 		$(".CierreAnteriorSwiss").val("");
 		$(".PagosDesdeSwiss").val("");
 		$(".PagosHastaSwiss").val("");
-
-		_FUNCTIONS.onWait(true);
-		_FUNCTIONS.ExecutePostAjax("/Mediya/GetParametrosCierre", { "pYear": $(".LiquidacionYear").val(), "pMonth": $(".LiquidacionMonth").val() }).then(function (data) {
+		var _p = { "pYear": $(".LiquidacionYear").val(), "pMonth": $(".LiquidacionMonth").val() };
+		_FUNCTIONS.ExecutePostAjax("/Mediya/GetParametrosCierre", _p).then(function (data) {
 			if (!data.logica) {
 				alert(data.mensaje);
 			} else {
@@ -7570,8 +7548,18 @@ var _FUNCTIONS = {
 		});
 	},
 	onProcesarMediyaNominaSwiss: function (_this) {
-		if (!_TOOLS.validate(_this.attr("data-validate"), false)) { return false; }
-		if (!confirm("Se procesará la tarea solicitada, obteniendo el resultado en un archivo descargado.  Consulte sus descargas. ¿Confirma?")) { return false; }
-		alert("¡Tareas finalizadas!");
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		if (!_TOOLS.validate(".optSwiss", false)) { alert("¡Debe seleccionar alguna de las opciones!"); return false; };
+		if (!confirm("Se procesará la tarea solicitada, consulte detalles de ubicaciones de descarga. ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		var _p = { "pYear": $(".LiquidacionYear").val(), "pMonth": $(".LiquidacionMonth").val(), "optSwiss": $('input[name="optSwiss"]:checked').val() };
+		_FUNCTIONS.ExecutePostAjax("/Mediya/ProcesarMediyaNominaSwiss", _p).then(function (data) {
+			$("." + _tab + "-links").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
 	},
 }
