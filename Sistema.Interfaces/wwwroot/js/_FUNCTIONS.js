@@ -7497,7 +7497,6 @@ var _FUNCTIONS = {
 		$(".LoteImportacion").val("");
 		_FUNCTIONS.ExecutePostAjax("/Mediya/GetCobranzaPorLote", { "Fecha": $(".FechaFacturaLote").val()}).then(function (data) {
 			$(".areaResultado-" + _tab).html(data.html).removeClass("d-none");
-			$("." + _tab + "-proccess").removeClass("d-none");
 			_FUNCTIONS.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
@@ -7562,4 +7561,90 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+
+
+
+
+	onBuscarMoraTempranaConsulta(_this) {
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		_FUNCTIONS.ExecutePostAjax("/Clientes/BuscarMoraTempranaConsulta", { "FechaDesde": $(".FechaDesdeMoraTempranaConsulta").val(), "FechaHasta": $(".FechaHastaMoraTempranaConsulta").val() }).then(function (data) {
+			$(".areaResultado-" + _tab).html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onBuscarMoraTempranaPagos(_this) {
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		_FUNCTIONS.ExecutePostAjax("/Clientes/BuscarMoraTempranaPagos", { "Estado": $(".EstadoPagoMoraTempranaPagos").val(),"FechaDesde": $(".FechaDesdeMoraTempranaPagos").val(), "FechaHasta": $(".FechaHastaMoraTempranaPagos").val() }).then(function (data) {
+			$(".areaResultado-" + _tab).html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onBuscarCreditoAnularRefinanciacion(_this) {
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		$("." + _tab + "-proccess").addClass("d-none");
+		_FUNCTIONS.ExecutePostAjax("/Clientes/BuscarCreditoAnularRefinanciacion", { "Valor": $(".NroCreditoAnularRefinanciacion").val()}).then(function (data) {
+			$(".areaResultado-" + _tab).html(data.html).removeClass("d-none");
+			if (data.logica) {
+				$("." + _tab + "-proccess").removeClass("d-none");
+			}
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onProcesarCreditosAnularRefinanciacion(_this) {
+		if (!confirm("Se procesará la tarea solicitada, consulte detalles de ubicaciones de descarga. ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		var _p = { "Valor": $(".IdSolicitudRefinanciacion").val(), "Username": $(".Username").val() };
+		_FUNCTIONS.ExecutePostAjax("/Clientes/ProcesarCreditosAnularRefinanciacion", _p).then(function (data) {
+			$("." + _tab + "-links").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onBuscarCreditoTotalizar(_this) {
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		$("." + _tab + "-proccess").addClass("d-none");
+		_FUNCTIONS.ExecutePostAjax("/Clientes/BuscarCreditoTotalizar", { "Valor": $(".NroCreditoTotalizar").val() }).then(function (data) {
+			$(".areaResultado-" + _tab).html(data.html).removeClass("d-none");
+			if (data.logica) {
+				$("." + _tab + "-proccess").removeClass("d-none");
+			}
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onProcesarCreditosTotalizar(_this) {
+		if (!confirm("Se procesará la tarea solicitada, consulte detalles de ubicaciones de descarga. ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		var _p = { "Valor": $(".IdSolicitudTotalizar").val() };
+		_FUNCTIONS.ExecutePostAjax("/Clientes/ProcesarCreditosTotalizar", _p).then(function (data) {
+			$("." + _tab + "-links").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	}, 
 }

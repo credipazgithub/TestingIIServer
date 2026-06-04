@@ -2,7 +2,7 @@
 $("body").off("click", ".btnBuscarMediyaFacturaLote").on("click", ".btnBuscarMediyaFacturaLote", function () {
 	_FUNCTIONS.onBuscarMediyaFacturaLote($(this));
 });
-$("body").off("click", ". btn-ProcesarMediyaFacturaLote").on("click", ".btnProcesarMediyaFacturaLote", function () {
+$("body").off("click", ".btn-ProcesarMediyaFacturaLote").on("click", ".btnProcesarMediyaFacturaLote", function () {
 	_FUNCTIONS.onProcesarMediyaFacturaLote($(this));
 });
 $("body").off("click", ".btnBuscarMediyaNominaSwiss").on("click", ".btnBuscarMediyaNominaSwiss", function () {
@@ -10,6 +10,27 @@ $("body").off("click", ".btnBuscarMediyaNominaSwiss").on("click", ".btnBuscarMed
 });
 $("body").off("click", ".btnProcesarMediyaNominaSwiss").on("click", ".btnProcesarMediyaNominaSwiss", function () {
 	_FUNCTIONS.onProcesarMediyaNominaSwiss($(this));
+});
+
+$("body").off("click", ".btnBuscarMoraTempranaConsulta").on("click", ".btnBuscarMoraTempranaConsulta", function () {
+	_FUNCTIONS.onBuscarMoraTempranaConsulta($(this));
+});
+$("body").off("click", ".btnBuscarMoraTempranaPagos").on("click", ".btnBuscarMoraTempranaPagos", function () {
+	_FUNCTIONS.onBuscarMoraTempranaPagos($(this));
+});
+
+$("body").off("click", ".btnBuscarCreditoAnularRefinanciacion").on("click", ".btnBuscarCreditoAnularRefinanciacion", function () {
+	_FUNCTIONS.onBuscarCreditoAnularRefinanciacion($(this));
+});
+$("body").off("click", ".btnProcesarCreditosAnularRefinanciacion").on("click", ".btnProcesarCreditosAnularRefinanciacion", function () {
+	_FUNCTIONS.onProcesarCreditosAnularRefinanciacion($(this));
+});
+
+$("body").off("click", ".btnBuscarCreditoTotalizar").on("click", ".btnBuscarCreditoTotalizar", function () {
+	_FUNCTIONS.onBuscarCreditoTotalizar($(this));
+});
+$("body").off("click", ".btnProcesarCreditosTotalizar").on("click", ".btnProcesarCreditosTotalizar", function () {
+	_FUNCTIONS.onProcesarCreditosTotalizar($(this));
 });
 
 $("body").off("click", ".btnMediyaCambioEstado").on("click", ".btnMediyaCambioEstado", function () {
