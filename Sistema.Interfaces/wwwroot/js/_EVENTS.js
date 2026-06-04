@@ -11,26 +11,35 @@ $("body").off("click", ".btnBuscarMediyaNominaSwiss").on("click", ".btnBuscarMed
 $("body").off("click", ".btnProcesarMediyaNominaSwiss").on("click", ".btnProcesarMediyaNominaSwiss", function () {
 	_FUNCTIONS.onProcesarMediyaNominaSwiss($(this));
 });
-
 $("body").off("click", ".btnBuscarMoraTempranaConsulta").on("click", ".btnBuscarMoraTempranaConsulta", function () {
 	_FUNCTIONS.onBuscarMoraTempranaConsulta($(this));
 });
 $("body").off("click", ".btnBuscarMoraTempranaPagos").on("click", ".btnBuscarMoraTempranaPagos", function () {
 	_FUNCTIONS.onBuscarMoraTempranaPagos($(this));
 });
-
 $("body").off("click", ".btnBuscarCreditoAnularRefinanciacion").on("click", ".btnBuscarCreditoAnularRefinanciacion", function () {
 	_FUNCTIONS.onBuscarCreditoAnularRefinanciacion($(this));
 });
 $("body").off("click", ".btnProcesarCreditosAnularRefinanciacion").on("click", ".btnProcesarCreditosAnularRefinanciacion", function () {
 	_FUNCTIONS.onProcesarCreditosAnularRefinanciacion($(this));
 });
-
 $("body").off("click", ".btnBuscarCreditoTotalizar").on("click", ".btnBuscarCreditoTotalizar", function () {
 	_FUNCTIONS.onBuscarCreditoTotalizar($(this));
 });
 $("body").off("click", ".btnProcesarCreditosTotalizar").on("click", ".btnProcesarCreditosTotalizar", function () {
 	_FUNCTIONS.onProcesarCreditosTotalizar($(this));
+});
+$("body").off("click", ".btnBuscarOperacionMil").on("click", ".btnBuscarOperacionMil", function () {
+	_FUNCTIONS.onBuscarOperacionMil($(this));
+});
+$("body").off("click", ".btnProcesarOperacionMil").on("click", ".btnProcesarOperacionMil", function () {
+	_FUNCTIONS.onProcesarOperacionMil($(this));
+});
+$("body").off("click", ".btnBuscarMovimientosTarjetasMil").on("click", ".btnBuscarMovimientosTarjetasMil", function () {
+	_FUNCTIONS.onBuscarMovimientosTarjetasMil($(this));
+});
+$("body").off("click", ".btnSelectXml").on("click", ".btnSelectXml", function () {
+	_FUNCTIONS.onSelectXml($(this));
 });
 
 $("body").off("click", ".btnMediyaCambioEstado").on("click", ".btnMediyaCambioEstado", function () {
