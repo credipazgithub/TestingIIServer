@@ -7561,7 +7561,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-	onBuscarMoraTempranaConsulta(_this) {
+	onBuscarMoraTempranaConsulta: function (_this) {
 		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7574,7 +7574,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-	onBuscarMoraTempranaPagos(_this) {
+	onBuscarMoraTempranaPagos: function (_this) {
 		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7587,7 +7587,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-	onBuscarCreditoAnularRefinanciacion(_this) {
+	onBuscarCreditoAnularRefinanciacion: function (_this) {
 		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7604,7 +7604,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-	onProcesarCreditosAnularRefinanciacion(_this) {
+	onProcesarCreditosAnularRefinanciacion: function (_this) {
 		if (!confirm("Se procesará la tarea solicitada, consulte detalles de ubicaciones de descarga. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7617,7 +7617,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-	onBuscarCreditoTotalizar(_this) {
+	onBuscarCreditoTotalizar: function (_this) {
 		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7634,7 +7634,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-	onProcesarCreditosTotalizar(_this) {
+	onProcesarCreditosTotalizar: function (_this) {
 		if (!confirm("Se procesará la tarea solicitada, consulte detalles de ubicaciones de descarga. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7647,8 +7647,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	}, 
-
-	onBuscarOperacionMil(_this) {
+	onBuscarOperacionMil: function (_this) {
 		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7665,7 +7664,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-	onProcesarOperacionMil(_this) {
+	onProcesarOperacionMil: function (_this) {
 		if (!confirm("Se procesará la tarea solicitada, consulte detalles de ubicaciones de descarga. ¿Confirma?")) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7678,7 +7677,7 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	}, 
-	onBuscarMovimientosTarjetasMil(_this) {
+	onBuscarMovimientosTarjetasMil: function (_this) {
 		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		var _tab = _this.attr("data-tab");
@@ -7692,7 +7691,20 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-	onSelectXml(_this) {
+	onSelectXml: function (_this) {
 		$(_this.attr("data-target")).val(_TOOLS.b64_to_utf8(_this.attr("data-xml")));
+	},
+	onValidateCbu: function (_this) {
+		var _source = _this.attr("data-validate");
+		if (!_TOOLS.validate(_source, true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _p = { "ValorConsulta": $(_source).val(), "TipoConsulta": _this.attr("data-tab") };
+		_FUNCTIONS.ExecutePostAjax("/Utilidades/ValidarCBU", _p).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
 	},
 }

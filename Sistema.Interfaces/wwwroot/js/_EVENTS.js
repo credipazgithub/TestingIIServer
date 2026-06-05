@@ -41,6 +41,9 @@ $("body").off("click", ".btnBuscarMovimientosTarjetasMil").on("click", ".btnBusc
 $("body").off("click", ".btnSelectXml").on("click", ".btnSelectXml", function () {
 	_FUNCTIONS.onSelectXml($(this));
 });
+$("body").off("click", ".btnValidateCbu").on("click", ".btnValidateCbu", function () {
+	_FUNCTIONS.onValidateCbu($(this));
+});
 
 $("body").off("click", ".btnMediyaCambioEstado").on("click", ".btnMediyaCambioEstado", function () {
 	_FUNCTIONS.onMediyaCambioEstado($(this));
