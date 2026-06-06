@@ -1167,15 +1167,21 @@ var _FUNCTIONS = {
 
 		});
 	},
-	buildAlertasGestionables: function (_tipo, _target) {
-		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AlertasGestionables&p1=" + _VAR.p1 +"&p2=1&p3=0").then(function (data) {
-			var _fields = ["registrado", "descriptionAlert", "codeAlert", "nSolicitud", "idTransaccion", "Gestionar", "Descartar"];
-			var _labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción", "", ""];
+	buildAlertasClientes: function (_tipo, _target,iRequiereAccionOperador,iEsInformativa) {
+		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AlertasClientes&p1=" + _VAR.p1 + "&p2=" + iRequiereAccionOperador + "&p3=" + iEsInformativa).then(function (data) {
+			var _fields = [];
+			var _labels = [];
+			if (iRequiereAccionOperador == 1) {
+				_fields = ["registrado", "descriptionAlert", "codeAlert", "nSolicitud", "idTransaccion", "Gestionar", "Descartar"];
+				_labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción", "", ""];
+			} else {
+				_fields = ["registrado", "descriptionAlert", "codeAlert", "nSolicitud", "idTransaccion"];
+				_labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción"];
+			}
 			var _params = { "interface": _target, "idKey": "", "class": "table table-sm tblAcciones", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
 			$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
 		});
 	},
-
 	buildMediyaTitular: function (_tipo, _target) {
 		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=MediyaTitular&p1=" + _VAR.dniRelacionadoRegistroActivo + "&p3=" + _VAR.sexoRelacionadoRegistroActivo).then(function (data) {
 			var _fields = ["detalles", "see", "IdSocio", "AudFechaAltaF", "ApellidoNombre", "NroDocumento", "Sexo", "edad", "PANsocio", "CredencialSWISS", "FUP", "MUP", "Estado"];
