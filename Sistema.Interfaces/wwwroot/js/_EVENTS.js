@@ -135,9 +135,6 @@ $("body").off("click", ".btnAccionExcepcionFraude").on("click", ".btnAccionExcep
 $("body").off("click", ".btnQuitarTodosLosFiltros").on("click", ".btnQuitarTodosLosFiltros", function () {
 	_FUNCTIONS.onQuitarTodosLosFiltros($(this));
 });
-$("body").off("click", ".btnOfflineWebSocket").on("click", ".btnOfflineWebSocket", function () {
-	_FUNCTIONS.onOfflineWebSocket($(this));
-});
 $("body").off("click", ".btn-ComercianteCBU").on("click", ".btn-ComercianteCBU", function () {
 	_FUNCTIONS.onChangeComercianteCBU($(this));
 });

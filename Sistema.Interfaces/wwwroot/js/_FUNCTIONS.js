@@ -6007,15 +6007,6 @@ var _FUNCTIONS = {
 			alert("Se ha producido un error: " + err);
 		}
 	},
-	onOfflineWebSocket: function (_this) {
-		if (!confirm("Se eliminará el mensaje seleccionado. ¿Confirma?")) { return false; }
-		_FUNCTIONS.onWait(true);
-		var _id = parseInt(_this.attr("data-id"));
-		_FUNCTIONS.ExecutePostAjax("/Monitoreo/OfflineWebSocket", { "Id": _id }).then(function (data) {
-			_FUNCTIONS.onWait(true);
-			window.location.reload();
-		});
-	},
 	onQuitarTodosLosFiltros: function (_this) {
 		$(".ctrlAllNone").each(function () {
 			$("." + $(this).attr("data-target")).prop("checked", false);
