@@ -269,6 +269,9 @@ $("body").off("click", ".btn-InformeAuditoriaPdf").on("click", ".btn-InformeAudi
 $("body").off("click", ".btn-InformeBCRA").on("click", ".btn-InformeBCRA", function () {
 	_FUNCTIONS.onInformeBCRA($(this));
 });
+$("body").off("click", ".btn-InformeIngresos").on("click", ".btn-InformeIngresos", function () {
+	_FUNCTIONS.onInformeIngresos($(this));
+});
 $("body").off("click", ".btn-CardCredAnularBarridoPorDNI").on("click", ".btn-CardCredAnularBarridoPorDNI", function () {
 	_FUNCTIONS.onAnularBarridoCardCredByDni($(this));
 });

@@ -3812,6 +3812,25 @@ var _FUNCTIONS = {
 			});
 		});
 	},
+	onInformeIngresos: function (_this) {
+		var _doc = $(".Documento").val();
+		if (_doc.length > 9) { alert("El documento no puede tener más de 9 dígitos"); return false; }
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Utilidades/ConsultasExternas";
+		var _params = { "Opcion": "INGRESOS", "Documento": _doc, "Sexo": $(".Sexo").val(), "Format": "PDF" };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al solicitar el informe");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+
 	onDocumentoFirmable: function (_this) {
 		var _id = $(".idDocumento").val();
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
