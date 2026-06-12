@@ -278,6 +278,9 @@ $("body").off("click", ".btn-DocumentoFirmable").on("click", ".btn-DocumentoFirm
 $("body").off("click", ".btn-AccionesSoporte").on("click", ".btn-AccionesSoporte", function () {
 	_FUNCTIONS.onAccionesSoporte($(this));
 });
+$("body").off("click", ".btn-MapaPermisos").on("click", ".btn-MapaPermisos", function () {
+	_FUNCTIONS.onMapaPermisos($(this));
+});
 $("body").off("click", ".btn-InformeVerazExperto").on("click", ".btn-InformeVerazExperto", function () {
 	_FUNCTIONS.onInformeVerazExperto($(this));
 });
