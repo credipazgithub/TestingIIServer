@@ -7746,4 +7746,28 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	onGetRowsAplicacionesByFuncion: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _p = { "Id_function": _VAR.idValorRegistroActivo };
+		_FUNCTIONS.ExecutePostAjax("/Administracion/GetRowsAplicacionesByFuncion", _p).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onActiveApplication: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _active = 0;
+		if (_this.prop("checked")) { _active = 1; }
+		var _params = { "Id_function": _this.attr("data-id_function"), "Id_application": _this.attr("data-id_application"), "Id_status": _active };
+		_FUNCTIONS.ExecutePostAjax("/Administracion/ToggleActivateApplication", _params).then(function (_data) {
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert(err.message);
+			_FUNCTIONS.onWait(false);
+		});
+	},
+
 }

@@ -501,6 +501,9 @@ $("body").off("keyup", ".notaAuditoria").on("keyup", ".notaAuditoria", function 
 
 /*Change*/
 
+$("body").off("change", ".chkActiveApplication").on("change", ".chkActiveApplication", function () {
+	_FUNCTIONS.onActiveApplication($(this));
+});
 $("body").off("change", ".chkActiveFunction").on("change", ".chkActiveFunction", function () {
 	_FUNCTIONS.onActiveFunction($(this));
 });
