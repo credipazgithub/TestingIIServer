@@ -500,6 +500,10 @@ $("body").off("keyup", ".notaAuditoria").on("keyup", ".notaAuditoria", function 
 });
 
 /*Change*/
+
+$("body").off("change", ".chkActiveFunction").on("change", ".chkActiveFunction", function () {
+	_FUNCTIONS.onActiveFunction($(this));
+});
 $("body").off("change", ".chkConfirm").on("change", ".chkConfirm", function () {
 	_FUNCTIONS.onConfirmarOperacionPago($(this));
 });

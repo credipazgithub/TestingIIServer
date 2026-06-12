@@ -7723,4 +7723,27 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	onGetRowsFuncionesByGrupo: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _p = { "Id_group": _VAR.idValorRegistroActivo };
+		_FUNCTIONS.ExecutePostAjax("/Administracion/GetRowsFuncionesByGrupo", _p).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onActiveFunction: function (_this) {
+		_FUNCTIONS.onWait(true);
+		var _active = 0;
+		if (_this.prop("checked")) { _active = 1; }
+		var _params = { "Id_function": _this.attr("data-id_function"), "Id_group": _this.attr("data-id_group"), "Id_status": _active };
+		_FUNCTIONS.ExecutePostAjax("/Administracion/ToggleActivateFunction", _params).then(function (_data) {
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert(err.message);
+			_FUNCTIONS.onWait(false);
+		});
+	},
 }
