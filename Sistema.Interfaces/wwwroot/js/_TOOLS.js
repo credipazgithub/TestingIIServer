@@ -621,9 +621,36 @@ var _TOOLS = {
 		if (diferencia == 10) { diferencia = 0; }
 		return (diferencia == digitoVerificador);
 	},
+	/*
 	validarCBU: function (cbu) {
+		alert(_TOOLS.validarLargoCBU(cbu));
+		alert(_TOOLS.validarCodigoBanco(cbu.substr(0, 8)));
+		alert(_TOOLS.validarCuenta(cbu.substr(8, 14)));
 		return _TOOLS.validarLargoCBU(cbu) && _TOOLS.validarCodigoBanco(cbu.substr(0, 8)) && _TOOLS.validarCuenta(cbu.substr(8, 14));
 	},
+	*/
+
+	validarCBU:function (cbu) {
+		// 1. Remover espacios y verificar que tenga exactamente 22 caracteres numéricos
+		const cbuLimpio = cbu.replace(/\s/g, '');
+		if (!/^\d{22}$/.test(cbuLimpio)) return false;
+		// 2. Bloque 1: Entidad (3 dígitos) + Sucursal (4 dígitos) + Dígito Verificador 1 (1 dígito)
+		const bloque1 = cbuLimpio.substring(0, 8);
+		// 3. Bloque 2: Cuenta (13 dígitos) + Dígito Verificador 2 (1 dígito)
+		const bloque2 = cbuLimpio.substring(8, 22);
+		return _TOOLS.validarBloque(bloque1, [7, 1, 3, 9, 7, 1, 3]) && _TOOLS.validarBloque(bloque2, [3, 9, 7, 1, 3, 9, 7, 1, 3, 9, 7, 1, 3]);
+	},
+
+	validarBloque: function (bloque, pesos) {
+		// Cálculo de los dígitos verificadores
+		const digitoVerificador = parseInt(bloque[bloque.length - 1]);
+		let suma = 0;
+		for (let i = 0; i < pesos.length; i++) {suma += parseInt(bloque[i]) * pesos[i];}
+		let resto = suma % 10;
+		let resultado = resto === 0 ? 0 : 10 - resto;
+		return resultado === digitoVerificador;
+	},
+
 	validarPAN: function (pan) {
 		if (pan.length != 16) { return false; }
 		return true;

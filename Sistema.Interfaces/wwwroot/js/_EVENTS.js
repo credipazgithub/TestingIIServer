@@ -325,7 +325,7 @@ $("body").off("click", ".btn-Grabar").on("click", ".btn-Grabar", function () {
 	_FUNCTIONS.onWait(true);
 	if ($(".validarCBU").val() != undefined) {
 		if (!_TOOLS.validarCBU($(".validarCBU").val())) {
-			alert('¡El CBU especificado no es un CBU válido!');
+			alert('Â¡El CBU especificado no es un CBU vÃ¡lido!');
 			$(this).fadeIn();
 			_FUNCTIONS.onWait(false);
 			return false;	
@@ -333,7 +333,7 @@ $("body").off("click", ".btn-Grabar").on("click", ".btn-Grabar", function () {
 	}
 	if ($(".validarPAN").val() != undefined) {
 		if (!_TOOLS.validarPAN($(".validarPAN").val())) {
-			alert('¡El PAN especificado no es un PAN válido!');
+			alert('Â¡El PAN especificado no es un PAN vÃ¡lido!');
 			$(this).fadeIn();
 			_FUNCTIONS.onWait(false);
 			return false;
