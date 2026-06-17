@@ -7783,4 +7783,56 @@ var _FUNCTIONS = {
 		});
 
 	},
+	onImportarSocios: function (_this) {
+		try {
+			var _id = _this.attr("data-id");
+			var _razonSocial = _this.attr("data-name");
+			var _html = "";
+			_html += "<h4>Seleccione archivo a importar por la empresa <b>" + _razonSocial + "</b>:</h4>";
+			_html += "<input data-id='" + _id + "' class='btn-upload-socios btn btn-dark' type='file' id='importarSocios' name='importarSocios' accept='text/plain, text/csv'>";
+			_FUNCTIONS.onShowHtmlModal(
+				{ "id": "mediyaModalImportarSocios", "title": "Importar socios", "body": _html },
+				function () {
+					$("body").off("click", ".btn-upload-socios").on("click", ".btn-upload-socios", function (event) {
+						$(this).val(null);
+					});
+					$("body").off("change", ".btn-upload-socios").on("change", ".btn-upload-socios", function (event) {
+						if (!confirm("¿Confirma la importación?")) { return false; }
+						var _id_empresa = $(this).attr("data-id");
+						var base64 = "";
+						var reader = new FileReader();
+						reader.readAsDataURL($(".btn-upload-socios").prop('files')[0]);
+						reader.onload = function () {
+							base64 = reader.result;
+							var _url = "/Mediya/ImportarSocios";
+							var _params = { "base64": base64, "IdEmpresa": _id_empresa, "Username": $(".Username").val() };
+							_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+								alert(data.error);
+								_FUNCTIONS.onDestroyModal("#mediyaModalImportarSocios");
+								_FUNCTIONS.onWait(false);
+							}).catch(function (e) {
+								_FUNCTIONS.onWait(false);
+							});
+						};
+					});
+				}
+			);
+			return true;
+		} catch (rex) {
+			alert(rex.message);
+			return false;
+		}
+	},
+	onStopGo: function (_this) {
+		if (!confirm("Se cambiará el modeo STOP / GO de la empresa. ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _url = "/Mediya/StopGo";
+		var _params = { "id": _this.attr("data-id") };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			window.location.reload();
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			_FUNCTIONS.onWait(false);
+		});
+	},
 }

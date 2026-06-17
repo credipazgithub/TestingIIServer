@@ -44,7 +44,12 @@ $("body").off("click", ".btnSelectXml").on("click", ".btnSelectXml", function ()
 $("body").off("click", ".btnValidateCbu").on("click", ".btnValidateCbu", function () {
 	_FUNCTIONS.onValidateCbu($(this));
 });
-
+$("body").off("click", ".btn-ImportarSocios").on("click", ".btn-ImportarSocios", function () {
+	_FUNCTIONS.onImportarSocios($(this));
+});
+$("body").off("click", ".btn-stop-go").on("click", ".btn-stop-go", function () {
+	_FUNCTIONS.onStopGo($(this));
+});
 $("body").off("click", ".btnMediyaCambioEstado").on("click", ".btnMediyaCambioEstado", function () {
 	_FUNCTIONS.onMediyaCambioEstado($(this));
 });
