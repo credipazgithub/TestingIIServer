@@ -624,7 +624,7 @@ var _FUNCTIONS = {
 				_FUNCTIONS.onShowHtmlModal(_params, function () {
 					_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=cbuBancos", "wCodigoBanco", "").then(function () {
 						_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_Type_Medio_cobro", "wId_type_medio_cobro", "").then(function () {
-
+							_FUNCTIONS.onAddLinkTokenizacion();
 						});
 					});
 				});
@@ -634,11 +634,24 @@ var _FUNCTIONS = {
 				_FUNCTIONS.onShowHtmlModal(_params, function () {
 					_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=cbuBancos", "wCodigoBanco", "").then(function () {
 						_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_Type_Medio_cobro", "wId_type_medio_cobro", "").then(function () {
+							_FUNCTIONS.onAddLinkTokenizacion();
 						});
 					});
 				});
 				break;
 		};
+	},
+	onAddLinkTokenizacion: function () {
+		_FUNCTIONS.readConfigServers("Onboarding").then(function (data) {
+			var _link = (data.url + "?verificated=0&monopage=tokenizar-tdnt");
+			var _t = "";
+			_t += "<label>Acciones</label><br/>";
+			_t += "<select class='ws-EnviarLinkGestionProducto form-control'>";
+			_t += "   <option selected value='0'>[Seleccione acción a realizar]</option>";
+			_t += "   <option value='0' data-emite='0' data-tel='1111111111' data-note='' data-monopage='tokenizar-tdnt' data-link='" + _link + "'>Solicitar tarjeta de débito</option>";
+			_t += "</select>";
+			$(".areaLinks").html(_t);
+		});
 	},
 	onClickDeleteItemInterface: function (_this) {
 		if (!confirm("¿Dar de baja el registro seleccionado?")) { return false; }
