@@ -313,6 +313,15 @@ $("body").off("click", ".btn-InformeComerciantes").on("click", ".btn-InformeCome
 $("body").off("click", ".btn-InformeTarjetas").on("click", ".btn-InformeTarjetas", function () {
 	_FUNCTIONS.onInformeTarjetas($(this));
 });
+$("body").off("click", ".btn-InformeIndicadoresOperaciones").on("click", ".btn-InformeIndicadoresOperaciones", function () {
+	_FUNCTIONS.onInformeIndicadoresOperaciones($(this));
+});
+$("body").off("click", ".btn-InformeIndicadoresCredipaz").on("click", ".btn-InformeIndicadoresCredipaz", function () {
+	_FUNCTIONS.onInformeIndicadoresCredipaz($(this));
+});
+$("body").off("click", ".btn-InformeIndicadoresMediya").on("click", ".btn-InformeIndicadoresMediya", function () {
+	_FUNCTIONS.onInformeIndicadoresMediya($(this));
+});
 $("body").off("click", ".btnCambiarFormaDePago").on("click", ".btnCambiarFormaDePago", function () {
 	_FUNCTIONS.onCambiarFormaDePago($(this));
 });

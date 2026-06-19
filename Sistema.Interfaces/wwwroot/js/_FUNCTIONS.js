@@ -1495,6 +1495,7 @@ var _FUNCTIONS = {
 	},
 	buildWindowMediosCobro: function (_id, _interface, _title, _tipo, _alone, _mediya) {
 		var _html = "<div class='row'>";
+		_html += "      <div class='col-12 areaLinks'></div>";
 		_html += "      <div class='col-2'>";
 		_html += "         <label>Tipo de tarjeta</label><br/>";
 		_html += "         <select id='wId_type_medio_cobro' name='wId_type_medio_cobro' data-id='id' data-descripcion='descripcion' class='form-control dbase wvalidate wId_type_medio_cobro'></select>";
@@ -1545,7 +1546,6 @@ var _FUNCTIONS = {
 			_html += "         <label>DNI</label><br/>";
 			_html += "         <input type='number' id='wDocumento' name='wDocumento' maxlength='10' class='onlyNumbers form-control dbase wDocumento' value='' placeholder='DNI'/>";
 			_html += "      </div>";
-			_html += "      <div class='col-2 areaLinks'></div>";
 		}
 		_html += "   </div>";
 
@@ -3830,7 +3830,6 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-
 	onDocumentoFirmable: function (_this) {
 		var _id = $(".idDocumento").val();
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
@@ -4216,6 +4215,60 @@ var _FUNCTIONS = {
 				break;
 		}
 	},
+
+	onInformeIndicadoresOperaciones: function (_this) {
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Transaccion/InformeIndicadoresOperaciones";
+		var _params = { "FechaDesde": $(".FechaDesde").val(), "FechaHasta": $(".FechaHasta").val() };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			console.log(data);
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al solicitar el informe");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onInformeIndicadoresCredipaz: function (_this) {
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Marketing/InformeIndicadoresCredipaz";
+		var _params = { "FechaDesde": $(".FechaDesde").val(), "FechaHasta": $(".FechaHasta").val() };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			console.log(data);
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al solicitar el informe");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onInformeIndicadoresMediya: function (_this) {
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Marketing/InformeIndicadoresMediya";
+		var _params = { "FechaDesde": $(".FechaDesde").val(), "FechaHasta": $(".FechaHasta").val() };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			console.log(data);
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al solicitar el informe");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+
+
 	onNoTransaction: function (_this) {
 		$("input").attr("disabled", false);
 		$("select").attr("disabled", false);
