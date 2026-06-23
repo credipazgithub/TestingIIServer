@@ -4236,7 +4236,6 @@ var _FUNCTIONS = {
 		var _url = "/Transaccion/InformeIndicadoresOperaciones";
 		var _params = { "FechaDesde": $(".FechaDesde").val(), "FechaHasta": $(".FechaHasta").val() };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-			console.log(data);
 			$(".areaResultado").html(data.html).removeClass("d-none");
 			_this.fadeIn("slow");
 			_FUNCTIONS.onWait(false);
@@ -4253,7 +4252,6 @@ var _FUNCTIONS = {
 		var _url = "/Marketing/InformeIndicadoresCredipaz";
 		var _params = { "FechaDesde": $(".FechaDesde").val(), "FechaHasta": $(".FechaHasta").val() };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-			console.log(data);
 			$(".areaResultado").html(data.html).removeClass("d-none");
 			_this.fadeIn("slow");
 			_FUNCTIONS.onWait(false);
@@ -4270,7 +4268,6 @@ var _FUNCTIONS = {
 		var _url = "/Marketing/InformeIndicadoresMediya";
 		var _params = { "FechaDesde": $(".FechaDesde").val(), "FechaHasta": $(".FechaHasta").val() };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-			console.log(data);
 			$(".areaResultado").html(data.html).removeClass("d-none");
 			_this.fadeIn("slow");
 			_FUNCTIONS.onWait(false);
@@ -4280,7 +4277,22 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
-
+	onInformeIndicadoresCobrosExternos: function (_this) {
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		_this.fadeOut("fast");
+		var _url = "/Finanzas/InformeIndicadoresCobrosExternos";
+		var _params = { "FechaDesde": $(".FechaDesde").val(), "FechaHasta": $(".FechaHasta").val() };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al solicitar el informe");
+			_this.fadeIn("slow");
+			_FUNCTIONS.onWait(false);
+		});
+	},
 
 	onNoTransaction: function (_this) {
 		$("input").attr("disabled", false);

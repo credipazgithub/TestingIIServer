@@ -322,6 +322,9 @@ $("body").off("click", ".btn-InformeIndicadoresCredipaz").on("click", ".btn-Info
 $("body").off("click", ".btn-InformeIndicadoresMediya").on("click", ".btn-InformeIndicadoresMediya", function () {
 	_FUNCTIONS.onInformeIndicadoresMediya($(this));
 });
+$("body").off("click", ".btn-InformeIndicadoresCobrosExternos").on("click", ".btn-InformeIndicadoresCobrosExternos", function () {
+	_FUNCTIONS.onInformeIndicadoresCobrosExternos($(this));
+});
 $("body").off("click", ".btnCambiarFormaDePago").on("click", ".btnCambiarFormaDePago", function () {
 	_FUNCTIONS.onCambiarFormaDePago($(this));
 });
