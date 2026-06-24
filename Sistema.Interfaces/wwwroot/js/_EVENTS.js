@@ -325,6 +325,9 @@ $("body").off("click", ".btn-InformeIndicadoresMediya").on("click", ".btn-Inform
 $("body").off("click", ".btn-InformeIndicadoresCobrosExternos").on("click", ".btn-InformeIndicadoresCobrosExternos", function () {
 	_FUNCTIONS.onInformeIndicadoresCobrosExternos($(this));
 });
+$("body").off("click", ".btn-BotonDePagos").on("click", ".btn-BotonDePagos", function () {
+	_FUNCTIONS.onBotonDePagos($(this));
+});
 $("body").off("click", ".btnCambiarFormaDePago").on("click", ".btnCambiarFormaDePago", function () {
 	_FUNCTIONS.onCambiarFormaDePago($(this));
 });
