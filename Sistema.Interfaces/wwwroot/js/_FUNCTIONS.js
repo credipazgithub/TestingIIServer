@@ -3442,8 +3442,6 @@ var _FUNCTIONS = {
 			_record.ImporteCuota = _record.ImportePlan;
 			$(".IngresosForzados").val(0);
 		} 
-
-		console.log(_record);
 		var _params = {};
 		_params["idTransaccion"] = $("#Id").val()
 		_params["idRequest"] = $("#id_obj").val()
