@@ -2627,14 +2627,8 @@ var _FUNCTIONS = {
 									if (data.records[0].Mensaje != '') {
 										$(".btn-ScoringSimulator").hide();
 										alert(data.records[0].Mensaje);
-										$(".dbInit ").val("");
-										$(".onlyNumbers").val("");
-										$(".dbReset").val("");
-										$(".id_type_modo_pago").val("0").change();
-										$(".dCalificacion").html("");
-										setTimeout(function () { $(".hEdad").val(""); }, 250);
-										return false;
-									} 
+										window.location.reload();
+									}
 								});
 								break;
 						}
@@ -4294,13 +4288,18 @@ var _FUNCTIONS = {
 		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
 		_FUNCTIONS.onWait(true);
 		_this.fadeOut("fast");
+		_PAYMENTS.DNI = $(".Documento").val();
 		var _url = "/Clientes/InterfaceSegmentosDeDeuda";
-		var _params = { "Documento": $(".Documento").val() };
+		var _params = { "Documento": _PAYMENTS.DNI };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-
 			console.log(data);
+			console.log(data.manyResponses);
 
-			$(".areaResultado").html(data.html).removeClass("d-none");
+			$(".data-payment2").addClass("d-none");
+			if (data.estado == "OK") {
+				$(".areaResultado").html(data.html).removeClass("d-none");
+				_PAYMENTS.onLoadPaymentData(1, data.manyResponses, 0);
+			}
 			_this.fadeIn("slow");
 			_FUNCTIONS.onWait(false);
 		}).catch(function (e) {
