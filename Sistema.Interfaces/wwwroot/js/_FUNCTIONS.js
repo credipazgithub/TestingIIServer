@@ -7669,6 +7669,42 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	/*
+	onBuscarMediyaGenerarFacturas: function (_this) {
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		$("." + _tab + "-proccess").addClass("d-none");
+		$(".LoteFacturas").val("");
+		var _p = { "Fecha": $(".FechaGenerarFactura").val() };
+		_FUNCTIONS.ExecutePostAjax("/Mediya/GetFacturacionPorLote", _p).then(function (data) {
+			$(".areaResultado-" + _tab).html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	onProcesarMediyaGenerarFacturas: function (_this) {
+		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
+		if (!confirm("Se procesará la tarea solicitada, consulte detalles de ubicaciones de descarga. ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _tab = _this.attr("data-tab");
+		$("." + _tab + "-links").html("").addClass("d-none");
+		var _email = 0;
+		if ($(".chkEmailLoteFacturas").prop("checked")) { _email = 1; }
+		var _p = { "Lote": $(".LoteFacturas").val(), "Email": _email, "GenerarPlanillaDetalle": 1, "GeneraAsiento": 0 }
+		_FUNCTIONS.ExecutePostAjax("/Mediya/GenerarFacturacion", _p).then(function (data) {
+			$("." + _tab + "-links").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (err) {
+			alert("Se ha producido un error indeterminado");
+			_FUNCTIONS.onWait(false);
+		});
+	},
+	*/
+
+
 	onBuscarMoraTempranaConsulta: function (_this) {
 		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
 		_FUNCTIONS.onWait(true);
