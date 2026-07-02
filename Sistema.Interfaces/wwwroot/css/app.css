@@ -29606,3 +29606,16 @@ body[data-theme=colored] .simplebar-scrollbar:before {
 	top: 0;
 	width: 264px
 }
+.table {
+	  display:table !important
+}
+.table > tbody > tr > td {
+	margin: 0px 2px 0px 0px !important;
+	padding: 2px 0px 2px 0px !important;
+	width: auto !important;
+}
+.table > thead > tr > th {
+	margin: 0px 2px 0px 0px !important;
+	padding: 2px 0px 2px 0px !important;
+	width: auto !important;
+}
