@@ -7911,6 +7911,20 @@ var _FUNCTIONS = {
 		});
 
 	},
+	onMarcarLeidos: function (_this) {
+		if (!_TOOLS.validate(".validateFirst", true)) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _url = "/Administracion/MarcarLeidos";
+		var _params = { "Username": $(".Usuario").val() };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			$(".areaResultado").html(data.html).removeClass("d-none");
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			alert("Error al solicitar el informe");
+			_FUNCTIONS.onWait(false);
+		});
+
+	},
 	onImportarSocios: function (_this) {
 		try {
 			var _id = _this.attr("data-id");

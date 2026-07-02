@@ -294,6 +294,9 @@ $("body").off("click", ".btn-AccionesSoporte").on("click", ".btn-AccionesSoporte
 $("body").off("click", ".btn-MapaPermisos").on("click", ".btn-MapaPermisos", function () {
 	_FUNCTIONS.onMapaPermisos($(this));
 });
+$("body").off("click", ".btn-MarcarLeidos").on("click", ".btn-MarcarLeidos", function () {
+	_FUNCTIONS.onMarcarLeidos($(this));
+});
 $("body").off("click", ".btn-InformeVerazExperto").on("click", ".btn-InformeVerazExperto", function () {
 	_FUNCTIONS.onInformeVerazExperto($(this));
 });
