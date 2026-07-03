@@ -7977,4 +7977,64 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+	onFoldersNotViewedNotification: function (_this) {
+		return new Promise(
+			function (resolve, reject) {
+				try {
+					$(".TYPE").html("");
+					$(".divHome").addClass("d-none").hide();
+					var _json = _TOOLS.getFormValues(null, _this);
+					var _url = "/Utilidades/FoldersNotViewedNotification";
+					var _params = { "Id_user": $(".idUser").val(), "Id_type": 0 };
+					_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+						$.each(data.records, function (i, val) {
+							var _html = "<div class='py-1' style='color:cadetblue;'>";
+							if (parseInt(val.total) > 0) {
+								_html += "Documentos sin leer <span class='float-right badge badge-primary' style='background-color:transparent;color:rgb(235, 0, 139);font-size:14px;'>" + val.total + "</span>";
+							}
+							_html += "</div>";
+							$(".TYPE-" + val.id_type_folder).html(_html); 
+							$(".divHome-" + val.id_type_folder).removeClass("d-none").fadeIn("slow");
+						});
+					})
+
+					_params = { "Id_user": $(".idUser").val(), "Id_type": 1 };
+					_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+						$.each(data.records, function (i, val) {
+							var _html = "<div class='py-1'>";
+							_html += "Documentos totales <span class='float-right badge badge-primary mr-2'>" + val.total + "</span>";
+							_html += "</div>";
+							var _t = $(".TYPE-" + val.code_type_folder).html(); 
+							$(".TYPE-" + val.code_type_folder).html(_t+_html); 
+							$(".divHome-" + val.code_type_folder).removeClass("d-none").fadeIn("fast");
+							_params = { "Id_user": $(".idUser").val(), "Id_type": 2 };
+							_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+								$.each(data.records, function (i, val) {
+									var _html = "<div class='py-1'>";
+									_html += "Documentos para revisar <span class='float-right badge badge-primary magenta' style='background-color:rgb(235, 0, 139);'>" + val.total + "</span>";
+									_html += "</div>";
+									var _t = $(".TYPE-" + val.id_type_folder).html();
+									$(".TYPE-" + val.id_type_folder).html(_t + _html);
+								});
+								_params = { "Id_user": $(".idUser").val(), "Id_type": 3 };
+								_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+									$.each(data.records, function (i, val) {
+										var _html = "<div class='py-1'>";
+										_html += "Documentos para publicar <span class='float-right badge badge-primary magenta' style='background-color:rgb(235, 0, 139);'>" + val.total + "</span>";
+										_html += "</div>";
+										var _t = $(".TYPE-" + val.id_type_folder).html();
+										$(".TYPE-" + val.id_type_folder).html(_t + _html);
+									});
+								});
+							});
+						});
+					});
+
+
+				} catch (rex) {
+					_FUNCTIONS.onAlert({ "message": rex.message, "class": "alert-danger" });
+					reject(rex);
+				}
+			});
+	},
 }
