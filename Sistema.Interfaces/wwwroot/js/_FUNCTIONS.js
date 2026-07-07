@@ -648,7 +648,7 @@ var _FUNCTIONS = {
 			_t += "<label>Acciones</label><br/>";
 			_t += "<select class='ws-EnviarLinkGestionProducto form-control'>";
 			_t += "   <option selected value='0'>[Seleccione acción a realizar]</option>";
-			_t += "   <option value='0' data-emite='0' data-tel='1111111111' data-note='' data-monopage='tokenizar-tdnt' data-link='" + _link + "'>Solicitar tarjeta de débito</option>";
+			_t += "   <option value='0' data-emite='0' data-tel='1111111111' data-note='Hola [NAME]! Somos Credipaz. Hacé click [LINK] e ingresá los datos de tu tarjeta de débito en forma segura!' data-monopage='tokenizar-tdnt' data-link='" + _link + "'>Solicitar tarjeta de débito</option>";
 			_t += "</select>";
 			$(".areaLinks").html(_t);
 		});
@@ -5311,6 +5311,7 @@ var _FUNCTIONS = {
 		});
 	},
 	onEnviarLinkGestionProducto: function (_this) {
+		var _linkToken = _this.find("option:selected").attr('data-link');
 		var _grupoApruebaEmision = $(".grupoApruebaEmision").val();
 		var _emite = parseInt(_this.find("option:selected").attr('data-emite'));
 		var _note_message = _this.find("option:selected").attr('data-note');
@@ -5362,6 +5363,8 @@ var _FUNCTIONS = {
 			$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
 				if (!_TOOLS.validate(".fValidate", true)) { return false; }
 				_FUNCTIONS.onWait(true);
+				_note_message = _note_message.replace("[NAME]", "");
+				_note_message = _note_message.replace("[LINK]", _linkToken);
 				if ($(".fArea").val() != "" && $(".fTelefono").val() != "") { _tel = ("+54" + $(".fArea").val() + $(".fTelefono").val()); }
 				var _link = ("https://wa.me/" + _tel + "?text=" + encodeURIComponent(_note_message));
 				/*Registrar el LogStep con el envio del link */
@@ -5371,7 +5374,6 @@ var _FUNCTIONS = {
 						window.open(_link, '_blank');
 						_FUNCTIONS.onWait(false);
 						break;
-
 					case "BlackBox": //Ejecuta endpoint en la blackbox!
 						var _id = $("#id_obj").val();
 						if (!confirm("¿Confirma la generación de crédito para Rq.# " + _id + "?")) { return false; }
@@ -8036,5 +8038,16 @@ var _FUNCTIONS = {
 					reject(rex);
 				}
 			});
+	},
+	onCancelTelemedicina: function (_this) {
+		if (!confirm("Se Cancelará la atención seleccionada. ¿Confirma?")) { return false; }
+		_FUNCTIONS.onWait(true);
+		var _url = "/Mediya/CancelTelemedicina";
+		var _params = { "id": _this.attr("data-id") };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			_FUNCTIONS.onWait(false);
+		});
 	},
 }

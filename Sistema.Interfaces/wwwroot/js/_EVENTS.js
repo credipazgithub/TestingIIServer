@@ -8,14 +8,9 @@ $("body").off("click", ".btn-ProcesarMediyaFacturaLote").on("click", ".btnProces
 $("body").off("click", ".btnBuscarMediyaNominaSwiss").on("click", ".btnBuscarMediyaNominaSwiss", function () {
 	_FUNCTIONS.onBuscarMediyaNominaSwiss($(this));
 });
-/*
-$("body").off("click", ".btnProcesarMediyaNominaSwiss").on("click", ".btnProcesarMediyaNominaSwiss", function () {
-	_FUNCTIONS.onProcesarMediyaNominaSwiss($(this));
+$("body").off("click", ".btnCancelTelemedicina").on("click", ".btnCancelTelemedicina", function () {
+	_FUNCTIONS.onCancelTelemedicina($(this));
 });
-$("body").off("click", ".btnBuscarMediyaGenerarFacturas").on("click", ".btnBuscarMediyaGenerarFacturas", function () {
-	_FUNCTIONS.onBuscarMediyaGenerarFacturas($(this));
-});
-*/
 $("body").off("click", ".btnProcesarMediyaGenerarFacturas").on("click", ".btnProcesarMediyaGenerarFacturas", function () {
 	_FUNCTIONS.onProcesarMediyaGenerarFacturas($(this));
 });
