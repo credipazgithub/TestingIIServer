@@ -1,6 +1,12 @@
 /*Click*/
 
 
+$("body").off("click", ".btnFinalizarImprimirOperacionCaja").on("click", ".btnFinalizarImprimirOperacionCaja", function () {
+	_FUNCTIONS.onFinalizarImprimirOperacionCaja($(this));
+});
+$("body").off("click", ".btnResetAltaMovimientosCaja").on("click", ".btnResetAltaMovimientosCaja", function () {
+	_FUNCTIONS.onResetAltaMovimientosCaja($(this), true);
+});
 $("body").off("click", ".btnAgregarMovimientoCaja").on("click", ".btnAgregarMovimientoCaja", function () {
 	_FUNCTIONS.onAgregarMovimientoCaja($(this));
 });

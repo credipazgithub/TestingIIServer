@@ -1,4 +1,5 @@
 var _FUNCTIONS = {
+	_ITEMS_COBRANZA_ACTIVA: [],
 	_IntervalSlider: 100,
 	_tabSeleccionado: "",
 	_forzarReadOnly: false,
@@ -8049,12 +8050,48 @@ var _FUNCTIONS = {
 			_FUNCTIONS.onWait(false);
 		});
 	},
+
+	onFinalizarImprimirOperacionCaja: function (_this) {
+		if (!confirm("Se finalizará e imprimirá la operación en curso.  Todo será registrado en la caja.  ¿Confirma?")) { return false; }
+		/*Se procesará todo el array _FUNCTIONS._ITEMS_COBRANZA_ACTIVA,
+		  se grabarán N ítems y se realizará la impresión */
+
+		/*reset final*/
+		_FUNCTIONS.onResetAltaMovimientosCaja(_this, false);
+		/* recarga el form para refresh y dejar todo ok para nueva operación de caja */
+		window.location.reload();
+	},
+	onResetAltaMovimientosCaja: function (_this, bAlert) {
+		if (bAlert) {
+			if (!confirm("Se eliminarán los ítems de la cobranza en curso.  Nada se registrará en la caja.  ¿Confirma?")) { return false; }
+		}
+		/*Reset de array de datos de la cobranza en curso, previo a la finalización e impresión */
+		$(".itemsOperacionActual").html("Sin ítems por el momento...");
+		_FUNCTIONS._ITEMS_COBRANZA_ACTIVA = [];
+		_F._itemsPagos = [];
+		$(".barFin").addClass("d-none");
+		$(".areaAcciones").css({ "background-color": "white" });
+	},
+	onAgregarCobranzaActiva: function (_this) {
+		if (_F._itemsPagos.length == 0) {
+			alert("¡No puede ingresar un movimiento con monto cero!");
+			return false;
+		}
+		$(".itemsOperacionActual").html("¡Acá se agrega el item!");
+		/*Se debe aregar el item al array _FUNCTIONS._ITEMS_COBRANZA_ACTIVA,
+		  el cual se va a procesar al terminar e imprimir */
+		_FUNCTIONS._ITEMS_COBRANZA_ACTIVA.push(_F._itemsPagos);
+		_F._itemsPagos = [];
+		$(".barFin").removeClass("d-none");
+		$(".areaAcciones").css({ "background-color": "lightgreen" });
+		return true;
+	},
+
 	onAgregarMovimientoCaja: function (_this) {
 		var _id_caja = _this.attr("data-id");
 		var _iface = _this.attr("data-iface");
 		var _html = "";
-
-		/*decidir por el tipo de movivimento de caja, si se controla el dni */
+		/*Decidir por el tipo de movivimento de caja, si se controla el dni */
 		switch (_iface) {
 			case "completo":
 			case "cancelacion":
@@ -8069,25 +8106,24 @@ var _FUNCTIONS = {
 		}
 
 		_FUNCTIONS.onWait(true);
+		var _dni = $(".dni").val();
 		var _url = "/Cajas/InterfaceMovimientoCaja";
-		var _params = { "nID": _id_caja, "sDescripcion": _iface, "documento": $(".dni").val() };
+		var _params = { "nID": _id_caja, "sDescripcion": _iface, "documento": _dni };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-			var _params = { "id": "infoMovimientoCaja", "title": "Crear cobranza", "body": data.html };
-			_FUNCTIONS.onShowStaticModal(_params, function () {
+			var _params = { "id": "infoMovimientoCaja", "title": "Agregar ítem a la cobranza en curso", "body": data.html };
+			_FUNCTIONS.onShowInfoModal(_params, function () {
+				var _footer = "<div class='modal-footer wfooter my-2'>";
+				_footer += "<a href='#' class='btn btn-sm btn-danger btn-cancel-modal'>Cancelar</a>";
+				_footer += "<a href='#' class='btn btn-md btn-success btn-accept-modal'>Aceptar</a>";
+				_footer += "</div>";
+				$("h3").html("Deuda completa del DNI " + _dni);
 				_FUNCTIONS.onWait(false);
+				$(".divDatos").append(_footer);
 				$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
 					_FUNCTIONS.onDestroyModal("#infoMovimientoCaja");
 				});
 				$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
-					_FUNCTIONS.onWait(true);
-					var _url = "/Cajas/AgregarMovimiento";
-					var _params = { "id": _id_caja };
-					_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-						_FUNCTIONS.onWait(false);
-					}).catch(function (e) {
-						_FUNCTIONS.onWait(false);
-					});
-
+					if (_FUNCTIONS.onAgregarCobranzaActiva($(this))) { $(".btn-cancel-modal").click(); }
 				});
 			});
 			_FUNCTIONS.onWait(false);
