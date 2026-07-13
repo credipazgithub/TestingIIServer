@@ -1,4 +1,9 @@
 /*Click*/
+
+
+$("body").off("click", ".btnAgregarMovimientoCaja").on("click", ".btnAgregarMovimientoCaja", function () {
+	_FUNCTIONS.onAgregarMovimientoCaja($(this));
+});
 $("body").off("click", ".btnBuscarMediyaFacturaLote").on("click", ".btnBuscarMediyaFacturaLote", function () {
 	_FUNCTIONS.onBuscarMediyaFacturaLote($(this));
 });

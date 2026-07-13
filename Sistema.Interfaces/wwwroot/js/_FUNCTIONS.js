@@ -7706,7 +7706,6 @@ var _FUNCTIONS = {
 	},
 	*/
 
-
 	onBuscarMoraTempranaConsulta: function (_this) {
 		if (!_TOOLS.validate(_this.attr("data-validate"), true)) { return false; }
 		_FUNCTIONS.onWait(true);
@@ -8049,5 +8048,53 @@ var _FUNCTIONS = {
 		}).catch(function (e) {
 			_FUNCTIONS.onWait(false);
 		});
+	},
+	onAgregarMovimientoCaja: function (_this) {
+		var _id_caja = _this.attr("data-id");
+		var _iface = _this.attr("data-iface");
+		var _html = "";
+
+		/*decidir por el tipo de movivimento de caja, si se controla el dni */
+		switch (_iface) {
+			case "completo":
+			case "cancelacion":
+			case "compras":
+			case "estudio":
+			case "etarjeta":
+			case "eefectivo":
+				if (!_TOOLS.validate(".validateMovimiento", false)) { return false; }
+				break;
+			default:
+				break;
+		}
+
+		_FUNCTIONS.onWait(true);
+		var _url = "/Cajas/InterfaceMovimientoCaja";
+		var _params = { "nID": _id_caja, "sDescripcion": _iface, "documento": $(".dni").val() };
+		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+			var _params = { "id": "infoMovimientoCaja", "title": "Crear cobranza", "body": data.html };
+			_FUNCTIONS.onShowStaticModal(_params, function () {
+				_FUNCTIONS.onWait(false);
+				$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
+					_FUNCTIONS.onDestroyModal("#infoMovimientoCaja");
+				});
+				$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+					_FUNCTIONS.onWait(true);
+					var _url = "/Cajas/AgregarMovimiento";
+					var _params = { "id": _id_caja };
+					_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
+						_FUNCTIONS.onWait(false);
+					}).catch(function (e) {
+						_FUNCTIONS.onWait(false);
+					});
+
+				});
+			});
+			_FUNCTIONS.onWait(false);
+		}).catch(function (e) {
+			_FUNCTIONS.onWait(false);
+		});
+
+
 	},
 }
