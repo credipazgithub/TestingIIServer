@@ -2141,7 +2141,6 @@ var _FUNCTIONS = {
 			var _sexo = $(".wSexo").val();
 			var _ingresosEstimados = $(".wIngresoMensualEmpresa").val();
 			var _estado = $(".wEstado").val();
-			alert($(".wEstado").val());
 			var _url = "/Utilidades/ResolverCondicional";
 			var _params = {
 				"idRequest": _idRequest,
@@ -2481,6 +2480,11 @@ var _FUNCTIONS = {
 	onFirstEvaluation: function (_this) {
 		var _error = false;
 		var _html = "";
+		if ($(".chkIngresos").prop("checked") && parseInt($(".IngresosForzados").val()) <= 0) {
+			alert("Si ha marcado ingresos forzados, debe ingresar un ingreso mayor a 0.  Si no, debe desmarcar los ingresos forzados.");
+			return false;
+		}
+
 		if (_TOOLS.validate(".validate", true)) {
 			$("input").attr("disabled", false);
 			$("select").attr("disabled", false);
@@ -3021,19 +3025,25 @@ var _FUNCTIONS = {
 						_html += "		<div class='row align-items-center py-1'>";
 						var _checked = "";
 						if (_chkIngresosForzados != 0) { _checked = "checked"; }
-						_html += "			<div class='col-12 text-left areaForzar noPromocion'><h5>Forzar ingresos <input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos'/></h5></div>";
+						_html += "			<div class='col-12 text-left areaForzar noPromocion'><h5><span class='forzarTitle'>Forzar ingresos </span><input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos'/></h5></div>";
 						if (!_FUNCTIONS._simuladorScoringActivo) {
 							_html += "			<div class='col-12 text-center areaIngresos py-1 noPromocion divInformeIngresos d-none'>";
 							_html += "				<b style='color:red;'>Requiere ingreso manual de </b>";
 							_html += "				<a href='#' class='pl-2 btn btn-danger btn-sm btnResolverCondicional' data-security='' data-request='" + _idRequest + "' data-enteexterno='9' data-transaccion='" + _idTransaccion + "' data-parent='0' data-title='Comprobante manual para: Comprobante de ingresos'>Comprobante de ingresos</a>";
 							_html += "			</div>";
+							_html += "          <div class='col-12 text-center areaIngresos'>Ingresos considerados</div>";
+							_html += "			<div class='col-3 text-right areaIngresos noPromocion'></div>";
+							_html += "			<div class='col-6 text-center areaIngresos noPromocion'>";
+							_html += "				<input type='number' disabled value='" + _ingresosEstimados + "' class='form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
+							_html += "			</div>";
+						} else {
+							_html += "          <div class='col-12 text-center areaIngresos hideForzar'>Ingresos considerados</div>";
+							_html += "			<div class='col-3 text-right areaIngresos noPromocion hideForzar '></div>";
+							_html += "			<div class='col-6 text-center areaIngresos noPromocion hideForzar '>";
+							_html += "				<input type='number' disabled value='" + _ingresosEstimados +"' class='changeSimulator form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
+							_html += "			</div>";
 						}
-						_html += "          <div class='col-12 text-center areaIngresos'>Ingresos considerados</div>";
-						_html += "			<div class='col-3 text-right areaIngresos noPromocion'></div>";
-						_html += "			<div class='col-6 text-center areaIngresos noPromocion'>";
-						_html += "				<input type='number' disabled value='" + _ingresosEstimados + "' class='changeSimulator form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
-						_html += "			</div>";
-						_html += "			<div class='col-3 text-left areaIngresos noPromocion'></div>";
+						_html += "			<div class='col-3 text-left areaIngresos noPromocion hideForzar d-none'></div>";
 						_html += "		</div>";
 
 						_html += "		<div class='row align-items-center py-1 areaCapital'>";
@@ -3281,10 +3291,12 @@ var _FUNCTIONS = {
 							$("body").off("change", ".chkIngresos").on("change", ".chkIngresos", function () {
 								if ($(this).prop("checked")) {
 									$(".IngresosForzados").prop("disabled", false);
-									$(".divInformeIngresos").removeClass("d-none");
+									//$(".divInformeIngresos").removeClass("d-none");
+									//$(".hideForzar").removeClass("d-none");
 								} else {
 									$(".IngresosForzados").prop("disabled", true);
-									$(".divInformeIngresos").addClass("d-none");
+									//$(".divInformeIngresos").addClass("d-none");
+									//$(".hideForzar").addClass("d-none");
 								}
 							});
 
@@ -3303,6 +3315,9 @@ var _FUNCTIONS = {
 							}
 
 							var _plan = $(".idPlan").val();
+
+							if (!$(".chkIngresos").prop("checked")) { $(".IngresosForzados").val((_scoring[0]["IngresoMensual"])); }
+
 							_FUNCTIONS._lastPlanIndex = 0;
 							if (_plan != "") {
 								var _plan = $(".idPlan").val();
@@ -5615,20 +5630,27 @@ var _FUNCTIONS = {
 		var _idTransaccion = $("#Id").val();
 		_FUNCTIONS._simuladorScoringActivo = false;
 		$(".areaScoring").hide();
+		/*
 		switch (parseInt($(".iOcupacion").val())) {
 			case 53: // promocion
 				$(".chkIngresos").prop("checked", false).change();
 				break;
 		}
+		*/
 		try {
-			if (parseInt($(".IngresosForzados").val()) > 0) {
-				$(".IngresosForzados").keyup();
-			} else {
-				_FUNCTIONS.onResolverScoring($("#Nombre").val(), $("#NroDocumento").val(), $("#Sexo").val(), $(".ingresoMensual").val(), $(".importeSolicitado").val(), _idTransaccion, _idRequest, 1, "simulador", 0, $(".idcomercio").val()).then(function (data) { });
-			}
+			_FUNCTIONS.onResolverScoring($("#Nombre").val(), $("#NroDocumento").val(), $("#Sexo").val(), $(".ingresoMensual").val(), $(".importeSolicitado").val(), _idTransaccion, _idRequest, 1, "simulador", 0, $(".idcomercio").val()).then(function (data) {
+				if (parseInt($(".checkIngresoForzados").val()) > 0) {
+					$(".chkIngresos").prop("checked", true).prop("disabled", true);
+					$(".divInformeIngresos").removeClass("d-none");
+				//} else {
+					//$(".forzarTitle").html("");
+					//$(".chkIngresos").hide();
+				}
+				$(".chkIngresos").prop("disabled", true);
+			});
 		} catch (e) { }
 
-		var _html = "Descartar la transación con un ";
+		var _html = "Descartar la transacción con un ";
 		_html += "<a href='#' class='m-2 btn btn-danger btn-md btnResolverCondicional' data-request='" + _idRequest + "' data-enteexterno='16' data-security='' data-transaccion='" + _idTransaccion + "' data-parent='0' data-title='Comprobante manual para: Informe de rechazo'>Informe de rechazo</a>";
 		$(".areaSemaforo").html(_html);
 		return false;
@@ -7395,7 +7417,6 @@ var _FUNCTIONS = {
 		$(".PAN").removeClass("validarPAN");
 		$(".DAC").addClass("d-none");
 		$(".DAT").addClass("d-none");
-		$(".DEM").addClass("d-none");
 		$(".DATCOBRO").addClass("d-none");
 		switch (_iModoPago) {
 			case 1: // tarjeta de credito
@@ -7432,7 +7453,6 @@ var _FUNCTIONS = {
 				}
 				break;
 			case 4: // Pago empresa
-				$(".DEM").removeClass("d-none");
 				break;
 			case 6: // Efectivo
 				$(".validateAdherir").removeClass("validateAdherir");
@@ -7442,7 +7462,6 @@ var _FUNCTIONS = {
 					if ($(".accMediosCobroMediya").html() == "") {
 						alert("Debe cargar lo datos de la tarjeta de débito en el área de Datos de Cobro o enviando el link al cliente para que se autogestione el alta desde el despegable 'Acciones'");
 					}
-					$(".DEM").addClass("d-none");
 					$(".DAC").addClass("d-none");
 					$(".DAT").addClass("d-none");
 					$(".DATCOBRO").removeClass("d-none");
@@ -8093,15 +8112,10 @@ var _FUNCTIONS = {
 		var _html = "";
 		/*Decidir por el tipo de movivimento de caja, si se controla el dni */
 		switch (_iface) {
-			case "completo":
-			case "cancelacion":
-			case "compras":
-			case "estudio":
-			case "etarjeta":
-			case "eefectivo":
-				if (!_TOOLS.validate(".validateMovimiento", false)) { return false; }
+			case "xxx": // movimientos que pudieran no requerir chequear datos según DNI
 				break;
 			default:
+				if (!_TOOLS.validate(".validateMovimiento", false)) { return false; }
 				break;
 		}
 
@@ -8112,17 +8126,37 @@ var _FUNCTIONS = {
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			var _params = { "id": "infoMovimientoCaja", "title": "Agregar ítem a la cobranza en curso", "body": data.html };
 			_FUNCTIONS.onShowInfoModal(_params, function () {
+				$(".modal-footer").remove();
 				var _footer = "<div class='modal-footer wfooter my-2'>";
 				_footer += "<a href='#' class='btn btn-sm btn-danger btn-cancel-modal'>Cancelar</a>";
 				_footer += "<a href='#' class='btn btn-md btn-success btn-accept-modal'>Aceptar</a>";
 				_footer += "</div>";
-				$("h3").html("Deuda completa del DNI " + _dni);
 				_FUNCTIONS.onWait(false);
-				$(".divDatos").append(_footer);
+				$(".modal-content").append(_footer);
 				$("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
 					_FUNCTIONS.onDestroyModal("#infoMovimientoCaja");
 				});
 				$("body").off("click", ".btn-accept-modal").on("click", ".btn-accept-modal", function () {
+					switch (_iface) {
+						case "completo":
+							break;
+						default:
+							if (!_TOOLS.validate(".wvalidate", false)) { return false; }
+
+							var _importe = $(".importe").val();
+							var _verificarimporte = $(".verificarimporte").val();
+							if (_importe != _verificarimporte) {
+								$(".msgAlertaMovimiento").html("¡El importe y su verificación difieren!");
+								return false;
+							}
+							/*Aca debe armarse el contenido de $(".verificarimporte").val() de acuerdo a los datos segun cada _iface */
+							var _identificacion = "";
+							$(".identify").each(function (index) { _identificacion += ($(this).attr("id") + ":" + $(this).val() + "|"); });
+
+							/* Agregar linea de pago de acuerdo a lo que se esté procesando! */
+							_F._itemsPagos = { "Identificacion": _identificacion.slice(-1), "Tipo": _iface, "Importe": _importe };
+							break;
+					}
 					if (_FUNCTIONS.onAgregarCobranzaActiva($(this))) { $(".btn-cancel-modal").click(); }
 				});
 			});
