@@ -8122,7 +8122,7 @@ var _FUNCTIONS = {
 		_FUNCTIONS.onWait(true);
 		var _dni = $(".dni").val();
 		var _url = "/Cajas/InterfaceMovimientoCaja";
-		var _params = { "nID": _id_caja, "sDescripcion": _iface, "documento": _dni };
+		var _params = { "nID": _id_caja, "sDescripcion": _iface, "documento": _dni, "nIDSucursal": $(".idUserSucursal").val() };
 		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
 			var _params = { "id": "infoMovimientoCaja", "title": "Agregar ítem a la cobranza en curso", "body": data.html };
 			_FUNCTIONS.onShowInfoModal(_params, function () {
