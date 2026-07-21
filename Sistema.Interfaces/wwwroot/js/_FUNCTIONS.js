@@ -2752,6 +2752,7 @@ var _FUNCTIONS = {
 				if (_showAlert) {
 					_FUNCTIONS.onShowInfoModal(_params, function () {
 						$(".modal-footer").remove();
+						$(".btn-close-modal").remove()
 						_FUNCTIONS.onWait(false);
 					});
 				};

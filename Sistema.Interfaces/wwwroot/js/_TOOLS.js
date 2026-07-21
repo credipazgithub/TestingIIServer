@@ -26,6 +26,7 @@ var _TOOLS = {
 				lengthChange: true,
 				columnDefs: [{ width: "100%", targets: -1 }],
 				fixedColumns: false,
+				pageLength:25,
 				language: { "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json" },
 				preInit: function () {
 					$('.areaTabla').hide();
