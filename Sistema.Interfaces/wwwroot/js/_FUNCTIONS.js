@@ -3112,7 +3112,7 @@ var _FUNCTIONS = {
 							_html += "	<div class='col-12 text-right'>";
 							var _btnClick = "btn-GrabarCapitalCuotas";
 							if (iTarjeta) { _btnClick = "btn-GrabarLimitesTarjeta"; }
-							_html += "	   <a href='#' class='btn btn-warning " + _btnClick + "'><span class='material-icons'>save</span> Grabar selección</a>";
+							_html += "	   <a href='#' class='btn btn-sm btn-warning " + _btnClick + "'><span class='material-icons'>save</span> Grabar selección</a>";
 							_html += "  </div>";
 						}
 						_html += "</div>";
@@ -5426,7 +5426,7 @@ var _FUNCTIONS = {
 	},
 	onModificarEndeudamiento: function (_this) {
 		var _params = {
-			"IdTansaccion": _VAR.idValorRegistroActivo,
+			"IdTransaccion": _VAR.idValorRegistroActivo,
 			"IdEnteExterno": _this.attr("data-id"),
 			"endeudamientoTarjeta": $(".endeudamientoTarjeta").val(),
 			"endeudamientoCredito": $(".endeudamientoCredito").val(),
