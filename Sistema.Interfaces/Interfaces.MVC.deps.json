@@ -10,7 +10,7 @@
         "dependencies": {
           "Credipaz.Entidades": "1.0.0",
           "Credipaz.Utilidades": "1.0.0",
-          "Microsoft.AspNetCore.Authentication.Negotiate": "10.0.8",
+          "Microsoft.AspNetCore.Authentication.Negotiate": "10.0.10",
           "Microsoft.Build": "18.8.2",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.2",
           "NuGet.Packaging": "7.6.0",
@@ -709,14 +709,14 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.Negotiate/10.0.8": {
+      "Microsoft.AspNetCore.Authentication.Negotiate/10.0.10": {
         "dependencies": {
-          "System.DirectoryServices.Protocols": "10.0.8"
+          "System.DirectoryServices.Protocols": "10.0.10"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.Authentication.Negotiate.dll": {
-            "assemblyVersion": "10.0.8.0",
-            "fileVersion": "10.0.826.23019"
+            "assemblyVersion": "10.0.10.0",
+            "fileVersion": "10.0.1026.32716"
           }
         }
       },
@@ -2626,31 +2626,31 @@
           }
         }
       },
-      "System.DirectoryServices.Protocols/10.0.8": {
+      "System.DirectoryServices.Protocols/10.0.10": {
         "runtime": {
           "lib/net10.0/System.DirectoryServices.Protocols.dll": {
-            "assemblyVersion": "10.0.0.8",
-            "fileVersion": "10.0.826.23019"
+            "assemblyVersion": "10.0.0.10",
+            "fileVersion": "10.0.1026.32716"
           }
         },
         "runtimeTargets": {
           "runtimes/linux/lib/net10.0/System.DirectoryServices.Protocols.dll": {
             "rid": "linux",
             "assetType": "runtime",
-            "assemblyVersion": "10.0.0.8",
-            "fileVersion": "10.0.826.23019"
+            "assemblyVersion": "10.0.0.10",
+            "fileVersion": "10.0.1026.32716"
           },
           "runtimes/osx/lib/net10.0/System.DirectoryServices.Protocols.dll": {
             "rid": "osx",
             "assetType": "runtime",
-            "assemblyVersion": "10.0.0.8",
-            "fileVersion": "10.0.826.23019"
+            "assemblyVersion": "10.0.0.10",
+            "fileVersion": "10.0.1026.32716"
           },
           "runtimes/win/lib/net10.0/System.DirectoryServices.Protocols.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "10.0.0.8",
-            "fileVersion": "10.0.826.23019"
+            "assemblyVersion": "10.0.0.10",
+            "fileVersion": "10.0.1026.32716"
           }
         }
       },
@@ -3202,12 +3202,12 @@
       "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.10",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.10.0.10.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.Negotiate/10.0.8": {
+    "Microsoft.AspNetCore.Authentication.Negotiate/10.0.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-PkNdrRbU4togx1Eg3/0kcqpRLbtkfqhZ3aHudMQwbXnwcGJgxEgu65YLjqRD/tSp8szrH1XdefyyymTrfi0WPQ==",
-      "path": "microsoft.aspnetcore.authentication.negotiate/10.0.8",
-      "hashPath": "microsoft.aspnetcore.authentication.negotiate.10.0.8.nupkg.sha512"
+      "sha512": "sha512-OWroK6dgXRKygJ95IlYVkZdH/HBcLSO6MyeSe8ZkFco+kUQlOndfHsWE1tjWjPFHnh5cPT6T7vE5kU7QOiqQxQ==",
+      "path": "microsoft.aspnetcore.authentication.negotiate/10.0.10",
+      "hashPath": "microsoft.aspnetcore.authentication.negotiate.10.0.10.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.24": {
       "type": "package",
@@ -3874,12 +3874,12 @@
       "path": "system.data.sqlclient/4.9.1",
       "hashPath": "system.data.sqlclient.4.9.1.nupkg.sha512"
     },
-    "System.DirectoryServices.Protocols/10.0.8": {
+    "System.DirectoryServices.Protocols/10.0.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VmFO1CBCUvWu9cV2XQSeKXRW2Gn76oZmuhhOk7GPDIvzaPoy3lVWHFExFyKNNJlQbGySUbor1bqa1Fc8CJCF/A==",
-      "path": "system.directoryservices.protocols/10.0.8",
-      "hashPath": "system.directoryservices.protocols.10.0.8.nupkg.sha512"
+      "sha512": "sha512-VQdfESaky3eXlvEuvtBndmZjOt65g+Ah6/0j39MPgPJ3gkbGuURlTFDRq0Y2uX64z5qVEVe1Ln6B4a06+vIzTQ==",
+      "path": "system.directoryservices.protocols/10.0.10",
+      "hashPath": "system.directoryservices.protocols.10.0.10.nupkg.sha512"
     },
     "System.IdentityModel.Tokens.Jwt/8.19.2": {
       "type": "package",
