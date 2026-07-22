@@ -3006,6 +3006,8 @@ var _FUNCTIONS = {
 					if (_modo == "calificacion") { $(".rEndeudamiento").removeClass("d-none"); }
 					if (_FUNCTIONS._simuladorScoringActivo) { _simulador = 1; }
 					if (_ingresosEstimados == "" || _ingresosEstimados == null || _ingresosEstimados < 0) { _ingresosEstimados = 0; }
+
+					
 					var _none = "";
 					if (iRefinancia) { _none = "d-none"; }
 					var _html = "";
@@ -3118,7 +3120,7 @@ var _FUNCTIONS = {
 						}
 						_html += "</div>";
 						$(".areaScoring").html(_html);
-						$(".chkIngresos").change();
+						//$(".chkIngresos").change();
 					}
 					if (_FUNCTIONS._simuladorScoringActivo) { _importeSolicitado = 0; }
 
@@ -3399,6 +3401,7 @@ var _FUNCTIONS = {
 								$(".areaScoringWaiter").addClass("d-none");
 								$(".areaNosis").addClass("d-none");
 							}
+							$(".IngresosForzados").val(_ingresosEstimados);
 							resolve(data);
 						})
 						.catch(function (err) {
