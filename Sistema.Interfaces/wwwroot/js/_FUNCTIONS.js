@@ -1,5 +1,6 @@
 var _FUNCTIONS = {
 	_ITEMS_COBRANZA_ACTIVA: [],
+	_persistCheck:0,
 	_IntervalSlider: 100,
 	_tabSeleccionado: "",
 	_forzarReadOnly: false,
@@ -3006,8 +3007,7 @@ var _FUNCTIONS = {
 					if (_modo == "calificacion") { $(".rEndeudamiento").removeClass("d-none"); }
 					if (_FUNCTIONS._simuladorScoringActivo) { _simulador = 1; }
 					if (_ingresosEstimados == "" || _ingresosEstimados == null || _ingresosEstimados < 0) { _ingresosEstimados = 0; }
-
-					
+				
 					var _none = "";
 					if (iRefinancia) { _none = "d-none"; }
 					var _html = "";
@@ -3027,23 +3027,27 @@ var _FUNCTIONS = {
 						_html += "	<div class='" + _colLeft + " auxScoring " + _none + "'>";
 						_html += "		<div class='row align-items-center py-1'>";
 						var _checked = "";
-						if (_chkIngresosForzados != 0) { _checked = "checked"; }
+						var _hideInforme = "d-none";
+						if ((_chkIngresosForzados != 0) || (!_FUNCTIONS._simuladorScoringActivo && _FUNCTIONS._persistCheck != 0)) {
+							_checked = "checked";
+							_hideInforme = "";
+						}
 						_html += "			<div class='col-12 text-left areaForzar noPromocion'><h5><span class='forzarTitle'>Forzar ingresos </span><input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos'/></h5></div>";
 						if (!_FUNCTIONS._simuladorScoringActivo) {
-							_html += "			<div class='col-12 text-center areaIngresos py-1 noPromocion divInformeIngresos d-none'>";
+							_html += "			<div class='col-12 text-center areaIngresos py-1 noPromocion divInformeIngresos " + _hideInforme +"'>";
 							_html += "				<b style='color:red;'>Requiere ingreso manual de </b>";
 							_html += "				<a href='#' class='pl-2 btn btn-danger btn-sm btnResolverCondicional' data-security='' data-request='" + _idRequest + "' data-enteexterno='9' data-transaccion='" + _idTransaccion + "' data-parent='0' data-title='Comprobante manual para: Comprobante de ingresos'>Comprobante de ingresos</a>";
 							_html += "			</div>";
 							_html += "          <div class='col-12 text-center areaIngresos'>Ingresos considerados</div>";
 							_html += "			<div class='col-3 text-right areaIngresos noPromocion'></div>";
 							_html += "			<div class='col-6 text-center areaIngresos noPromocion'>";
-							_html += "				<input type='number' disabled value='" + _ingresosEstimados + "' class='form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
+							_html += "				<input type='number' disabled value='" + _ingresosEstimados + "' class='changeSimulator form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
 							_html += "			</div>";
 						} else {
 							_html += "          <div class='col-12 text-center areaIngresos hideForzar'>Ingresos considerados</div>";
 							_html += "			<div class='col-3 text-right areaIngresos noPromocion hideForzar '></div>";
 							_html += "			<div class='col-6 text-center areaIngresos noPromocion hideForzar '>";
-							_html += "				<input type='number' disabled value='" + _ingresosEstimados +"' class='changeSimulator form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
+							_html += "				<input type='number' value='" + _ingresosEstimados +"' class='changeSimulator form-control number IngresosForzados' id='IngresosForzados' name='IngresosForzados' style='font-size:1rem;text-align:center;' />";
 							_html += "			</div>";
 						}
 						_html += "			<div class='col-3 text-left areaIngresos noPromocion hideForzar d-none'></div>";
@@ -3120,7 +3124,7 @@ var _FUNCTIONS = {
 						}
 						_html += "</div>";
 						$(".areaScoring").html(_html);
-						//$(".chkIngresos").change();
+						$(".IngresosForzados").prop("disabled", !$(".chkIngresos").prop("checked"));
 					}
 					if (_FUNCTIONS._simuladorScoringActivo) { _importeSolicitado = 0; }
 
@@ -3293,13 +3297,15 @@ var _FUNCTIONS = {
 							});
 							$("body").off("change", ".chkIngresos").on("change", ".chkIngresos", function () {
 								if ($(this).prop("checked")) {
+									_FUNCTIONS._persistCheck = 1;
 									$(".IngresosForzados").prop("disabled", false);
-									//$(".divInformeIngresos").removeClass("d-none");
-									//$(".hideForzar").removeClass("d-none");
+									$(".divInformeIngresos").removeClass("d-none");
+									$(".hideForzar").removeClass("d-none");
 								} else {
+									_FUNCTIONS._persistCheck = 0;
 									$(".IngresosForzados").prop("disabled", true);
-									//$(".divInformeIngresos").addClass("d-none");
-									//$(".hideForzar").addClass("d-none");
+									$(".divInformeIngresos").addClass("d-none");
+									$(".hideForzar").addClass("d-none");
 								}
 							});
 
@@ -5644,13 +5650,13 @@ var _FUNCTIONS = {
 		try {
 			_FUNCTIONS.onResolverScoring($("#Nombre").val(), $("#NroDocumento").val(), $("#Sexo").val(), $(".ingresoMensual").val(), $(".importeSolicitado").val(), _idTransaccion, _idRequest, 1, "simulador", 0, $(".idcomercio").val()).then(function (data) {
 				if (parseInt($(".checkIngresoForzados").val()) > 0) {
-					$(".chkIngresos").prop("checked", true).prop("disabled", true);
+					$(".chkIngresos").prop("checked", true);//.prop("disabled", true);
 					$(".divInformeIngresos").removeClass("d-none");
 				//} else {
 					//$(".forzarTitle").html("");
 					//$(".chkIngresos").hide();
 				}
-				$(".chkIngresos").prop("disabled", true);
+				//$(".chkIngresos").prop("disabled", true);
 			});
 		} catch (e) { }
 
