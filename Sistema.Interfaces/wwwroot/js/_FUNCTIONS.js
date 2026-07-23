@@ -1186,8 +1186,8 @@ var _FUNCTIONS = {
 			var _fields = [];
 			var _labels = [];
 			if (iRequiereAccionOperador == 1) {
-				_fields = ["registrado", "descriptionAlert", "codeAlert", "nSolicitud", "idTransaccion", "Gestionar", "Descartar"];
-				_labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción", "", ""];
+				_fields = ["registrado", "descriptionAlert", "codeAlert", "nSolicitud", "idTransaccion", "PAN", "Gestionar", "Descartar"];
+				_labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción", "PAN", "", ""];
 			} else {
 				_fields = ["registrado", "descriptionAlert", "codeAlert", "nSolicitud", "idTransaccion"];
 				_labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción"];
