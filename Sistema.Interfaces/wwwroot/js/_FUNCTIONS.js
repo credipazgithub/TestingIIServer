@@ -8068,17 +8068,6 @@ var _FUNCTIONS = {
 				}
 			});
 	},
-	onCancelTelemedicina: function (_this) {
-		if (!confirm("Se Cancelará la atención seleccionada. ¿Confirma?")) { return false; }
-		_FUNCTIONS.onWait(true);
-		var _url = "/Mediya/CancelTelemedicina";
-		var _params = { "id": _this.attr("data-id") };
-		_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (data) {
-			_FUNCTIONS.onWait(false);
-		}).catch(function (e) {
-			_FUNCTIONS.onWait(false);
-		});
-	},
 
 	onFinalizarImprimirOperacionCaja: function (_this) {
 		if (!confirm("Se finalizará e imprimirá la operación en curso.  Todo será registrado en la caja.  ¿Confirma?")) { return false; }
@@ -8115,7 +8104,6 @@ var _FUNCTIONS = {
 		$(".areaAcciones").css({ "background-color": "lightgreen" });
 		return true;
 	},
-
 	onAgregarMovimientoCaja: function (_this) {
 		var _id_caja = _this.attr("data-id");
 		var _iface = _this.attr("data-iface");
