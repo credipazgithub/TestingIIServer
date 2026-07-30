@@ -479,6 +479,7 @@ var _FUNCTIONS = {
 		var _oT = _this;
 		var _interface = _this.attr("data-interface");
 		var _id = parseInt(_this.attr("data-id"));
+		var _id_socio = parseInt(_this.attr("data-id_socio"));
 		var _params = {};
 		switch (_interface) {
 			case ".accAdicionalesCabal":
@@ -626,7 +627,7 @@ var _FUNCTIONS = {
 				_FUNCTIONS.onShowHtmlModal(_params, function () {
 					_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=cbuBancos", "wCodigoBanco", "").then(function () {
 						_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_Type_Medio_cobro", "wId_type_medio_cobro", "").then(function () {
-							_FUNCTIONS.onAddLinkTokenizacion();
+							_FUNCTIONS.onAddLinkTokenizacion(0);
 						});
 					});
 				});
@@ -636,16 +637,19 @@ var _FUNCTIONS = {
 				_FUNCTIONS.onShowHtmlModal(_params, function () {
 					_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=cbuBancos", "wCodigoBanco", "").then(function () {
 						_FUNCTIONS.LoadComboAjax("/Abstract/GetLookUp?Tipo=NS_Type_Medio_cobro", "wId_type_medio_cobro", "").then(function () {
-							_FUNCTIONS.onAddLinkTokenizacion();
+							_FUNCTIONS.onAddLinkTokenizacion(_id_socio);
 						});
 					});
 				});
 				break;
 		};
 	},
-	onAddLinkTokenizacion: function () {
+	onAddLinkTokenizacion: function (_id_socio) {
 		_FUNCTIONS.readConfigServers("Onboarding").then(function (data) {
 			var _link = (data.url + "?verificated=0&monopage=tokenizar-tdnt");
+			if (_id_socio != undefined && _id_socio != null && parseInt(_id_socio) != 0) {
+				_link = (data.url + "?verificated=" + _id_socio + "&monopage=tokenizar-tdmy");
+			}
 			var _t = "";
 			_t += "<label>Acciones</label><br/>";
 			_t += "<select class='ws-EnviarLinkGestionProducto form-control'>";
@@ -1192,6 +1196,21 @@ var _FUNCTIONS = {
 			} else {
 				_fields = ["registrado", "descriptionAlert", "codeAlert", "nSolicitud", "idTransaccion"];
 				_labels = ["Fecha", "Detalle", "Código", "Nºsolicitud", "Transacción"];
+			}
+			var _params = { "interface": _target, "idKey": "", "class": "table table-sm tblAcciones", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
+			$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
+		});
+	},
+	buildAlertasSocios: function (_tipo, _target, iRequiereAccionOperador, iEsInformativa) {
+		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AlertasSocios&p1=" + _VAR.p1 + "&p2=" + iRequiereAccionOperador + "&p3=" + iEsInformativa).then(function (data) {
+			var _fields = [];
+			var _labels = [];
+			if (iRequiereAccionOperador == 1) {
+				_fields = ["registrado", "descriptionAlert", "codeAlert", "PAN", "Gestionar", "Descartar"];
+				_labels = ["Fecha", "Detalle", "Código", "PAN", "", ""];
+			} else {
+				_fields = ["registrado", "descriptionAlert", "codeAlert"];
+				_labels = ["Fecha", "Detalle", "Código"];
 			}
 			var _params = { "interface": _target, "idKey": "", "class": "table table-sm tblAcciones", "fields": _fields, "labels": _labels, "records": data.records, "new": false, "edit": false, "delete": false, "verify": false };
 			$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
@@ -7044,10 +7063,13 @@ var _FUNCTIONS = {
 	},
 	onGestionarAlerta: function (_this) {
 		_VAR.idValorRegistroActivo = _this.attr("data-idTransaccion");
+		var _id_socio = _this.attr("data-id_socio");
 		var _accion = _this.attr("data-accion");
 		switch (_accion) {
 			case "NUEVO_MEDIO_COBRO":
-				var _x = $('<a href="#" data-interface=".accMediosCobro" data-id="0">+</a>');
+				var _tipo = ".accMediosCobro";
+				if (parseInt(_id_socio) != 0) { _tipo = ".accMediosCobroMediya"; }
+				var _x = $('<a href="#" data-interface="' + _tipo + '" data-id_socio="' + _id_socio + '" data-id="0">+</a>');
 				_FUNCTIONS.onClickActivateModalInterface(_x);
 				break;
 			default:
