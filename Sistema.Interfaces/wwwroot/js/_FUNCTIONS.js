@@ -3051,7 +3051,7 @@ var _FUNCTIONS = {
 							_checked = "checked";
 							_hideInforme = "";
 						}
-						_html += "			<div class='col-12 text-left areaForzar noPromocion'><h5><span class='forzarTitle'>Forzar ingresos </span><input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos'/></h5></div>";
+						_html += "			<div class='col-12 text-left areaForzar noPromocion'><h5><span class='forzarTitle'>Forzar ingresos </span><input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos changeCheckSimulator'/></h5></div>";
 						if (!_FUNCTIONS._simuladorScoringActivo) {
 							_html += "			<div class='col-12 text-center areaIngresos py-1 noPromocion divInformeIngresos " + _hideInforme +"'>";
 							_html += "				<b style='color:red;'>Requiere ingreso manual de </b>";
