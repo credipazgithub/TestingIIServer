@@ -3261,9 +3261,7 @@ var _FUNCTIONS = {
 										_FUNCTIONS._TIMER_LAZY1 = setTimeout(function () { _FUNCTIONS.onBuildPlanes(_scoring); }, 500);
 									}
 								});
-
 							}
-
 							$("body").off("keyup", ".changeSimulator").on("keyup", ".changeSimulator", function () {
 								var _val = $(this).val();
 								if (_val == "") { $(this).val(0); }
@@ -3422,7 +3420,6 @@ var _FUNCTIONS = {
 								var y = document.getElementById("SliderMonto3");
 								y.value = $(".LimitePrestamo").val();
 
-
 								$(".areaScoringWaiter").addClass("d-none");
 								$(".areaNosis").addClass("d-none");
 							}
@@ -3430,6 +3427,7 @@ var _FUNCTIONS = {
 							resolve(data);
 						})
 						.catch(function (err) {
+							console.log(err);
 							_FUNCTIONS.onWait(false);
 							$(".areaScoring").addClass("d-none");
 							$(".areaScoringError").removeClass("d-none").html("<h3 style='color:red;'>Hay problemas para resolver la consulta.  Reporte a soporte.</h3>");
