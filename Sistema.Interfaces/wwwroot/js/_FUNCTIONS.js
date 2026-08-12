@@ -1186,8 +1186,8 @@ var _FUNCTIONS = {
 
 		});
 	},
-	buildAlertasClientes: function (_tipo, _target,iRequiereAccionOperador,iEsInformativa) {
-		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AlertasClientes&p1=" + _VAR.p1 + "&p2=" + iRequiereAccionOperador + "&p3=" + iEsInformativa).then(function (data) {
+	buildAlertasClientes: function (_tipo, _target, iRequiereAccionOperador, iEsInformativa, _username) {
+		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AlertasClientes&_username=" + _username +"&p1=" + _VAR.p1 + "&p2=" + iRequiereAccionOperador + "&p3=" + iEsInformativa).then(function (data) {
 			var _fields = [];
 			var _labels = [];
 			if (iRequiereAccionOperador == 1) {
@@ -1201,8 +1201,8 @@ var _FUNCTIONS = {
 			$(_target).html(_FUNCTIONS.BuildTable(_params, ""));
 		});
 	},
-	buildAlertasSocios: function (_tipo, _target, iRequiereAccionOperador, iEsInformativa) {
-		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AlertasSocios&p1=" + _VAR.p1 + "&p2=" + iRequiereAccionOperador + "&p3=" + iEsInformativa).then(function (data) {
+	buildAlertasSocios: function (_tipo, _target, iRequiereAccionOperador, iEsInformativa, _username) {
+		_FUNCTIONS.LoadDataAjax("/Abstract/GetLookUpSpecial?Segmento=AlertasSocios&_username=" + _username +"&p1=" + _VAR.p1 + "&p2=" + iRequiereAccionOperador + "&p3=" + iEsInformativa).then(function (data) {
 			var _fields = [];
 			var _labels = [];
 			if (iRequiereAccionOperador == 1) {
