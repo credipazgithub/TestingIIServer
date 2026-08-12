@@ -2827,185 +2827,191 @@ var _FUNCTIONS = {
 		});
 	},
 	onBuildPlanes: function (_scoring) {
-		var _iRefinancia = (parseInt($(".iRefinancia").val()) == 1);
-		var _iTarjeta = (parseInt($(".iTarjeta").val()) == 1);
-		$(".areaScoringWaiter").addClass("d-none");
-		$(".btn-GrabarCapitalCuotas").attr("data-record", "");
-		var _msgAmount = "";
-		var _importeEntregar = 0;
-		var _maximo = 0;
-		var _planes = [];
-		var _monto = $(".MontoSeleccionado").val();
-		$.each(_scoring, function (i, val) { _planes.push(val["nIDPlan"]); });
-		_url = "/Utilidades/RecalcularImporteCuotaCredito";
-		var _dPlanes = { "Monto": _monto, "Planes": _planes.toString() + "," };
-		_FUNCTIONS.ExecutePostAjax(_url, _dPlanes).then(function (ret) {
-			$.each(ret.records, function (ix, imp) {
-				_scoring[ix]["ImporteCuota"] = imp["monto"];
-				_scoring[ix]["Importe_de_Cuota"] = imp["monto"];
-				_scoring[ix]["Monto_a_Ofrecer"] = _monto;
-				//_scoring[ix]["Monto_a_Ofrecer"] = _scoring[ix]["MontoOfrecido"];
-			});
-			var _html = "";
-			if (_scoring.length > 0) {
-				$(".Pago_Total_Cierre").val(_scoring[0]["Pago_Total_Cierre"]);
-				$(".Deuda_Futura_Cierre").val(_scoring[0]["Deuda_Futura_Cierre"]);
-				$(".Deuda_Total_Cierre").val(_scoring[0]["Deuda_Total_Cierre"]);
-				$(".Pagos_Periodo").val(_scoring[0]["Pagos_Periodo"]);
-				$(".Consumos_Periodo").val(_scoring[0]["Consumos_Periodo"]);
-				$(".Monto_Refinancia").val(_scoring[0]["Monto_a_Ofrecer"]);
+		console.log(_scoring);
+		try {
+			var _iRefinancia = (parseInt($(".iRefinancia").val()) == 1);
+			var _iTarjeta = (parseInt($(".iTarjeta").val()) == 1);
+			$(".areaScoringWaiter").addClass("d-none");
+			$(".btn-GrabarCapitalCuotas").attr("data-record", "");
+			var _msgAmount = "";
+			var _importeEntregar = 0;
+			var _maximo = 0;
+			var _planes = [];
+			var _monto = $(".MontoSeleccionado").val();
+			$.each(_scoring, function (i, val) { _planes.push(val["nIDPlan"]); });
+			_url = "/Utilidades/RecalcularImporteCuotaCredito";
+			var _dPlanes = { "Monto": _monto, "Planes": _planes.toString() + "," };
+			_FUNCTIONS.ExecutePostAjax(_url, _dPlanes).then(function (ret) {
+				$.each(ret.records, function (ix, imp) {
+					_scoring[ix]["ImporteCuota"] = imp["monto"];
+					_scoring[ix]["Importe_de_Cuota"] = imp["monto"];
+					_scoring[ix]["Monto_a_Ofrecer"] = _monto;
+					//_scoring[ix]["Monto_a_Ofrecer"] = _scoring[ix]["MontoOfrecido"];
+				});
+				var _html = "";
+				if (_scoring.length > 0) {
+					$(".Pago_Total_Cierre").val(_scoring[0]["Pago_Total_Cierre"]);
+					$(".Deuda_Futura_Cierre").val(_scoring[0]["Deuda_Futura_Cierre"]);
+					$(".Deuda_Total_Cierre").val(_scoring[0]["Deuda_Total_Cierre"]);
+					$(".Pagos_Periodo").val(_scoring[0]["Pagos_Periodo"]);
+					$(".Consumos_Periodo").val(_scoring[0]["Consumos_Periodo"]);
+					$(".Monto_Refinancia").val(_scoring[0]["Monto_a_Ofrecer"]);
 
-				if (_scoring[0]["Nombre"]!="REF_Cabal_Cabal" && _scoring[0]["NroCredito"] != undefined && parseInt(_scoring[0]["NroCredito"]) != 0) {
-					$.each(_scoring, function (i, val) {
-						_importeEntregar += parseInt(_scoring[i]["ImporteAEntregar"]);
-					});
-					if (_importeEntregar <= 0 && !_iRefinancia) {
-						$(".btn-FirstEvaluation").addClass("d-none");
-						_msgAmount = "<div class='my-2 p-2' style='border:solid 2px red;color:darkred;'>No es posible entregar dinero, ya que el importe de cancelación es mayor que el capital solicitado para la consulta.  Modifique el capital solicitado, si es posible, para reevaluar.</div>";
-					} else {
-						$(".btn-FirstEvaluation").removeClass("d-none");
-						_msgAmount = "";
+					if (_scoring[0]["Nombre"] != "REF_Cabal_Cabal" && _scoring[0]["NroCredito"] != undefined && parseInt(_scoring[0]["NroCredito"]) != 0) {
+						$.each(_scoring, function (i, val) {
+							_importeEntregar += parseInt(_scoring[i]["ImporteAEntregar"]);
+						});
+						if (_importeEntregar <= 0 && !_iRefinancia) {
+							$(".btn-FirstEvaluation").addClass("d-none");
+							_msgAmount = "<div class='my-2 p-2' style='border:solid 2px red;color:darkred;'>No es posible entregar dinero, ya que el importe de cancelación es mayor que el capital solicitado para la consulta.  Modifique el capital solicitado, si es posible, para reevaluar.</div>";
+						} else {
+							$(".btn-FirstEvaluation").removeClass("d-none");
+							_msgAmount = "";
+						}
+						_html += _msgAmount;
+						_html += "<div class='p-1' style='border:double 3px darkred;background-color:ivory;'>";
+						_html += "<table style='font-size: 0.90em; width:100%;color:black;'>";
+						_html += "   <tr>";
+						_html += "      <td class='p-1'>Crédito activo</td><td><b>" + _scoring[0]["NroCredito"] + "</b></td>";
+						_html += "      <td align='center' class='p-1'>Cuotas impagas</td><td align='center'><b>" + _scoring[0]["CuotasImpagas"] + "</b></td>";
+						_html += "      <td class='p-1' align='right'>Importe de cancelación</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["ImporteCancelacion"]) + "</b></td>";
+						_html += "   </tr>";
+						_html += "</table>";
+						_html += "</div>";
 					}
-					_html += _msgAmount;
+				}
+
+				if (!_FUNCTIONS._simuladorScoringActivo) { _html += "<left><h5 class='titSelCuotas'>Seleccionar cuotas</h5></left>" }
+				var _planDesc = "";
+				var _hidde = "";
+				var _hidde2 = "";
+				_planDesc = _scoring[0]["Plan"];
+				if (_planDesc == "") { _hidde = "d-none"; $(".btnGenerarScoringPdf").remove(); }
+				if (_scoring[0]["Nombre"] == "REF_Cabal_Cabal") {
+					_hidde2 = "d-none";
 					_html += "<div class='p-1' style='border:double 3px darkred;background-color:ivory;'>";
 					_html += "<table style='font-size: 0.90em; width:100%;color:black;'>";
 					_html += "   <tr>";
-					_html += "      <td class='p-1'>Crédito activo</td><td><b>" + _scoring[0]["NroCredito"] + "</b></td>";
-					_html += "      <td align='center' class='p-1'>Cuotas impagas</td><td align='center'><b>" + _scoring[0]["CuotasImpagas"] + "</b></td>";
-					_html += "      <td class='p-1' align='right'>Importe de cancelación</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["ImporteCancelacion"]) + "</b></td>";
+					_html += "      <td class='p-1' align='right'>Pago total cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Pago_Total_Cierre"]) + "</td>";
+					_html += "      <td class='p-1' align='right'>Deuda futura cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Deuda_Futura_Cierre"]) + "</td>";
+					_html += "      <td class='p-1' align='right'>Deuda total cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Deuda_Total_Cierre"]) + "</td>";
+					_html += "   </tr>";
+					_html += "   <tr>";
+					_html += "      <td class='p-1' align='right'>Pagos período</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Pagos_Periodo"]) + "</td>";
+					_html += "      <td class='p-1' align='right'>Consumos período</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Consumos_Periodo"]) + "</td>";
+					_html += "      <td class='p-1' align='right'>Monto a refinanciar</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Monto_a_Ofrecer"]) + "</b></td>";
 					_html += "   </tr>";
 					_html += "</table>";
 					_html += "</div>";
 				}
-			}
-
-			if (!_FUNCTIONS._simuladorScoringActivo) { _html += "<left><h5 class='titSelCuotas'>Seleccionar cuotas</h5></left>" }
-			var _planDesc = "";
-			var _hidde = "";
-			var _hidde2 = "";
-			_planDesc = _scoring[0]["Plan"];
-			if (_planDesc == "") { _hidde = "d-none"; $(".btnGenerarScoringPdf").remove(); }
-			if (_scoring[0]["Nombre"] == "REF_Cabal_Cabal") {
-				_hidde2 = "d-none";
-				_html += "<div class='p-1' style='border:double 3px darkred;background-color:ivory;'>";
-				_html += "<table style='font-size: 0.90em; width:100%;color:black;'>";
-				_html += "   <tr>";
-				_html += "      <td class='p-1' align='right'>Pago total cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Pago_Total_Cierre"]) + "</td>";
-				_html += "      <td class='p-1' align='right'>Deuda futura cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Deuda_Futura_Cierre"]) + "</td>";
-				_html += "      <td class='p-1' align='right'>Deuda total cierre</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Deuda_Total_Cierre"]) + "</td>";
-				_html += "   </tr>";
-				_html += "   <tr>";
-				_html += "      <td class='p-1' align='right'>Pagos período</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Pagos_Periodo"]) + "</td>";
-				_html += "      <td class='p-1' align='right'>Consumos período</td><td align='right'>" + _TOOLS.formatMoney(_scoring[0]["Consumos_Periodo"]) + "</td>";
-				_html += "      <td class='p-1' align='right'>Monto a refinanciar</td><td align='right'><b>" + _TOOLS.formatMoney(_scoring[0]["Monto_a_Ofrecer"]) + "</b></td>";
-				_html += "   </tr>";
-				_html += "</table>";
-				_html += "</div>";
-			}
-			_html += "	    <table class='tblScoring table table-sm mt-1' style='font-size: 0.85em; width:100%;color:black;'>";
-			_html += "         <tr style='background-color:silver;'>";
-			if (!_iTarjeta) {
-				_html += "<td align='right' class='px-4 py-1 colPlan " + _hidde2 +"'>Plan</td>";
-				_html += "<td align='right' class='px-4 py-1 colMaximo " + _hidde2 +"'>Máximo</td>";
-			}
-			_html += "            <td align='right' class='px-4 py-1 colCapital " + _hidde2 + " '>Capital</td>";
-			if (!_iTarjeta) { _html += "<td align='left' class='px-4 py-1 " + _hidde + "'>Cuotas</td>"; }
-			_html += "            <td align='right' class='px-4 py-1 " + _hidde + "'>Importe</td>";
-			_html += "            <td align='right' class='px-4 py-1 " + _hidde + " " + _hidde2 + "'>Importe a entregar</td>";
-			_html += "         </tr>";
-			_FUNCTIONS._lastPlanSelected = 0;
-			$.each(_scoring, function (i, val) {
-				_hidde = "";
-				_hidde2 = "";
-				_maximo = parseFloat(_scoring[i]["MontoOfrecido"]);
-				var _montoSeleccionado = 0;// $(".MontoSeleccionado").val();
-				var _fixedCapital = 0;
-				_fixedCapital = _scoring[i]["Monto_a_Ofrecer"];
-				if (parseFloat(_scoring[i]["Monto_a_Ofrecer"]) > parseFloat(_scoring[i]["MontoOfrecido"])) {
-					_fixedCapital = _scoring[i]["MontoOfrecido"];
+				_html += "	    <table class='tblScoring table table-sm mt-1' style='font-size: 0.85em; width:100%;color:black;'>";
+				_html += "         <tr style='background-color:silver;'>";
+				if (!_iTarjeta) {
+					_html += "<td align='right' class='px-4 py-1 colPlan " + _hidde2 + "'>Plan</td>";
+					_html += "<td align='right' class='px-4 py-1 colMaximo " + _hidde2 + "'>Máximo</td>";
 				}
-				_planDesc = _scoring[i]["Plan"];
-				if (_planDesc == "") { _hidde = "d-none"; }
-				if (_scoring[i]["Nombre"]!="REF_Cabal_Cabal" && _planDesc != "" && (_scoring[i]["Importe_de_Cuota"] == null || _scoring[i]["Importe_de_Cuota"] == "" || _scoring[i]["Importe_de_Cuota"] == 0 || _scoring[i]["Importe_de_Cuota"] == "0")) {
-					_html += "     <tr class='alertNoScoring'>";
-					_html += "        <td colspan='5' class='px-4 py-1' align='left'>";
-					_html += "           No se ha podido resolver scoring";
-					_html += "        </td>";
-					_html += "     </tr>";
-					$(".btn-FirstEvaluation").addClass("d-none");
-				} else {
-					if (_scoring[i]["Nombre"] == "REF_Cabal_Cabal" || (_fixedCapital >= parseFloat($(".MontoSeleccionado").val()) && parseFloat(_scoring[i]["MontoOfrecido"]) >= parseFloat(_scoring[i]["ImporteAEntregar"]))) {
-						if (_scoring[i]["Nombre"] == "REF_Cabal_Cabal") { _hidde2 = "d-none"; }
-						_html += "     <tr>";
-						if (!_iTarjeta) {
-							_html += "    <td class='px-4 py-1 colLimiteActual " + _hidde2 +"' align='right'>";
-							if (_hidde == "" && _hidde2 == "") {
-								_html += _scoring[i]["Plan"];
-							} else {
-								if (_scoring[i]["ImporteCuota"] != "") { _FUNCTIONS._limiteActual = _scoring[i]["ImporteCuota"]; }
-								_html += _TOOLS.formatMoney(_FUNCTIONS._limiteActual);
-							}
-							_html += "    </td>";
-						}
-						_html += "        <td class='px-4 py-1 " + _hidde2 + "' align='right'>" + _TOOLS.formatMoney(_scoring[i]["MontoOfrecido"]) + "</td>";
-						if (!_iTarjeta) {
-							_html += "        <td class='px-4 py-1 colNuevoLimite " + _hidde2 +"' align='right'>";
-							if (_hidde == "" && _hidde2 == "") {
-								_html += _TOOLS.formatMoney(_fixedCapital);
-							} else {
-								_FUNCTIONS._nuevoLimite = (parseInt(_FUNCTIONS._limiteActual) + parseInt(_montoSeleccionado));
-								_html += _TOOLS.formatMoney(_FUNCTIONS._nuevoLimite);
-							}
-							_html += "        </td>";
-							_html += "        <td class='px-4 py-1 " + _hidde + "' align='left'>";
-							if (_FUNCTIONS._simuladorScoringActivo) {
-								_html += "       <b>" + val.Plazo + "</b>";
-							} else {
-								var _plan = $(".idPlan").val();
-								var _checked = "";
-								if (_plan != "") {
-									if (parseInt(_plan) == parseInt(val["nIDPlan"])) { _checked = "checked"; }
-								}
-								_html += "       <input " + _checked + " data-record='" + _TOOLS.utf8_to_b64(JSON.stringify(val)) + "' data-type='radio' type='radio' name='cuotas' id='cuotas' value='" + val.Plazo + "' class='cuotas form-radio radio validateMontos dbaseMontos' style='height: 25px; width: 25px;'/> <b>" + val.Plazo + "</b>";
-							}
-							_html += "        </td>";
-							var _fieldImporteCuota = "Importe_de_Cuota";
-							if (_scoring[i]["Nombre"] == "REF_Cabal_Cabal") {_fieldImporteCuota = "ImportePlan";}
-							_html += "        <td class='px-4 py-1 " + _hidde + "' align='right'>" + _TOOLS.formatMoney(_scoring[i][_fieldImporteCuota]) + "</td>";
-
-							var _style = "color:red;";
-							var _importeAEntregar = (parseInt(_fixedCapital) - parseInt(_scoring[i]["ImporteCancelacion"]));
-							if (_importeAEntregar < 0) { _importeAEntregar = 0; }
-							if (_importeAEntregar > 0) { _style = "color:green;"; }
-							_html += "        <td class='px-4 py-1 " + _hidde + " " + _hidde2 + "' align='right' style='" + _style + "'><b>" + _TOOLS.formatMoney(_importeAEntregar) + "</b></td>";
-						}
+				_html += "            <td align='right' class='px-4 py-1 colCapital " + _hidde2 + " '>Capital</td>";
+				if (!_iTarjeta) { _html += "<td align='left' class='px-4 py-1 " + _hidde + "'>Cuotas</td>"; }
+				_html += "            <td align='right' class='px-4 py-1 " + _hidde + "'>Importe</td>";
+				_html += "            <td align='right' class='px-4 py-1 " + _hidde + " " + _hidde2 + "'>Importe a entregar</td>";
+				_html += "         </tr>";
+				_FUNCTIONS._lastPlanSelected = 0;
+				$.each(_scoring, function (i, val) {
+					_hidde = "";
+					_hidde2 = "";
+					_maximo = parseFloat(_scoring[i]["MontoOfrecido"]);
+					var _montoSeleccionado = 0;// $(".MontoSeleccionado").val();
+					var _fixedCapital = 0;
+					_fixedCapital = _scoring[i]["Monto_a_Ofrecer"];
+					if (parseFloat(_scoring[i]["Monto_a_Ofrecer"]) > parseFloat(_scoring[i]["MontoOfrecido"])) {
+						_fixedCapital = _scoring[i]["MontoOfrecido"];
+					}
+					_planDesc = _scoring[i]["Plan"];
+					if (_planDesc == "") { _hidde = "d-none"; }
+					if (_scoring[i]["Nombre"] != "REF_Cabal_Cabal" && _planDesc != "" && (_scoring[i]["Importe_de_Cuota"] == null || _scoring[i]["Importe_de_Cuota"] == "" || _scoring[i]["Importe_de_Cuota"] == 0 || _scoring[i]["Importe_de_Cuota"] == "0")) {
+						_html += "     <tr class='alertNoScoring'>";
+						_html += "        <td colspan='5' class='px-4 py-1' align='left'>";
+						_html += "           No se ha podido resolver scoring";
+						_html += "        </td>";
 						_html += "     </tr>";
-						$(".btn-FirstEvaluation").removeClass("d-none");
-						setTimeout(function () { $(".alertNoScoring").remove(); }, 100);
+						$(".btn-FirstEvaluation").addClass("d-none");
+					} else {
+						if (_scoring[i]["Nombre"] == "REF_Cabal_Cabal" || (_fixedCapital >= parseFloat($(".MontoSeleccionado").val()) && parseFloat(_scoring[i]["MontoOfrecido"]) >= parseFloat(_scoring[i]["ImporteAEntregar"]))) {
+							if (_scoring[i]["Nombre"] == "REF_Cabal_Cabal") { _hidde2 = "d-none"; }
+							_html += "     <tr>";
+							if (!_iTarjeta) {
+								_html += "    <td class='px-4 py-1 colLimiteActual " + _hidde2 + "' align='right'>";
+								if (_hidde == "" && _hidde2 == "") {
+									_html += _scoring[i]["Plan"];
+								} else {
+									if (_scoring[i]["ImporteCuota"] != "") { _FUNCTIONS._limiteActual = _scoring[i]["ImporteCuota"]; }
+									_html += _TOOLS.formatMoney(_FUNCTIONS._limiteActual);
+								}
+								_html += "    </td>";
+							}
+							_html += "        <td class='px-4 py-1 " + _hidde2 + "' align='right'>" + _TOOLS.formatMoney(_scoring[i]["MontoOfrecido"]) + "</td>";
+							if (!_iTarjeta) {
+								_html += "        <td class='px-4 py-1 colNuevoLimite " + _hidde2 + "' align='right'>";
+								if (_hidde == "" && _hidde2 == "") {
+									_html += _TOOLS.formatMoney(_fixedCapital);
+								} else {
+									_FUNCTIONS._nuevoLimite = (parseInt(_FUNCTIONS._limiteActual) + parseInt(_montoSeleccionado));
+									_html += _TOOLS.formatMoney(_FUNCTIONS._nuevoLimite);
+								}
+								_html += "        </td>";
+								_html += "        <td class='px-4 py-1 " + _hidde + "' align='left'>";
+								if (_FUNCTIONS._simuladorScoringActivo) {
+									_html += "       <b>" + val.Plazo + "</b>";
+								} else {
+									var _plan = $(".idPlan").val();
+									var _checked = "";
+									if (_plan != "") {
+										if (parseInt(_plan) == parseInt(val["nIDPlan"])) { _checked = "checked"; }
+									}
+									_html += "       <input " + _checked + " data-record='" + _TOOLS.utf8_to_b64(JSON.stringify(val)) + "' data-type='radio' type='radio' name='cuotas' id='cuotas' value='" + val.Plazo + "' class='cuotas form-radio radio validateMontos dbaseMontos' style='height: 25px; width: 25px;'/> <b>" + val.Plazo + "</b>";
+								}
+								_html += "        </td>";
+								var _fieldImporteCuota = "Importe_de_Cuota";
+								if (_scoring[i]["Nombre"] == "REF_Cabal_Cabal") { _fieldImporteCuota = "ImportePlan"; }
+								_html += "        <td class='px-4 py-1 " + _hidde + "' align='right'>" + _TOOLS.formatMoney(_scoring[i][_fieldImporteCuota]) + "</td>";
+
+								var _style = "color:red;";
+								var _importeAEntregar = (parseInt(_fixedCapital) - parseInt(_scoring[i]["ImporteCancelacion"]));
+								if (_importeAEntregar < 0) { _importeAEntregar = 0; }
+								if (_importeAEntregar > 0) { _style = "color:green;"; }
+								_html += "        <td class='px-4 py-1 " + _hidde + " " + _hidde2 + "' align='right' style='" + _style + "'><b>" + _TOOLS.formatMoney(_importeAEntregar) + "</b></td>";
+							}
+							_html += "     </tr>";
+							$(".btn-FirstEvaluation").removeClass("d-none");
+							setTimeout(function () { $(".alertNoScoring").remove(); }, 100);
+						}
+					}
+				});
+				_html += "      </table>";
+				$(".areaCuotas").html(_html);
+				$(".areaScoring").removeClass("d-none");
+				if (_FUNCTIONS._simuladorScoringActivo) {
+					$(".areaMaximo").html(_TOOLS.formatMoney(_maximo));
+					$(".areaMaximo").html("<input type='hidden' id='maximo' name='maximo' class='maximo' value='" + _maximo + "'/>" + _TOOLS.formatMoney(_maximo));
+					$(".MontoSeleccionado").attr("max", _maximo);
+					$(".SliderMonto").attr("max", _maximo);
+					if (_iTarjeta) {
+						$(".MontoSeleccionado2").attr("max", _maximo);
+						$(".MontoSeleccionado3").attr("max", _maximo);
+						$(".SliderMonto2").attr("max", _maximo);
+						$(".SliderMonto3").attr("max", _maximo);
 					}
 				}
-			});
-			_html += "      </table>";
-			$(".areaCuotas").html(_html);
-			$(".areaScoring").removeClass("d-none");
-			if (_FUNCTIONS._simuladorScoringActivo) {
-				$(".areaMaximo").html(_TOOLS.formatMoney(_maximo));
-				$(".areaMaximo").html("<input type='hidden' id='maximo' name='maximo' class='maximo' value='" + _maximo + "'/>" + _TOOLS.formatMoney(_maximo));
-				$(".MontoSeleccionado").attr("max", _maximo);
-				$(".SliderMonto").attr("max", _maximo);
 				if (_iTarjeta) {
-					$(".MontoSeleccionado2").attr("max", _maximo);
-					$(".MontoSeleccionado3").attr("max", _maximo);
-					$(".SliderMonto2").attr("max", _maximo);
-					$(".SliderMonto3").attr("max", _maximo);
+					$(".titleCapital").html("Seleccione límites");
+					$(".colCapital").html("Máximo");
+					$(".titSelCuotas").html("");
 				}
-			}
-			if (_iTarjeta) {
-				$(".titleCapital").html("Seleccione límites");
-				$(".colCapital").html("Máximo");
-				$(".titSelCuotas").html("");
-			}
-		});
+			});
+		} catch (ex) {
+			console.log("EX");
+			console.log(ex);
+		}
 	},
 	onResolverScoring: function (_nombre,
 		_documento, _sexo, _ingresosEstimados,
