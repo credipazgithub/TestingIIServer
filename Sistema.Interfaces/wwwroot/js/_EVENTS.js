@@ -1,6 +1,7 @@
 /*Click*/
-
-
+$("body").off("click", ".btnChangeStatusFolder").on("click", ".btnChangeStatusFolder", function () {
+	_FUNCTIONS.onChangeStatusFolder($(this));
+});
 $("body").off("click", ".btnFinalizarImprimirOperacionCaja").on("click", ".btnFinalizarImprimirOperacionCaja", function () {
 	_FUNCTIONS.onFinalizarImprimirOperacionCaja($(this));
 });
@@ -71,34 +72,34 @@ $("body").off("click", ".btnMediyaModosPago").on("click", ".btnMediyaModosPago",
 	_FUNCTIONS.onMediyaModosPago($(this));
 });
 $("body").off("click", ".btnOpenLog").on("click", ".btnOpenLog", function () {
-	_FUNCTIONS.onToggleTagLog(true);
+	_VAR.onToggleTagLog(true);
 });
 $("body").off("click", ".btnCloseLog").on("click", ".btnCloseLog", function () {
-	_FUNCTIONS.onToggleTagLog(false);
+	_VAR.onToggleTagLog(false);
 });
 $("body").off("click", ".btn-reiniciar-ia").on("click", ".btn-reiniciar-ia", function () {
-	_FUNCTIONS.onReiniciarIA($(this));
+	_REDUX.onReiniciarIA($(this));
 });
 $("body").off("click", ".btn-cargar-ia").on("click", ".btn-cargar-ia", function () {
-	_FUNCTIONS.onCargarIA($(this));
+	_REDUX.onCargarIA($(this));
 });
 $("body").off("click", ".btn-entrenar-ia").on("click", ".btn-entrenar-ia", function () {
-	_FUNCTIONS.onEntrenarIA($(this));
+	_REDUX.onEntrenarIA($(this));
 });
 $("body").off("click", ".btn-resolver-ia").on("click", ".btn-resolver-ia", function () {
-	_FUNCTIONS.onResolverIA($(this));
+	_REDUX.onResolverIA($(this));
 });
 $("body").off("click", ".btn-detener-ia").on("click", ".btn-detener-ia", function () {
-	_FUNCTIONS.onDetenerIA($(this));
+	_REDUX.onDetenerIA($(this));
 });
 $("body").off("click", ".btn-comparar-ia").on("click", ".btn-comparar-ia", function () {
-	_FUNCTIONS.onCompararIA($(this));
+	_REDUX.onCompararIA($(this));
 });
 $("body").off("click", ".btn-stats-ia").on("click", ".btn-stats-ia", function () {
-	_FUNCTIONS.onStatsIA($(this));
+	_REDUX.onStatsIA($(this));
 });
 $("body").off("click", ".btn-borrarcomparativa-ia").on("click", ".btn-borrarcomparativa-ia", function () {
-	_FUNCTIONS.onBorrarComparativaIA($(this));
+	_REDUX.onBorrarComparativaIA($(this));
 });
 $("body").off("click", ".btnStatusAlert").on("click", ".btnStatusAlert", function () {
 	_FUNCTIONS.onAlertTransaccionState($(this));
@@ -110,43 +111,43 @@ $("body").off("click", ".btnDescartarAlerta").on("click", ".btnDescartarAlerta",
 	_FUNCTIONS.onDescartarAlerta($(this));
 });
 $("body").off("click", ".btnSyncGP").on("click", ".btnSyncGP", function () {
-	_FUNCTIONS.onSyncGP($(this));
+	_REDUX.onSyncGP($(this));
 });
 $("body").off("click", ".btnTabVisa").on("click", ".btnTabVisa", function () {
-	_FUNCTIONS.onTabVisa($(this));
+	_REDUX.onTabVisa($(this));
 });
 $("body").off("click", ".btnDetalleVisa").on("click", ".btnDetalleVisa", function () {
-	_FUNCTIONS.onDetalleVisa($(this));
+	_REDUX.onDetalleVisa($(this));
 });
 $("body").off("click", ".btnDecryptVisa").on("click", ".btnDecryptVisa", function () {
-	_FUNCTIONS.onDecryptVisa($(this));
+	_REDUX.onDecryptVisa($(this));
 });
 $("body").off("click", ".btnExecNoParams").on("click", ".btnExecNoParams", function () {
-	_FUNCTIONS.onExecNoParams($(this));
+	_REDUX.onExecNoParams($(this));
 });
 $("body").off("click", ".btnCambiarEstadoCuentaVisa").on("click", ".btnCambiarEstadoCuentaVisa", function () {
-	_FUNCTIONS.onCambiarEstadoCuentaVisa($(this));
+	_REDUX.onCambiarEstadoCuentaVisa($(this));
 });
 $("body").off("click", ".btnModificarCuentaVisa").on("click", ".btnModificarCuentaVisa", function () {
-	_FUNCTIONS.onModificarCuentaVisa($(this));
+	_REDUX.onModificarCuentaVisa($(this));
 });
 $("body").off("click", ".btnCambiarEstadoTarjetaVisa").on("click", ".btnCambiarEstadoTarjetaVisa", function () {
-	_FUNCTIONS.onCambiarEstadoTarjetaVisa($(this));
+	_REDUX.onCambiarEstadoTarjetaVisa($(this));
 });
 $("body").off("click", ".btnCambiarPin").on("click", ".btnCambiarPin", function () {
-	_FUNCTIONS.onCambiarPin($(this));
+	_REDUX.onCambiarPin($(this));
 });
 $("body").off("click", ".btnCrearCobranza").on("click", ".btnCrearCobranza", function () {
-	_FUNCTIONS.onCrearCobranza($(this));
+	_REDUX.onCrearCobranza($(this));
 });
 $("body").off("click", ".btnAutorizacion").on("click", ".btnAutorizacion", function () {
-	_FUNCTIONS.onAutorizacionCuentaVisa($(this));
+	_REDUX.onAutorizacionCuentaVisa($(this));
 });
 $("body").off("click", ".btnAltaAvisoViaje").on("click", ".btnAltaAvisoViaje", function () {
-	_FUNCTIONS.onAltaAvisoViaje($(this));
+	_REDUX.onAltaAvisoViaje($(this));
 });
 $("body").off("click", ".btnAccionExcepcionFraude").on("click", ".btnAccionExcepcionFraude", function () {
-	_FUNCTIONS.onCrearExcepcionFraude($(this));
+	_REDUX.onCrearExcepcionFraude($(this));
 });
 $("body").off("click", ".btnQuitarTodosLosFiltros").on("click", ".btnQuitarTodosLosFiltros", function () {
 	_FUNCTIONS.onQuitarTodosLosFiltros($(this));
@@ -185,7 +186,7 @@ $("body").off("click", ".btnEmitirProducto").on("click", ".btnEmitirProducto", f
 	_FUNCTIONS.onEmitirProducto($(this));
 });
 $("body").off("click", ".btnOfflineFormularios").on("click", ".btnOfflineFormularios", function () {
-	_FUNCTIONS.onOfflineFormularios($(this));
+	_VAR.onOfflineFormularios($(this));
 });
 $("body").off("click", ".btn-Reservar").on("click", ".btn-Reservar", function () {
 	_FUNCTIONS.onReservarMediya($(this));
@@ -356,12 +357,12 @@ $("body").off("click", ".btnFullAudit").on("click", ".btnFullAudit", function ()
 });
 $("body").off("click", ".btn-Grabar").on("click", ".btn-Grabar", function () {
 	$(this).hide();
-	_FUNCTIONS.onWait(true);
+	_VAR.onWait(true);
 	if ($(".validarCBU").val() != undefined) {
 		if (!_TOOLS.validarCBU($(".validarCBU").val())) {
 			alert('¡El CBU especificado no es un CBU válido!');
 			$(this).fadeIn();
-			_FUNCTIONS.onWait(false);
+			_VAR.onWait(false);
 			return false;	
 		}
 	}
@@ -369,7 +370,7 @@ $("body").off("click", ".btn-Grabar").on("click", ".btn-Grabar", function () {
 		if (!_TOOLS.validarPAN($(".validarPAN").val())) {
 			alert('¡El PAN especificado no es un PAN válido!');
 			$(this).fadeIn();
-			_FUNCTIONS.onWait(false);
+			_VAR.onWait(false);
 			return false;
 		}
 	}
@@ -388,7 +389,7 @@ $("body").off("click", ".btn-Grabar").on("click", ".btn-Grabar", function () {
 		$(_target).submit();
 	} else {
 	    $(this).fadeIn("fast");
-		_FUNCTIONS.onWait(false);
+		_VAR.onWait(false);
 	}
 });
 $("body").off("click", ".btn-GrabarAndStay").on("click", ".btn-GrabarAndStay", function () {
@@ -423,31 +424,34 @@ $("body").off("click", ".btn-Save").on("click", ".btn-Save", function () {
 	}
 });
 $("body").off("click", ".btnNewModal").on("click", ".btnNewModal", function () {
-	_FUNCTIONS.onClickActivateModalInterface($(this));
+	_VAR.onClickActivateModalInterface($(this));
 });
 $("body").off("click", ".btnEditModal").on("click", ".btnEditModal", function () {
-	_FUNCTIONS.onClickActivateModalInterface($(this));
+	_VAR.onClickActivateModalInterface($(this));
 });
 $("body").off("click", ".btnDeleteModal").on("click", ".btnDeleteModal", function () {
-	_FUNCTIONS.onClickDeleteItemInterface($(this));
+	_VAR.onClickDeleteItemInterface($(this));
 });
 $("body").off("click", ".btnVerifyModal").on("click", ".btnVerifyModal", function () {
-	_FUNCTIONS.onClickVerifyItemInterface($(this));
+	_VAR.onClickVerifyItemInterface($(this));
 });
 $("body").off("click", ".btnMarcarLeido").on("click", ".btnMarcarLeido", function () {
-	_FUNCTIONS.onClickMarcarLeido($(this));
+	_VAR.onClickMarcarLeido($(this));
 });
 $("body").off("click", ".btnResolverCondicional").on("click", ".btnResolverCondicional", function () {
 	_FUNCTIONS.onResolverCondicional($(this));
 });
 $("body").off("click", ".btnTraerFormularios").on("click", ".btnTraerFormularios", function () {
-	_FUNCTIONS.onTraerFormulario($(this));
+	_VAR.onTraerFormulario($(this));
 });
 $("body").off("click", ".btnCarpetaDigital").on("click", ".btnCarpetaDigital", function () {
-	_FUNCTIONS.onTraerCarpetaDigital($(this));
+	_VAR.onTraerCarpetaDigital($(this));
 });
 $("body").off("click", ".btnBridgeFile").on("click", ".btnBridgeFile", function () {
-	_FUNCTIONS.onBridgeFile($(this));
+	_VAR.onBridgeFile($(this));
+});
+$("body").off("click", ".btnShowFilePreview").on("click", ".btnShowFilePreview", function () {
+	_VAR.onShowFilePreview($(this));
 });
 $("body").off("click", ".btnToggleByClass").on("click", ".btnToggleByClass", function () {
 	_TOOLS.toggleByClass($(this));
@@ -514,6 +518,15 @@ $("body").off("click", ".btnCancelarLote").on("click", ".btnCancelarLote", funct
 $("body").off("click", ".btnReporteSoporte").on("click", ".btnReporteSoporte", function () {
 	_FUNCTIONS.onInformeSoporte($(this));
 });
+$("body").off("click", ".btnOfflineRecord").on("click", ".btnOfflineRecord", function () {
+	_VAR.onOfflineRecord($(this));
+});
+$("body").off("click", ".btnOnlineRecord").on("click", ".btnOnlineRecord", function () {
+	_VAR.onOnlineRecord($(this));
+});
+$("body").off("click", ".btnNewFolderItem").on("click", ".btnNewFolderItem", function () {
+	_FUNCTIONS.onNewFolderItem($(this));
+});
 
 /*Input*/
 $("body").off("input", ".onlyNumbers").on("input", ".onlyNumbers", function () {
@@ -523,15 +536,15 @@ $("body").off("input", ".onlyNumbers").on("input", ".onlyNumbers", function () {
 /*Keyup*/
 $("body").off("keyup", ".chkEnGestion").on("keyup", ".chkEnGestion", function (e) {
 	var _this = $(this);
-	clearTimeout(_FUNCTIONS._TIMER_LAZY);
-	_FUNCTIONS._TIMER_LAZY = setTimeout(function () {
+	clearTimeout(_VAR._TIMER_LAZY);
+	_VAR._TIMER_LAZY = setTimeout(function () {
 		_FUNCTIONS.onCheckEnGestion(_this);
 	}, 1500);
 });
 $("body").off("keyup", ".notaAuditoria").on("keyup", ".notaAuditoria", function (e) {
 	var _this = $(this);
-	clearTimeout(_FUNCTIONS._TIMER_LAZY);
-	_FUNCTIONS._TIMER_LAZY = setTimeout(function () {
+	clearTimeout(_VAR._TIMER_LAZY);
+	_VAR._TIMER_LAZY = setTimeout(function () {
 		_FUNCTIONS.onConfirmarAuditoriaInforme(_this);
 	}, 1000);
 });
@@ -543,6 +556,9 @@ $("body").off("change", ".chkActiveApplication").on("change", ".chkActiveApplica
 });
 $("body").off("change", ".chkActiveFunction").on("change", ".chkActiveFunction", function () {
 	_FUNCTIONS.onActiveFunction($(this));
+});
+$("body").off("change", ".chkActiveGroup").on("change", ".chkActiveGroup", function () {
+	_FUNCTIONS.onActiveGroupFolder($(this));
 });
 $("body").off("change", ".chkConfirm").on("change", ".chkConfirm", function () {
 	_FUNCTIONS.onConfirmarOperacionPago($(this));

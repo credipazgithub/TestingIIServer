@@ -58,7 +58,7 @@ function fillWaiting() {
 				if (item.transaction.id_external != 0) {
 					var _params = { "Id": item.transaction.id_external };
 					var _url = "/Administracion/GrillaProductosMIL";
-					_FUNCTIONS.ExecutePostAjax(_url, _params).then(function (_datajson) {
+					_VAR.ExecutePostAjax(_url, _params).then(function (_datajson) {
 						console.log("cat-1->" + _datajson);
 						$.each(_datajson.data, function (i, origin) {
 							var _html = "<table style='width:100%;'>";
@@ -89,7 +89,7 @@ function initCamera(url) {
 }
 function toggleCamera(url, _target) {
 	$(".imgBig").remove();
-	_FUNCTIONS.onWait(true);
+	_VAR.onWait(true);
 	var _html = "";
 	_html += "<div class='imgBig' style='position:absolute;left:0px;top:0px;width:calc(100% - 113px);height:90vh;z-index:9999998;'>"
 	_html += "<img src='" + url + "' style='width:100%;height:100%;'/>";
@@ -97,7 +97,7 @@ function toggleCamera(url, _target) {
 	$(".dyn-area").append(_html);
 	$(".imgBig").width(calculateWidthFromHeight($(".imgBig").height()));
 	setTimeout(function () {
-		_FUNCTIONS.onWait(false);
+		_VAR.onWait(false);
 		$(".areaClose").removeClass("d-none");
 	}, 1500);
 }
@@ -127,7 +127,7 @@ function LoadCatalogo() {
 
 				if (_activeCatalog == "") {
 					var _url = "/Mil/Catalogo";
-					_FUNCTIONS.ExecutePostAjax(_url, {}).then(function (_datajson) {
+					_VAR.ExecutePostAjax(_url, {}).then(function (_datajson) {
 						_activeCatalog = buildCatalog(_datajson);
 						resolve(null);
 					}).catch(function (err) {
@@ -142,14 +142,14 @@ function LoadCatalogo() {
 		});
 };
 function ShowCatalogo() {
-	_FUNCTIONS.onDestroyModal("#initCatalogo");
+	_VAR.onDestroyModal("#initCatalogo");
 	$("body").append(_activeCatalog);
 	updateCatalog();
 	$(".divClose").show();
 	var myModal = new bootstrap.Modal(document.getElementById("initCatalogo"), { backdrop: 'static', keyboard: false });
 	myModal.toggle();
 	$("body").off("click", ".btn-close-modal").on("click", ".btn-close-modal", function () {
-		_FUNCTIONS.onDestroyModal("#initCatalogo");
+		_VAR.onDestroyModal("#initCatalogo");
 	});
 }
 function updateCatalog() {
@@ -210,7 +210,7 @@ function itemCatalogo(_id_transaction, _obj) {
 	return _html;
 }
 function startLiveStreaming() {
-	_FUNCTIONS.onWait(true);
+	_VAR.onWait(true);
 
 	_NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.caller = "Tienda MIL";
 	_NEOVIDEO._INTERFACE_CONFIG_OVERWRITE.TOOLBAR_BUTTONS = ['microphone', 'camera', 'hangup', 'desktop', 'chat','desktop'];
@@ -242,11 +242,11 @@ function startLiveStreaming() {
 		$(".areaVideo").removeClass("d-none");
 		$("#meet").removeClass("d-none").fadeIn("slow");
 		$(".catalogo").addClass("d-none");
-		_FUNCTIONS.onWait(false);
+		_VAR.onWait(false);
 	});
 }
 function endVideoCall() {
-	_FUNCTIONS.onDestroyModal("#initCatalogo");
+	_VAR.onDestroyModal("#initCatalogo");
 	$(".areaVideo").addClass("d-none");
 	$("#meet").addClass("d-none").hide();
 	$(".catalogo").addClass("d-none");
@@ -294,7 +294,7 @@ $("body").off("click", ".btn-join-chat").on("click", ".btn-join-chat", function 
 		if (_id_active != _item.id) { alert("¡Al estar en una atención, no puede iniciar otra!"); }
 		return false;
 	}
-	_FUNCTIONS.onWait(true);
+	_VAR.onWait(true);
 	_NEOVIDEO._INTERFACE_CONFIG_OVERWRITE.TOOLBAR_BUTTONS = ['microphone', 'camera', 'hangup', 'chat', 'tileview','desktop'];
 	_NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.height = "100vh";
 	_NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.width = "100vw";
@@ -321,11 +321,11 @@ $("body").off("click", ".btn-join-chat").on("click", ".btn-join-chat", function 
 		$(".catalogo").removeClass("d-none");
 		$('[id^="jitsiConferenceFrame"]').css({ "height": _NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.height, "width": _NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.width });
 		$("#meet").css({ "height": _NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.height, "width": _NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.width });
-		_FUNCTIONS.onWait(false);
+		_VAR.onWait(false);
 	}).catch(function (err) {
 		$(".chat-" + _id_active).remove();
 		alert("¡El cliente ya no está en espera!");
-		_FUNCTIONS.onWait(false);
+		_VAR.onWait(false);
 	});
 });
 
@@ -343,8 +343,8 @@ $("body").off("click", ".btn-live-stop").on("click", ".btn-live-stop", function 
 });
 
 fillWaiting();
-clearInterval(_FUNCTIONS._TIMER_DEVICE);
-_FUNCTIONS._TIMER_DEVICE = setInterval(function () { fillWaiting(); }, 5000);
+clearInterval(_VAR._TIMER_DEVICE);
+_VAR._TIMER_DEVICE = setInterval(function () { fillWaiting(); }, 5000);
 
 $("body").off("keyup", ".searchInput").on("keyup", ".searchInput", function () {
 	var _val = $(this).val();

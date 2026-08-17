@@ -188,7 +188,7 @@ var _TOOLS = {
 		var date = _params.fecha.split("-");
 		year = parseInt(date[0]);
 		if (_params.fecha != "" && year > 1800) {
-			_FUNCTIONS.ExecutePostAjax("/Abstract/validateAge", _params).then(function (data) {
+			_VAR.ExecutePostAjax("/Abstract/validateAge", _params).then(function (data) {
 				var _age = parseInt(data.id);
 				if (_age == 0) { data.logica = false; _age = ""; }
 				$(_target).val(_age);
