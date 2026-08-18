@@ -600,6 +600,15 @@ var _TOOLS = {
 		});
 		return _ret;
 	},
+	isInSecurityGroupsBegin: function (_group, _target) {
+		return false;
+		var _ret = false;
+		var _groups = $(_target).val().split(",");
+		_groups.forEach(function (value, index, array) {
+			if (!_ret) {_ret = (value.toUpperCase().lastIndexOf(_group.toUpperCase(),0) === 0);}
+		});
+		return _ret;
+	},
 	validarLargoCBU: function (cbu) {
 		if (cbu.length != 22) { return false; }
 		return true;

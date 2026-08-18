@@ -5073,7 +5073,8 @@ var _FUNCTIONS = {
 			_VAR.onWait(false);
 		});
 	},
-	onGetRowsGruposByFolder: function (_this) {
+	onGetRowsGruposByFolder: function (_this, _edit) {
+		if (!_edit){return false;}
 		_VAR.onWait(true);
 		var _p = { "Id": _VAR.idValorRegistroActivo };
 		_VAR.ExecutePostAjax("/Administracion/GetRowsGruposByFolder", _p).then(function (data) {
@@ -5084,11 +5085,12 @@ var _FUNCTIONS = {
 			_VAR.onWait(false);
 		});
 	},
-	onGetRowsItemsByFolder: function (_this) {
+	onGetRowsItemsByFolder: function (_this, _edit) {
 		_VAR.onWait(true);
 		var _p = { "Id": _VAR.idValorRegistroActivo };
 		_VAR.ExecutePostAjax("/Documentacion/GetRowsItemsByFolder", _p).then(function (data) {
 			$(".areaItems").html(data.html).removeClass("d-none");
+			if (!_edit){$(".btnOfflineRecord").remove();$(".btnNewFolderItem").remove();}
 			_VAR.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
