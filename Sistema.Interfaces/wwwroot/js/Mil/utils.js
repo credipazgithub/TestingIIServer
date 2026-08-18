@@ -3,17 +3,6 @@ var _activeCatalog = "";
 var _new = false;
 var _iLazy = 0;
 var _LW = [];
-_NEOVIDEO._username = "mil";
-_NEOVIDEO._password = "08.!Rcp#@80";
-_NEOVIDEO._CONFIG_OVERWRITE.hideConferenceSubject = true;
-
-var _authenticationServer = "https://localhost:44315/neoauthentication.v1/";
-var _videoServer = "https://localhost:44315/neovideo.v1/";
-_videoServer = "https://api.gruponeodata.com/neovideo.v1/";
-_authenticationServer = "https://api.gruponeodata.com/neoauthentication.v1/";
-_NEOAUTHENTICATION._SERVER = _authenticationServer;
-_NEOVIDEO._SERVER = _videoServer;
-_NEOVIDEO._id_application = 6;
 
 function calculateWidthFromHeight(height, aspectRatioWidth = 18, aspectRatioHeight = 9) {
 	return (height / aspectRatioHeight) * aspectRatioWidth;
@@ -102,21 +91,33 @@ function toggleCamera(url, _target) {
 	}, 1500);
 }
 function buildInterface() {
-	var _html = "";
-	// for testing
-	//_html += "<button type='button' class='btn bg-info btn-show-catalogo' style='color:white;'>Catálogo</button>";
-	_html += "<div class='areaVideo d-none' style='position:absolute;left:0px;top:0px;width:100vw;height:100vh;overflow:hidden;'>";
-	_html += "   <div id='meet' class='meet p-0 m-0 d-none' style='width:640px;display:none;overflow:hidden;'></div>";
-	_html += "   <div class='catalogo dropdown m-2' style='position:absolute;left:0px;top:0px;'>";
-	_html += "      <button type='button' class='btn bg-info btn-show-catalogo' style='color:white;'>Catálogo</button>";
-	_html += "      <button type='button' class='btn btn-sm bg-secondary btn-toggle-camera ml-4' style='color:white;'><i class='material-icons icon-silence'>flip_camera_android</i></button>";
-	_html += "   </div>";
-	_html += "</div>";
-	$(".areaVideo").remove();
-	LoadCatalogo().then(function () {
-		$(".loading-catalog").fadeOut("fast", function () {
-			$(".loaded-catalog").removeClass("d-none");
-			$("body").append(_html);
+	_VAR.readConfigServers("Video").then(function (video) {
+		_NEOVIDEO._id_application = video.id_app;
+		_NEOVIDEO._username = video.user;
+		_NEOVIDEO._password = video.password;
+		_NEOVIDEO._CONFIG_OVERWRITE.hideConferenceSubject = true;
+		_NEOVIDEO._SERVER = video.url;
+		_VAR.readConfigServers("NeoAuth").then(function (auth) {
+			_NEOAUTHENTICATION._SERVER = auth.url;
+
+			var _html = "";
+			// for testing
+			//_html += "<button type='button' class='btn bg-info btn-show-catalogo' style='color:white;'>Catálogo</button>";
+			_html += "<div class='areaVideo d-none' style='position:absolute;left:0px;top:0px;width:100vw;height:100vh;overflow:hidden;'>";
+			_html += "   <div id='meet' class='meet p-0 m-0 d-none' style='width:640px;display:none;overflow:hidden;'></div>";
+			_html += "   <div class='catalogo dropdown m-2' style='position:absolute;left:0px;top:0px;'>";
+			_html += "      <button type='button' class='btn bg-info btn-show-catalogo' style='color:white;'>Catálogo</button>";
+			_html += "      <button type='button' class='btn btn-sm bg-secondary btn-toggle-camera ml-4' style='color:white;'><i class='material-icons icon-silence'>flip_camera_android</i></button>";
+			_html += "   </div>";
+			_html += "</div>";
+			$(".areaVideo").remove();
+			LoadCatalogo().then(function () {
+				$(".loading-catalog").fadeOut("fast", function () {
+					$(".loaded-catalog").removeClass("d-none");
+					$("body").append(_html);
+				});
+			});
+
 		});
 	});
 }
