@@ -1950,7 +1950,7 @@ var _VAR = {
                     $(".areaArchivo").html("<embed type='" + _mime + "' src='" + _fullmime + data.mensaje + "' style='height:850px;width:100%;'/>").removeClass("d-none");
                     break;
                 default:
-                    $(".areaArchivo").html("<embed type='" + _mime + "' src='" + data.mensaje + "' style='height:100%;width:100%;'/>").removeClass("d-none");
+                    $(".areaArchivo").html("<embed type='" + _mime + "' src='" + _fullmime + data.mensaje + "' style='height:100%;width:100%;'/>").removeClass("d-none");
                     break;
             }
         });
