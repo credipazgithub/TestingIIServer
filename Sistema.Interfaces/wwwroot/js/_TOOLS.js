@@ -601,7 +601,6 @@ var _TOOLS = {
 		return _ret;
 	},
 	isInSecurityGroupsBegin: function (_group, _target) {
-		return false;
 		var _ret = false;
 		var _groups = $(_target).val().split(",");
 		_groups.forEach(function (value, index, array) {
