@@ -687,7 +687,7 @@ var _VAR = {
             "TypeValueForUpdate": "N"
         };
         _VAR.ExecutePostAjax("/Abstract/ActionOnField", _params).then(function (data) {
-            $(".btnConsultarGrilla").click();
+            if ($(".btnConsultarGrilla").html() != undefined) { $(".btnConsultarGrilla").click(); } else { window.location.reload(); }
         });
     },
     onOnlineRecord: function (_this) {
