@@ -37,9 +37,8 @@ var _FUNCTIONS = {
 						"keywords": $(".wKeywords").val(),
 						"base64": $(".wbase64").val()
 					};
-					console.log(_params);
 					_VAR.ExecutePostAjax("/Documentacion/GrabarItemFolder", _params).then(function (data) {
-						_FUNCTIONS.onGetRowsItemsByFolder(null);
+						window.location.reload();
 					});
 				});
 				$("body").off("click", ".btnItemFolderFile").on("click", ".btnItemFolderFile", function (event) {
