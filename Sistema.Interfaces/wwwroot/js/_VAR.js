@@ -307,6 +307,10 @@ var _VAR = {
         var scrollpos = localStorage.getItem('scrollpos');
         if (scrollpos) { window.scrollTo(0, scrollpos); }
     },
+    onExecEnter: function (_this, key) {
+        var keyCode = (key.keyCode || key.which);
+        if (keyCode === 13) {$(_this.attr("data-enter")).click();}
+    },
 
     /**
      * Nivel 1
@@ -1999,6 +2003,7 @@ var _VAR = {
         });
     },
     onTraerFormulario: function (_this) {
+        _VAR.onWait(true);
         _this.fadeOut("fast");
         var _modo = _this.attr("data-modo");
         var _pre = _this.attr("data-prefix");
@@ -2014,6 +2019,7 @@ var _VAR = {
         var _url = "/Utilidades/TraerFormulario";
         if (_data.includes("Abstract") || _data.includes("http")) {
             _VAR.onShowFormulario(_data, _format, _formulario, _title, _pre);
+            _VAR.onWait(false);
             _this.fadeIn("slow");
         } else {
             _VAR.ValueforRetrieve = _id;
@@ -2032,16 +2038,19 @@ var _VAR = {
                             break;
                     }
                     _VAR.onShowFormulario(data.mensaje, _format, _formulario, _title, _pre);
+                    _VAR.onWait(false);
+                    _this.fadeIn("slow");
                 });
             } else {
                 _params = { "idInformeExterno": 0, "Format": "", "Formulario": "TO-TEMP", "ValueforRetrieve": _data, "Username": "", "modo": _modo };
                 _VAR.ExecutePostAjax(_url, _params).then(function (data) {
                     data.mensaje = _TOOLS.b64_to_utf8(data.mensaje);
                     _VAR.onShowFormulario(data.mensaje, _format, _formulario, _title, _pre);
+                    _VAR.onWait(false);
+                    _this.fadeIn("slow");
                 });
             }
         }
-        _this.fadeIn("slow");
     },
     onOfflineFormularios: function (_this) {
         if (!confirm("Va a eliminar el informe manual.  Quedará registro interno de auditoría, pero el informe debe ser resuelto nuevamente.\n¿Confirma?")) { return false; }

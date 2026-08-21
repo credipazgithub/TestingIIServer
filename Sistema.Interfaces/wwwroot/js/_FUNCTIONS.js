@@ -971,11 +971,13 @@ var _FUNCTIONS = {
 						_html += "		<div class='row align-items-center py-1'>";
 						var _checked = "";
 						var _hideInforme = "d-none";
+						var _hideCheckIngresos = "";
 						if ((_chkIngresosForzados != 0) || (!_VAR._simuladorScoringActivo && _VAR._persistCheck != 0)) {
 							_checked = "checked";
 							_hideInforme = "";
 						}
-						_html += "			<div class='col-12 text-left areaForzar noPromocion'><h5><span class='forzarTitle'>Forzar ingresos </span><input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos changeCheckSimulator'/></h5></div>";
+						if (!_VAR._simuladorScoringActivo) { _hideCheckIngresos = "d-none"; }
+						_html += "			<div class='col-12 text-left areaForzar noPromocion " + _hideCheckIngresos +"'><h5><span class='forzarTitle'>Forzar ingresos </span><input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos changeCheckSimulator'/></h5></div>";
 						if (!_VAR._simuladorScoringActivo) {
 							_html += "			<div class='col-12 text-center areaIngresos py-1 noPromocion divInformeIngresos " + _hideInforme + "'>";
 							_html += "				<b style='color:red;'>Requiere ingreso manual de </b>";
@@ -1292,13 +1294,13 @@ var _FUNCTIONS = {
 								$(".areaScoringWaiter").addClass("d-none");
 								$(".areaCuotas").html(_html);
 								$(".MontoSeleccionado").addClass("d-none");
-								$(".areaForzar").addClass("d-none");
+								if (_VAR._simuladorScoringActivo) { $(".areaForzar").addClass("d-none"); }
 							}
 							$(".MontoSeleccionado").removeClass("d-none");
-							$(".areaForzar").removeClass("d-none");
+							if (_VAR._simuladorScoringActivo) { $(".areaForzar").removeClass("d-none"); }
 
 							if (_VAR._productoConsulta == "RC2C") {
-								$(".areaForzar").addClass("d-none");
+								if (_VAR._simuladorScoringActivo) { $(".areaForzar").addClass("d-none"); }
 								$(".areaCapital").addClass("d-none");
 								$(".areaIngresos").addClass("d-none");
 							}

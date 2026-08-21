@@ -548,6 +548,9 @@ $("body").off("keyup", ".notaAuditoria").on("keyup", ".notaAuditoria", function 
 		_FUNCTIONS.onConfirmarAuditoriaInforme(_this);
 	}, 1000);
 });
+$("body").off("keyup", ".execEnter").on("keyup", ".execEnter", function (e) {
+	_VAR.onExecEnter($(this), e);
+});
 
 /*Change*/
 
