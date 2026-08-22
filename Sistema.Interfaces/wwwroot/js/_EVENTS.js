@@ -527,10 +527,20 @@ $("body").off("click", ".btnOnlineRecord").on("click", ".btnOnlineRecord", funct
 $("body").off("click", ".btnNewFolderItem").on("click", ".btnNewFolderItem", function () {
 	_FUNCTIONS.onNewFolderItem($(this));
 });
+$("body").off("click", ".btnBuscarIntranetHome").on("click", ".btnBuscarIntranetHome", function () {
+	_FUNCTIONS.onBuscarIntranetHome($(this));
+});
 
 /*Input*/
 $("body").off("input", ".onlyNumbers").on("input", ".onlyNumbers", function () {
 	_TOOLS.onlyNumbers($(this));
+});
+$("body").off("input", ".priorityItemFolder").on("input", ".priorityItemFolder", function () {
+	var _this = $(this);
+	clearTimeout(_VAR._TIMER_LAZY);
+	_VAR._TIMER_LAZY = setTimeout(function () {
+		_FUNCTIONS.onPriorityItemFolder(_this);
+	}, 750);
 });
 
 /*Keyup*/
@@ -553,6 +563,9 @@ $("body").off("keyup", ".execEnter").on("keyup", ".execEnter", function (e) {
 });
 
 /*Change*/
+$("body").off("change", ".chkReadFolderItem").on("change", ".chkReadFolderItem", function () {
+	_FUNCTIONS.onReadFolderItem($(this));
+});
 
 $("body").off("change", ".chkActiveApplication").on("change", ".chkActiveApplication", function () {
 	_FUNCTIONS.onActiveApplication($(this));

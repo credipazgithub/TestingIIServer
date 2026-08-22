@@ -977,7 +977,7 @@ var _FUNCTIONS = {
 							_hideInforme = "";
 						}
 						if (!_VAR._simuladorScoringActivo) { _hideCheckIngresos = "d-none"; }
-						_html += "			<div class='col-12 text-left areaForzar noPromocion " + _hideCheckIngresos +"'><h5><span class='forzarTitle'>Forzar ingresos </span><input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos changeCheckSimulator'/></h5></div>";
+						_html += "			<div class='col-12 text-left areaForzar noPromocion " + _hideCheckIngresos + "'><h5><span class='forzarTitle'>Forzar ingresos </span><input " + _checked + " id='chkIngresos' name='chkIngresos' type='checkbox' class='chkIngresos changeCheckSimulator'/></h5></div>";
 						if (!_VAR._simuladorScoringActivo) {
 							_html += "			<div class='col-12 text-center areaIngresos py-1 noPromocion divInformeIngresos " + _hideInforme + "'>";
 							_html += "				<b style='color:red;'>Requiere ingreso manual de </b>";
@@ -5063,6 +5063,29 @@ var _FUNCTIONS = {
 			_VAR.onWait(false);
 		});
 	},
+	onPriorityItemFolder: function (_this) {
+		_VAR.onWait(true);
+		if (isNaN(_this.val())) { _this.val("0"); }
+		var _params = { "Id": _this.attr("data-id"), "prioridad": _this.val() };
+		_VAR.ExecutePostAjax("/Documentacion/TogglePriority", _params).then(function (_data) {
+			_VAR.onWait(false);
+		}).catch(function (err) {
+			alert(err.message);
+			_VAR.onWait(false);
+		});
+	},
+	onReadFolderItem: function (_this) {
+		_VAR.onWait(true);
+		var _active = 0;
+		if (_this.prop("checked")) { _active = 1; }
+		var _params = { "Id": _this.attr("data-id"), "Id_status": _active, "Id_user": $(".idUser").val() };
+		_VAR.ExecutePostAjax("/Documentacion/ToggleViewed", _params).then(function (_data) {
+			_VAR.onWait(false);
+		}).catch(function (err) {
+			alert(err.message);
+			_VAR.onWait(false);
+		});
+	},
 	onGetRowsFuncionesByGrupo: function (_this) {
 		_VAR.onWait(true);
 		var _p = { "Id_group": _VAR.idValorRegistroActivo };
@@ -5075,7 +5098,7 @@ var _FUNCTIONS = {
 		});
 	},
 	onGetRowsGruposByFolder: function (_this, _edit) {
-		if (!_edit){return false;}
+		if (!_edit) { return false; }
 		_VAR.onWait(true);
 		var _p = { "Id": _VAR.idValorRegistroActivo };
 		_VAR.ExecutePostAjax("/Administracion/GetRowsGruposByFolder", _p).then(function (data) {
@@ -5088,10 +5111,10 @@ var _FUNCTIONS = {
 	},
 	onGetRowsItemsByFolder: function (_this, _edit) {
 		_VAR.onWait(true);
-		var _p = { "Id": _VAR.idValorRegistroActivo };
+		var _p = { "Id": _VAR.idValorRegistroActivo, "id_user": $(".idUser").val() };
 		_VAR.ExecutePostAjax("/Documentacion/GetRowsItemsByFolder", _p).then(function (data) {
 			$(".areaItems").html(data.html).removeClass("d-none");
-			if (!_edit){$(".btnOfflineRecord").remove();$(".btnNewFolderItem").remove();}
+			if (!_edit) { $(".btnOfflineRecord").remove(); $(".btnNewFolderItem").remove(); }
 			_VAR.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
@@ -5400,5 +5423,8 @@ var _FUNCTIONS = {
 				_VAR.onDestroyModal("#infoStatus");
 			});
 		});
+	},
+	onBuscarIntranetHome: function (_this) {
+		window.location = "\\Documentacion\\Grilla?description=" + $("#Buscar").val();
 	},
 }
