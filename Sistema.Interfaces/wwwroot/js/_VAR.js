@@ -1920,17 +1920,28 @@ var _VAR = {
                 try {
                     var _mime = _this.attr("data-mime");
                     var _params = { "RutaOrigen": _this.attr("data-path"), "Archivo": _this.attr("data-fullfilename") };
-                    var _url = "/Utilidades/BridgeFile";
+                    var _url = "/Utilidades/BridgeFileUrl";
                     var _ret = "";
                     _VAR.ExecutePostAjax(_url, _params).then(function (data) {
+                        console.log(data);
                         var _fullmime = "";
-                        if (!data.mensaje.includes("base64,")) {_fullmime = ("data:" + _mime + ";base64,");}
+                        if (!data.mensaje.includes("base64,")) { _fullmime = ("data:" + _mime + ";base64,"); }
+                        /*
                         switch (_mime) {
                             case "application/pdf":
                                 _ret = "<embed type='" + _mime + "' src='" + _fullmime + data.mensaje + "' style='height:850px;width:100%;'/>";
                                 break;
                             default:
                                 _ret = "<embed type='" + _mime + "' src='" + _fullmime + data.mensaje + "' style='height:100%;width:100%;'/>";
+                                break;
+                        }
+                        */
+                        switch (_mime) {
+                            case "application/pdf":
+                                _ret = "<embed type='" + _mime + "' src='" + data.url + "' style='height:850px;width:100%;'/>";
+                                break;
+                            default:
+                                _ret = "<embed type='" + _mime + "' src='" + data.url + "' style='height:100%;width:100%;'/>";
                                 break;
                         }
                         resolve(_ret);
@@ -1944,17 +1955,27 @@ var _VAR = {
     onBridgeFile: function (_this) {
         var _mime = _this.attr("data-mime");
         var _params = { "RutaOrigen": _this.attr("data-path"), "Archivo": _this.attr("data-fullfilename") };
-        var _url = "/Utilidades/BridgeFile";
+        var _url = "/Utilidades/BridgeFileUrl";
         $(".areaArchivo").addClass("d-none");
         _VAR.ExecutePostAjax(_url, _params).then(function (data) {
             var _fullmime = "";
             if (!data.mensaje.includes("base64,")) {_fullmime = ("data:" + _mime + ";base64,");}
+            /*
             switch (_mime) {
                 case "application/pdf":
                     $(".areaArchivo").html("<embed type='" + _mime + "' src='" + _fullmime + data.mensaje + "' style='height:850px;width:100%;'/>").removeClass("d-none");
                     break;
                 default:
                     $(".areaArchivo").html("<embed type='" + _mime + "' src='" + _fullmime + data.mensaje + "' style='height:100%;width:100%;'/>").removeClass("d-none");
+                    break;
+            }
+            */
+            switch (_mime) {
+                case "application/pdf":
+                    $(".areaArchivo").html("<embed type='" + _mime + "' src='" + data.url + "' style='height:850px;width:100%;'/>").removeClass("d-none");
+                    break;
+                default:
+                    $(".areaArchivo").html("<embed type='" + _mime + "' src='" + data.url + "' style='height:100%;width:100%;'/>").removeClass("d-none");
                     break;
             }
         });
