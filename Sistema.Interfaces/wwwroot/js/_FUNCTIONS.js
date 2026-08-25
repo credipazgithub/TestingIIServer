@@ -5427,4 +5427,18 @@ var _FUNCTIONS = {
 	onBuscarIntranetHome: function (_this) {
 		window.location = "\\Documentacion\\Grilla?description=" + $("#Buscar").val();
 	},
+	onDownloadCesiones: function () {
+		if (!confirm("El proceso de generación y descarga puede demorar varios minutos.\nNO CIERRE LA VENTANA MIENTRAS SE EJECUTA EL PROCESO.\n¿Confirma?")) { return false; }
+		_VAR.onWait(true);
+		var _params = { "Download": true, "id_user_cedido": $(".Id_user_cedido").val(), "FechaCesion": $(".FechaCesion").val() };
+		_VAR.ExecutePostAjax("/Finanzas/GrillaCesiones", _params)
+			.then(function (_data) {
+				_VAR.onWait(false);
+				_TOOLS.openInNewTab(_data.mensaje);
+			})
+			.catch(function (err) {
+				alert(err.message);
+				_VAR.onWait(false);
+			});
+	},
 }

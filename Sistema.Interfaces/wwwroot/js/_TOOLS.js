@@ -1,5 +1,5 @@
 var _TOOLS = {
-	_expanded:false,
+	_expanded: false,
 	_timerPushAlert: 0,
 	_timerClock: 0,
 	onCreateDataTable: function (_id, _paging, _keyScroll = "") {
@@ -26,7 +26,7 @@ var _TOOLS = {
 				lengthChange: true,
 				columnDefs: [{ width: "100%", targets: -1 }],
 				fixedColumns: false,
-				pageLength:25,
+				pageLength: 25,
 				language: { "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json" },
 				preInit: function () {
 					$('.areaTabla').hide();
@@ -596,7 +596,7 @@ var _TOOLS = {
 		var _ret = false;
 		var _groups = $(_target).val().split(",");
 		_groups.forEach(function (value, index, array) {
-			if (!_ret) {_ret = (value == _group);}
+			if (!_ret) { _ret = (value == _group); }
 		});
 		return _ret;
 	},
@@ -604,7 +604,7 @@ var _TOOLS = {
 		var _ret = false;
 		var _groups = $(_target).val().split(",");
 		_groups.forEach(function (value, index, array) {
-			if (!_ret) {_ret = (value.toUpperCase().lastIndexOf(_group.toUpperCase(),0) === 0);}
+			if (!_ret) { _ret = (value.toUpperCase().lastIndexOf(_group.toUpperCase(), 0) === 0); }
 		});
 		return _ret;
 	},
@@ -630,16 +630,7 @@ var _TOOLS = {
 		if (diferencia == 10) { diferencia = 0; }
 		return (diferencia == digitoVerificador);
 	},
-	/*
 	validarCBU: function (cbu) {
-		alert(_TOOLS.validarLargoCBU(cbu));
-		alert(_TOOLS.validarCodigoBanco(cbu.substr(0, 8)));
-		alert(_TOOLS.validarCuenta(cbu.substr(8, 14)));
-		return _TOOLS.validarLargoCBU(cbu) && _TOOLS.validarCodigoBanco(cbu.substr(0, 8)) && _TOOLS.validarCuenta(cbu.substr(8, 14));
-	},
-	*/
-
-	validarCBU:function (cbu) {
 		// 1. Remover espacios y verificar que tenga exactamente 22 caracteres numéricos
 		const cbuLimpio = cbu.replace(/\s/g, '');
 		if (!/^\d{22}$/.test(cbuLimpio)) return false;
@@ -649,22 +640,20 @@ var _TOOLS = {
 		const bloque2 = cbuLimpio.substring(8, 22);
 		return _TOOLS.validarBloque(bloque1, [7, 1, 3, 9, 7, 1, 3]) && _TOOLS.validarBloque(bloque2, [3, 9, 7, 1, 3, 9, 7, 1, 3, 9, 7, 1, 3]);
 	},
-
 	validarBloque: function (bloque, pesos) {
 		// Cálculo de los dígitos verificadores
 		const digitoVerificador = parseInt(bloque[bloque.length - 1]);
 		let suma = 0;
-		for (let i = 0; i < pesos.length; i++) {suma += parseInt(bloque[i]) * pesos[i];}
+		for (let i = 0; i < pesos.length; i++) { suma += parseInt(bloque[i]) * pesos[i]; }
 		let resto = suma % 10;
 		let resultado = resto === 0 ? 0 : 10 - resto;
 		return resultado === digitoVerificador;
 	},
-
 	validarPAN: function (pan) {
 		if (pan.length != 16) { return false; }
 		return true;
 	},
-	sortTable: function (tableId, columnIndex,_type) {
+	sortTable: function (tableId, columnIndex, _type) {
 		var table = document.getElementById(tableId);
 		var tbody = table.querySelector('tbody');
 		var rows = Array.from(tbody.querySelectorAll('tr'));
@@ -676,7 +665,7 @@ var _TOOLS = {
 			switch (_type) {
 				case "N":
 					if (isAscending) {
-						return cellA.localeCompare(cellB, false, {numeric:true});
+						return cellA.localeCompare(cellB, false, { numeric: true });
 					} else {
 						return cellB.localeCompare(cellA, false, { numeric: true });
 					}
@@ -696,11 +685,14 @@ var _TOOLS = {
 		});
 		table.dataset.sortDirection = isAscending ? 'desc' : 'asc';
 		table.dataset.sortColumn = columnIndex;
-		while (tbody.firstChild) {tbody.removeChild(tbody.firstChild);}
+		while (tbody.firstChild) { tbody.removeChild(tbody.firstChild); }
 		rows.forEach(row => tbody.appendChild(row));
 	},
-
-// Example usage (attach to a header click event)
-// document.getElementById('myHeader').addEventListener('click', () => sortTable('myTable', 0));
-
+	openInNewTab: function (href) {
+		Object.assign(document.createElement('a'), {
+			target: '_blank',
+			rel: 'noopener noreferrer',
+			href: href,
+		}).click();
+	},
 }
