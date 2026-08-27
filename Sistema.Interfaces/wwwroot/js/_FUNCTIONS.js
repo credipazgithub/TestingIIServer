@@ -4626,9 +4626,11 @@ var _FUNCTIONS = {
 	onEmitirMediya: function (_this) {
 		_VAR.onWait(true);
 		var _emitirMediya = 0;
+		$(".mediyaMsg").addClass("d-none");
 		if (_this.prop("checked")) { _emitirMediya = 1; }
 		var _p = { "idRequest": $(".id_obj").val(), "emitirMediya": _emitirMediya };
 		_VAR.ExecutePostAjax("/Transaccion/EmitirMediya", _p).then(function (data) {
+			if (_emitirMediya == 1) {$(".mediyaMsg").removeClass("d-none");}
 			_VAR.onWait(false);
 		}).catch(function (err) {
 			alert("Se ha producido un error indeterminado");
