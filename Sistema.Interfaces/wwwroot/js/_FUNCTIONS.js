@@ -3259,6 +3259,7 @@ var _FUNCTIONS = {
 	onAprobarTransaccion: function (_this) {
 		_VAR.p1 = _this.attr("data-idcliente");
 		_VAR.p2 = _this.attr("data-id");
+		var _mediya = parseInt(_this.attr("data-mediya"));
 		var _final = _this.attr("data-final");
 		$(".TipoProducto").val(_this.attr("data-tipo"));
 		var _pAprobar = { "Id": _VAR.p2, "Usuario": $(".Username").val(), "final": _final };
@@ -3270,8 +3271,15 @@ var _FUNCTIONS = {
 		}
 		var _html = "<div class='container'>";
 		_html += "	    <div class='row px-1 p-0 m-0'>";
-		_html += "	       <div class='col-6'><a href='#' class='btn btn-success btn-Save-modal'>" + _labelOk + "</a></div>";
-		_html += "	       <div class='col-6'><a href='#' class='btn btn-danger btn-md btnResolverCondicional' data-request='0' data-enteexterno='16' data-security='' data-transaccion='" + _VAR.p2 + "' data-parent='0' data-title='Comprobante manual para: Informe de rechazo'>Informe de rechazo</a></div>";
+		_html += "	       <div class='col-4'><a href='#' class='btn btn-success btn-Save-modal'>" + _labelOk + "</a></div>";
+		_html += "	       <div class='col-4'><a href='#' class='btn btn-danger btn-md btnResolverCondicional' data-request='0' data-enteexterno='16' data-security='' data-transaccion='" + _VAR.p2 + "' data-parent='0' data-title='Comprobante manual para: Informe de rechazo'>Informe de rechazo</a></div>";
+		_html += "	       <div class='col-4'>";
+		if (_mediya == 1) { 
+			_html += "<span class='badge badge-info'>Con débito cuota Mediya</span>";
+		} else {
+			_html += "<span class='badge badge-secondary'>Sin débito cuota Mediya</span>";
+		}
+		_html += "         </div>";
 		_html += "      </div>";
 		_html += "	    <div class='row px-1 py-4 m-0'>";
 		_html += "	       <div class='col-12 areaDatosTransaccion'></div>";
