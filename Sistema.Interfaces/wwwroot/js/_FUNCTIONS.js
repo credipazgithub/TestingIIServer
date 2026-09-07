@@ -498,11 +498,21 @@ var _FUNCTIONS = {
 		_VAR.p2 = _this.attr("data-id");
 		var _realizada = _this.attr("data-realizada");
 		var _auditor = _this.attr("data-auditor");
+		var _mediya = parseInt(_this.attr("data-mediya"));
+		var _auditor = _this.attr("data-mediya");
 		var _pCerrar = { "Id": _VAR.p2, "Usuario": $(".Username").val() };
 		var _title = "Auditoría sobre la transacción: #" + _VAR.p2;
 		var _bCerrada = false;
 		var _html = "<div class='container'>";
-		_html += "      <div class='row px-1 p-0 m-0'><div class='col-12 text-center'>";
+		_html += "      <div class='row px-1 p-0 m-0'>";
+		_html += "	       <div class='col-4'>";
+		if (_mediya == 1) {
+			_html += "<span class='badge badge-info p-2 blink_me'>Con débito cuota Mediya</span>";
+		} else {
+			_html += "<span class='badge badge-secondary p-2'>Sin débito cuota Mediya</span>";
+		}
+		_html += "         </div>";
+		_html += "         <div class='col-8 text-center'>";
 		if (_realizada == "") {
 			_html += "<a href='#' class='btn btn-dark btn-lg btn-Save-modal'>Cerrar la auditoría</a></div></div>";
 		} else {
@@ -3275,9 +3285,9 @@ var _FUNCTIONS = {
 		_html += "	       <div class='col-4'><a href='#' class='btn btn-danger btn-md btnResolverCondicional' data-request='0' data-enteexterno='16' data-security='' data-transaccion='" + _VAR.p2 + "' data-parent='0' data-title='Comprobante manual para: Informe de rechazo'>Informe de rechazo</a></div>";
 		_html += "	       <div class='col-4'>";
 		if (_mediya == 1) { 
-			_html += "<span class='badge badge-info'>Con débito cuota Mediya</span>";
+			_html += "<span class='badge badge-info p-2 blink_me'>Con débito cuota Mediya</span>";
 		} else {
-			_html += "<span class='badge badge-secondary'>Sin débito cuota Mediya</span>";
+			_html += "<span class='badge badge-secondary p-2'>Sin débito cuota Mediya</span>";
 		}
 		_html += "         </div>";
 		_html += "      </div>";
